@@ -317,6 +317,34 @@
 
     }
 
+    /* Message de succès */
+    .success-msg {
+
+      color: #16a34a;
+
+      font-size: 0.9rem;
+
+      margin-top: 0.5rem;
+
+      display: flex;
+
+      align-items: center;
+
+      gap: 0.4rem;
+
+      opacity: 0;
+
+      transition: opacity 0.3s;
+
+      min-height: 1.8rem;
+    }
+
+    .success-msg.show {
+
+      opacity: 1;
+
+    }
+
 
     /* =========================================================
        LOGO
@@ -658,6 +686,25 @@
 
       </div>
 
+      <!-- =====================================================
+           MESSAGE DE SUCCÈS
+           ===================================================== -->
+
+      <div
+        id="successMessage"
+        class="success-msg"
+      >
+
+        <i class="fas fa-check-circle"></i>
+
+        <span id="successText">
+
+          Connexion réussie ! Redirection...
+
+        </span>
+
+      </div>
+
 
       <!-- =====================================================
            BOUTON CONNEXION
@@ -713,6 +760,12 @@
 
       const errorText =
         document.getElementById('errorText');
+
+      const successMsg =
+        document.getElementById('successMessage');
+
+      const successText =
+        document.getElementById('successText');
 
       const toggleBtn =
         document.getElementById('togglePasswordBtn');
@@ -1139,7 +1192,7 @@
 
           password: '2214',
 
-          redirect: '',
+          redirect: 'dashboard.html',  // ← MODIFIÉ : page de destination
 
           label: 'Développement Web'
 
@@ -1173,7 +1226,7 @@
 
           password: '123',
 
-          redirect: '',
+          redirect: 'bureautique.html',  // ← MODIFIÉ : page de destination
 
           label: 'Bureautique'
 
@@ -1243,8 +1296,23 @@
 
           if (user) {
 
-            window.location.href =
-              user.redirect;
+            // Afficher le message de succès
+            successText.textContent =
+              `Bienvenue ${user.label} ! Redirection...`;
+            successMsg.classList.add('show');
+            errorMsg.classList.remove('show');
+
+            // Désactiver le bouton
+            const btn = document.querySelector('.btn-login');
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Redirection...';
+
+            // Rediriger après un court délai
+            setTimeout(function() {
+              // Si redirect est vide, aller vers index.html par défaut
+              const targetPage = user.redirect || 'index.html';
+              window.location.href = targetPage;
+            }, 1200);
 
           }
 
@@ -1281,6 +1349,8 @@
               'show'
             );
 
+            successMsg.classList.remove('show');
+
 
             loginForm.style.animation =
               'shake 0.4s ease-in-out';
@@ -1315,6 +1385,13 @@
             'show'
           );
 
+          successMsg.classList.remove('show');
+
+          // Réactiver le bouton si désactivé
+          const btn = document.querySelector('.btn-login');
+          btn.disabled = false;
+          btn.innerHTML = '<i class="fas fa-arrow-right-to-bracket mr-2"></i> Se connecter';
+
         }
       );
 
@@ -1327,9 +1404,15 @@
             'show'
           );
 
+          successMsg.classList.remove('show');
 
           this._realValue =
             this.value;
+
+          // Réactiver le bouton si désactivé
+          const btn = document.querySelector('.btn-login');
+          btn.disabled = false;
+          btn.innerHTML = '<i class="fas fa-arrow-right-to-bracket mr-2"></i> Se connecter';
 
         }
       );
@@ -1375,12 +1458,16 @@
 
 
       console.log(
-        '📋 Comptes disponibles : devWeb, ai, bureauPro, admin'
+        '📋 Comptes disponibles : devWeb, SkilloraAI006, bureauPro, admin'
       );
 
 
       console.log(
         '✏️ Pour modifier les identifiants/mots de passe, cherchez le tableau "users" dans le code.'
+      );
+
+      console.log(
+        '📄 Pages de redirection : dashboard.html, AISkillora.html, bureautique.html, admin.html'
       );
 
 
