@@ -1202,77 +1202,67 @@
         }
 
     
-
         /* ============================================================
-           VERSION SIMPLE DU LECTEUR MOBILE
-           Pas de barre de progression visible dans notre interface.
-           Google Drive étant dans un iframe externe, sa barre native
-           est masquée visuellement par cette couche.
+           LECTEUR GOOGLE DRIVE — VERSION SIMPLE
+           Pas de bouton X personnalisé, pas de barre personnalisée.
+           Les contrôles visibles appartiennent uniquement au lecteur
+           Google Drive intégré dans l'iframe.
         ============================================================ */
 
-        .video-bottom-cover {
-            position: absolute;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            height: 58px;
-            z-index: 100;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 8px 12px;
-            background: linear-gradient(
-                to bottom,
-                rgba(0,0,0,0.05),
-                rgba(0,0,0,0.98) 45%
-            );
-        }
-
-        .video-simple-button {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            min-width: 120px;
-            height: 38px;
-            padding: 0 18px;
-            border: 0;
-            border-radius: 999px;
-            background: rgba(255,181,46,0.98);
-            color: #050518;
-            font-weight: 800;
-            font-size: 13px;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.35);
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        .video-simple-button:active {
-            transform: scale(0.97);
-        }
-
-        /* Supprime toute barre personnalisée existante */
-        .video-controls,
-        .video-progress-bar,
-        #videoControls,
-        #videoProgressBar {
+        #videoModal .video-modal-close,
+        #videoModal .video-controls,
+        #videoModal .video-progress-bar {
             display: none !important;
         }
 
+        #videoModal .video-modal-content {
+            width: min(92vw, 1100px);
+            max-width: 1100px;
+            overflow: hidden;
+            background: #000;
+            border-radius: 14px;
+        }
+
+        #videoModal .video-player-container {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            height: auto;
+            max-height: none;
+            overflow: hidden;
+            background: #000;
+        }
+
+        #videoModal .drive-video-frame {
+            position: absolute !important;
+            inset: 0 !important;
+            width: 100% !important;
+            height: 100% !important;
+            border: 0 !important;
+            display: block !important;
+        }
+
         @media (max-width: 640px) {
-            .video-bottom-cover {
-                height: 62px;
-                padding-bottom: 8px;
+            #videoModal {
+                padding: 10px;
             }
 
-            .video-simple-button {
-                min-width: 112px;
-                height: 36px;
-                font-size: 12px;
-                padding: 0 16px;
+            #videoModal .video-modal-content {
+                width: 100%;
+                max-width: 100%;
+                border-radius: 10px;
+            }
+
+            #videoModal .video-player-container {
+                aspect-ratio: 16 / 9;
+                width: 100%;
+            }
+
+            #videoModal .video-modal-title {
+                display: none;
             }
         }
-</style>
+
+    </style>
 </head>
 
 <body class="no-context-menu">
@@ -1308,20 +1298,6 @@
              onclick="event.stopPropagation()">
 
             <!-- ====================================================
-                 BOUTON QUITTER EN HAUT À DROITE
-            ===================================================== -->
-
-            <button class="video-modal-close"
-                    onclick="closeVideoModal()"
-                    title="Quitter la vidéo"
-                    aria-label="Quitter la vidéo">
-
-                <i class="fas fa-times"></i>
-
-            </button>
-
-
-            <!-- ====================================================
                  LECTEUR VIDÉO
             ===================================================== -->
 
@@ -1344,23 +1320,6 @@
                         loading="lazy"
                         referrerpolicy="no-referrer">
                 </iframe>
-
-                <!--
-                    GOOGLE DRIVE AFFICHE SA PROPRE BARRE DE PROGRESSION.
-                    Comme elle est dans un iframe externe, elle ne peut pas
-                    être supprimée avec du CSS normal.
-                    Cette couche masque uniquement cette barre sur mobile
-                    et affiche un seul bouton simple.
-                -->
-                <div class="video-bottom-cover">
-                    <button type="button"
-                            class="video-simple-button"
-                            onclick="closeVideoModal()"
-                            aria-label="Fermer la vidéo">
-                        <i class="fas fa-times"></i>
-                        Fermer
-                    </button>
-                </div>
 
                 <!-- FILIGRANE -->
 
@@ -4151,14 +4110,6 @@
              * mais ils ne sont pas utilisés avec le lecteur Drive.
              */
 
-            document.getElementById(
-                'videoControls'
-            ).classList.remove('show');
-
-            document.getElementById(
-                'videoProgressBar'
-            ).classList.remove('show');
-
         }
 
 
@@ -4717,19 +4668,6 @@
                 );
                 videoInterval = null;
             }
-
-            document.getElementById(
-                'videoControls'
-            ).classList.remove('show');
-
-            document.getElementById(
-                'videoProgressBar'
-            ).classList.remove('show');
-
-            document.getElementById(
-                'fullscreenIcon'
-            ).className =
-                'fas fa-expand';
 
         }
 
