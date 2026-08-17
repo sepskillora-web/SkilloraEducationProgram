@@ -764,6 +764,121 @@
 
 
         /* ============================================================
+           CORRECTION VIDÉO MOBILE — VERSION STABLE
+           Google Drive reste dans un cadre 16:9 et ne peut plus
+           basculer le lecteur en plein écran automatiquement.
+        ============================================================ */
+
+        .video-modal {
+            padding: 24px;
+            overflow: hidden;
+        }
+
+        .video-modal-content {
+            width: min(100%, 1100px);
+            max-height: 92dvh;
+            overflow: hidden;
+            background: #000;
+            border-radius: 16px;
+        }
+
+        .video-player-container {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            height: auto;
+            max-height: none;
+            overflow: hidden;
+            background: #000;
+        }
+
+        .drive-video-frame {
+            position: absolute !important;
+            inset: 0 !important;
+            width: 100% !important;
+            height: 100% !important;
+            min-height: 0 !important;
+            max-height: none !important;
+            border: 0 !important;
+            display: block !important;
+        }
+
+        /* Le bouton X reste au-dessus du lecteur, sans couvrir la barre
+           de progression native du lecteur Google Drive. */
+        .video-modal-close {
+            top: 10px;
+            right: 10px;
+            z-index: 200;
+        }
+
+        /* Le filigrane ne doit jamais gêner les contrôles du lecteur. */
+        .video-player-container .watermark {
+            bottom: 52px;
+            right: 14px;
+            z-index: 5;
+        }
+
+        /* Empêche toute tentative de plein écran sur le conteneur.
+           Le plein écran natif de Google Drive n'est plus autorisé
+           par la balise iframe. */
+        .video-player-container:fullscreen,
+        .video-player-container:-webkit-full-screen {
+            width: 100%;
+            height: auto;
+            aspect-ratio: 16 / 9;
+        }
+
+        @media (max-width: 640px) {
+            .video-modal {
+                padding: 10px;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .video-modal-content {
+                width: 100%;
+                max-width: 100%;
+                max-height: none;
+                border-radius: 12px;
+            }
+
+            .video-player-container {
+                width: 100%;
+                aspect-ratio: 16 / 9;
+                height: auto;
+                max-height: none;
+                border-radius: 10px;
+            }
+
+            .drive-video-frame {
+                width: 100% !important;
+                height: 100% !important;
+            }
+
+            .video-modal-close {
+                top: 8px;
+                right: 8px;
+                width: 40px;
+                height: 40px;
+                font-size: 0.85rem;
+            }
+
+            .video-player-container .watermark {
+                bottom: 42px;
+                right: 8px;
+                font-size: 0.5rem;
+                letter-spacing: 1px;
+            }
+
+            .video-modal-title {
+                display: block;
+                margin: 8px 4px 0;
+                font-size: 0.82rem;
+                line-height: 1.25;
+            }
+        }
+
+        /* ============================================================
            EXERCICES PAR CHAPITRE
         ============================================================ */
 
@@ -1155,8 +1270,7 @@
                         src=""
                         title="Vidéo de formation Skillora"
                         allow="autoplay; picture-in-picture"
-                        allowfullscreen
-                        loading="eager"
+                        loading="lazy"
                         referrerpolicy="no-referrer">
                 </iframe>
 
@@ -3916,13 +4030,25 @@
                     `https://drive.google.com/file/d/${driveMatch[1]}/preview`;
             }
 
-            driveFrame.src = embedUrl;
+            // Ne charge JAMAIS la vidéo avant le clic sur « Regarder ».
+            // On vide d'abord l'ancien lecteur, puis on affiche la fenêtre.
+            driveFrame.src = '';
 
             modalTitle.textContent =
                 `${video.id}. ${video.title}`;
 
             modal.classList.add('active');
             document.body.classList.add('video-modal-open');
+
+            // Le navigateur affiche d'abord la fenêtre, puis charge
+            // Google Drive. Cela évite le lecteur plein écran au chargement.
+            requestAnimationFrame(() => {
+                setTimeout(() => {
+                    if (modal.classList.contains('active')) {
+                        driveFrame.src = embedUrl;
+                    }
+                }, 80);
+            });
 
             state.currentVideo = {
                 chapterIndex,
@@ -4486,6 +4612,7 @@
              */
             if (driveFrame) {
                 driveFrame.src = '';
+                driveFrame.removeAttribute('src');
             }
 
             modal.classList.remove(
