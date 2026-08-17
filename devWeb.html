@@ -1,0 +1,3684 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Skillora · Formation Développement Web</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+
+        /* =========================================================
+           PALETTE SKILLORA
+           Respect du logo : bleu nuit + doré
+        ========================================================= */
+
+        :root {
+            --skillora-dark: #050518;
+            --skillora-dark-2: #0B0B2A;
+            --skillora-blue: #111B3A;
+            --skillora-accent: #FFB52E;
+            --skillora-accent-hover: #E99C16;
+            --skillora-light: #F7F8FC;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            background: #f5f7fb;
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            color: #111827;
+        }
+
+        /* =========================================================
+           COULEURS SKILLORA
+        ========================================================= */
+
+        .bg-skillora-dark {
+            background-color: var(--skillora-dark);
+        }
+
+        .bg-skillora-accent {
+            background-color: var(--skillora-accent);
+        }
+
+        .text-skillora-dark {
+            color: var(--skillora-dark);
+        }
+
+        .text-skillora-accent {
+            color: var(--skillora-accent);
+        }
+
+        .border-skillora-accent {
+            border-color: var(--skillora-accent);
+        }
+
+        /* =========================================================
+           BOUTONS
+        ========================================================= */
+
+        .btn-accent {
+            background-color: var(--skillora-accent);
+            color: var(--skillora-dark);
+            transition: all 0.2s ease;
+        }
+
+        .btn-accent:hover {
+            background-color: var(--skillora-accent-hover);
+            transform: translateY(-1px);
+        }
+
+        .btn-outline-accent {
+            border: 2px solid var(--skillora-accent);
+            color: var(--skillora-dark);
+            background: transparent;
+            transition: all 0.2s ease;
+        }
+
+        .btn-outline-accent:hover {
+            background: var(--skillora-accent);
+            color: var(--skillora-dark);
+        }
+
+        /* =========================================================
+           LISTE DES VIDÉOS
+        ========================================================= */
+
+        .video-item {
+            background: white;
+            border-radius: 1rem;
+            padding: 0.75rem 1.25rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            border-left: 4px solid var(--skillora-accent);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .video-item:hover {
+            background: #fffaf0;
+            box-shadow: 0 5px 15px rgba(255, 181, 46, 0.15);
+            transform: translateX(4px);
+        }
+
+        .video-item.completed {
+            border-left-color: #22c55e;
+        }
+
+        /* =========================================================
+           CARTES CHAPITRES
+        ========================================================= */
+
+        .chapter-card {
+            background: white;
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            border: 1px solid #eef2f6;
+        }
+
+        .chapter-card:hover {
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+            border-color: var(--skillora-accent);
+        }
+
+        /* =========================================================
+           PROGRESSION
+        ========================================================= */
+
+        .progress-bar {
+            height: 6px;
+            background: #e2e8f0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-bar .progress-fill {
+            height: 100%;
+            background: var(--skillora-accent);
+            border-radius: 10px;
+            transition: width 0.5s ease;
+        }
+
+        /* =========================================================
+           TOAST
+        ========================================================= */
+
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--skillora-dark);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 1rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.4s ease;
+            z-index: 9999;
+            border-left: 4px solid var(--skillora-accent);
+            max-width: 400px;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* =========================================================
+           BOUTON REGARDER
+        ========================================================= */
+
+        .btn-play-video {
+            background: var(--skillora-accent);
+            color: var(--skillora-dark);
+            border: none;
+            padding: 0.35rem 0.85rem;
+            border-radius: 2rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .btn-play-video:hover:not(:disabled) {
+            background: var(--skillora-accent-hover);
+            transform: scale(1.05);
+        }
+
+        .btn-play-video:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .btn-play-video.playing {
+            background: #22c55e;
+            color: white;
+        }
+
+        /* =========================================================
+           MODAL VIDÉO
+        ========================================================= */
+
+        .video-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(5, 5, 24, 0.96);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .video-modal.active {
+            display: flex;
+        }
+
+        .video-modal-content {
+            position: relative;
+            width: 100%;
+            max-width: 1100px;
+        }
+
+        /* =========================================================
+           BOUTON QUITTER EN HAUT DE LA VIDÉO
+        ========================================================= */
+
+        .video-top-bar {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            gap: 10px;
+        }
+
+        .video-title-top {
+            color: white;
+            font-size: 15px;
+            font-weight: 600;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .video-modal-close-top {
+            flex-shrink: 0;
+            border: none;
+            background: var(--skillora-accent);
+            color: var(--skillora-dark);
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 18px;
+            transition: all 0.2s ease;
+        }
+
+        .video-modal-close-top:hover {
+            background: #ffffff;
+            transform: scale(1.05);
+        }
+
+        /* =========================================================
+           LECTEUR
+        ========================================================= */
+
+        .video-player-container {
+            position: relative;
+            background: #000;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 20px 70px rgba(0, 0, 0, 0.8);
+        }
+
+        .video-player-container video {
+            width: 100%;
+            height: auto;
+            max-height: 78vh;
+            display: block;
+            background: #000;
+            object-fit: contain;
+        }
+
+        video {
+            -webkit-user-select: none;
+            user-select: none;
+            -webkit-touch-callout: none;
+            -webkit-user-drag: none;
+        }
+
+        video::-webkit-media-controls-download-button {
+            display: none;
+        }
+
+        /* =========================================================
+           FILIGRANE
+        ========================================================= */
+
+        .watermark {
+            position: absolute;
+            bottom: 90px;
+            right: 20px;
+            color: rgba(255, 255, 255, 0.20);
+            font-size: 0.75rem;
+            font-weight: 500;
+            pointer-events: none;
+            z-index: 5;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* =========================================================
+           CONTROLES VIDÉO
+        ========================================================= */
+
+        .video-controls {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+
+            background: linear-gradient(
+                transparent,
+                rgba(0, 0, 0, 0.95)
+            );
+
+            padding: 55px 20px 18px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            gap: 10px;
+
+            z-index: 20;
+
+            opacity: 0;
+            transition: opacity 0.3s ease;
+
+            flex-wrap: wrap;
+        }
+
+        .video-player-container:hover .video-controls,
+        .video-controls.show {
+            opacity: 1;
+        }
+
+        .video-controls button {
+            background: rgba(255, 255, 255, 0.13);
+            color: white;
+            border: none;
+            border-radius: 50%;
+
+            width: 44px;
+            height: 44px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            cursor: pointer;
+
+            transition: all 0.2s ease;
+
+            font-size: 1rem;
+        }
+
+        .video-controls button:hover {
+            background: rgba(255, 181, 46, 0.9);
+            color: var(--skillora-dark);
+            transform: scale(1.08);
+        }
+
+        .video-controls button.primary-btn {
+            width: 54px;
+            height: 54px;
+            font-size: 1.25rem;
+            background: var(--skillora-accent);
+            color: var(--skillora-dark);
+        }
+
+        /* =========================================================
+           VOLUME
+        ========================================================= */
+
+        .volume-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.10);
+            border-radius: 25px;
+            padding: 5px 12px;
+            height: 44px;
+        }
+
+        .volume-container button {
+            width: 32px;
+            height: 32px;
+            background: transparent;
+            font-size: 14px;
+        }
+
+        .volume-slider {
+            width: 80px;
+            height: 4px;
+            cursor: pointer;
+            accent-color: var(--skillora-accent);
+        }
+
+        /* =========================================================
+           TEMPS
+        ========================================================= */
+
+        .time-display {
+            color: white;
+            font-size: 0.8rem;
+            font-family: monospace;
+            min-width: 100px;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 7px 10px;
+            border-radius: 20px;
+        }
+
+        /* =========================================================
+           PLEIN ÉCRAN
+        ========================================================= */
+
+        .fullscreen-btn {
+            background: rgba(255, 255, 255, 0.10) !important;
+        }
+
+        /* =========================================================
+           BARRE DE PROGRESSION VIDÉO
+        ========================================================= */
+
+        .video-progress-bar {
+            position: absolute;
+            bottom: 72px;
+            left: 20px;
+            right: 20px;
+
+            height: 5px;
+
+            background: rgba(255, 255, 255, 0.22);
+
+            border-radius: 5px;
+
+            cursor: pointer;
+
+            z-index: 21;
+
+            opacity: 0;
+
+            transition: opacity 0.3s ease;
+        }
+
+        .video-player-container:hover .video-progress-bar,
+        .video-progress-bar.show {
+            opacity: 1;
+        }
+
+        .progress-fill-custom {
+            height: 100%;
+            background: var(--skillora-accent);
+            border-radius: 5px;
+            width: 0%;
+        }
+
+        /* =========================================================
+           MODE PLEIN ÉCRAN
+        ========================================================= */
+
+        .video-player-container:fullscreen {
+            width: 100vw;
+            height: 100vh;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 0;
+        }
+
+        .video-player-container:fullscreen video {
+            width: 100vw;
+            height: 100vh;
+            max-height: 100vh;
+            object-fit: contain;
+        }
+
+        .video-player-container:-webkit-full-screen {
+            width: 100vw;
+            height: 100vh;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 0;
+        }
+
+        .video-player-container:-webkit-full-screen video {
+            width: 100vw;
+            height: 100vh;
+            max-height: 100vh;
+            object-fit: contain;
+        }
+
+        /* =========================================================
+           BADGE WEB
+        ========================================================= */
+
+        .badge-web {
+            background: var(--skillora-accent);
+            color: var(--skillora-dark);
+        }
+
+        /* =========================================================
+           RESPONSIVE TABLETTE
+        ========================================================= */
+
+        @media (max-width: 900px) {
+
+            .video-modal {
+                padding: 12px;
+            }
+
+            .video-player-container video {
+                max-height: 70vh;
+            }
+
+            .video-controls {
+                gap: 7px;
+            }
+
+            .volume-slider {
+                width: 60px;
+            }
+        }
+
+        /* =========================================================
+           RESPONSIVE MOBILE
+        ========================================================= */
+
+        @media (max-width: 640px) {
+
+            .toast {
+                left: 15px;
+                right: 15px;
+                bottom: 15px;
+                max-width: none;
+            }
+
+            .chapter-card {
+                padding: 1rem;
+                border-radius: 1rem;
+            }
+
+            .video-item {
+                padding: 0.75rem;
+                gap: 0.5rem;
+            }
+
+            .video-item > div {
+                min-width: 0;
+            }
+
+            .video-item span.font-medium {
+                font-size: 0.82rem;
+            }
+
+            .video-item .text-sm {
+                font-size: 0.7rem;
+            }
+
+            .btn-play-video {
+                padding: 0.35rem 0.65rem;
+                font-size: 0.68rem;
+            }
+
+            .video-modal {
+                padding: 8px;
+                align-items: center;
+            }
+
+            .video-modal-content {
+                width: 100%;
+            }
+
+            .video-title-top {
+                font-size: 12px;
+            }
+
+            .video-modal-close-top {
+                width: 38px;
+                height: 38px;
+                font-size: 15px;
+            }
+
+            .video-player-container {
+                border-radius: 8px;
+            }
+
+            .video-player-container video {
+                width: 100%;
+                max-height: 65vh;
+            }
+
+            .video-controls {
+                padding: 45px 8px 10px;
+                gap: 5px;
+            }
+
+            .video-controls button {
+                width: 34px;
+                height: 34px;
+                font-size: 0.75rem;
+            }
+
+            .video-controls button.primary-btn {
+                width: 42px;
+                height: 42px;
+                font-size: 1rem;
+            }
+
+            .time-display {
+                min-width: 75px;
+                font-size: 0.65rem;
+                padding: 5px 7px;
+            }
+
+            .volume-container {
+                height: 34px;
+                padding: 2px 6px;
+                gap: 3px;
+            }
+
+            .volume-container button {
+                width: 28px;
+                height: 28px;
+            }
+
+            .volume-slider {
+                width: 55px;
+            }
+
+            .video-progress-bar {
+                left: 10px;
+                right: 10px;
+                bottom: 55px;
+                height: 4px;
+            }
+
+            .watermark {
+                bottom: 65px;
+                right: 10px;
+                font-size: 0.55rem;
+            }
+        }
+
+        /* =========================================================
+           TRÈS PETITS MOBILES
+        ========================================================= */
+
+        @media (max-width: 380px) {
+
+            .video-controls {
+                gap: 3px;
+            }
+
+            .video-controls button {
+                width: 30px;
+                height: 30px;
+                font-size: 0.65rem;
+            }
+
+            .video-controls button.primary-btn {
+                width: 38px;
+                height: 38px;
+            }
+
+            .volume-container {
+                display: none;
+            }
+
+            .time-display {
+                min-width: 68px;
+                font-size: 0.58rem;
+            }
+        }
+
+    </style>
+</head>
+
+<body class="no-context-menu">
+
+    <!-- =========================================================
+         TOAST
+    ========================================================= -->
+
+    <div id="toast" class="toast">
+
+        <div class="flex items-center justify-between">
+
+            <span id="toastMessage">
+                <i class="fas fa-check-circle text-[#FFB52E] mr-2"></i>
+                Vidéo terminée !
+            </span>
+
+            <span
+                class="cursor-pointer ml-4 opacity-70 hover:opacity-100"
+                onclick="hideToast()">
+
+                <i class="fas fa-times"></i>
+
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================================
+         MODAL VIDÉO
+    ========================================================= -->
+
+    <div
+        id="videoModal"
+        class="video-modal"
+        onclick="closeVideoModal(event)"
+    >
+
+        <div
+            class="video-modal-content"
+            onclick="event.stopPropagation()"
+        >
+
+            <!-- BARRE SUPÉRIEURE -->
+
+            <div class="video-top-bar">
+
+                <div
+                    id="modalVideoTitle"
+                    class="video-title-top"
+                >
+                    Chargement...
+                </div>
+
+                <button
+                    class="video-modal-close-top"
+                    onclick="closeVideoModal()"
+                    title="Quitter la vidéo"
+                >
+                    <i class="fas fa-times"></i>
+                </button>
+
+            </div>
+
+
+            <!-- LECTEUR -->
+
+            <div
+                class="video-player-container"
+                id="videoPlayerContainer"
+            >
+
+                <video
+                    id="modalVideo"
+                    playsinline
+                    preload="metadata"
+                    controlsList="nodownload noplaybackrate"
+                    disablePictureInPicture
+                >
+
+                    <source
+                        id="modalVideoSource"
+                        src=""
+                        type="video/mp4"
+                    >
+
+                    Votre navigateur ne supporte pas la lecture vidéo.
+
+                </video>
+
+
+                <!-- FILIGRANE -->
+
+                <div class="watermark">
+                    SKILLORA · WEB DEVELOPMENT
+                </div>
+
+
+                <!-- BARRE DE PROGRESSION -->
+
+                <div
+                    class="video-progress-bar"
+                    id="videoProgressBar"
+                >
+
+                    <div
+                        class="progress-fill-custom"
+                        id="progressFillCustom"
+                    ></div>
+
+                </div>
+
+
+                <!-- CONTROLES -->
+
+                <div
+                    class="video-controls"
+                    id="videoControls"
+                >
+
+                    <!-- RECULER -->
+
+                    <button
+                        onclick="skipVideo(-5)"
+                        title="Reculer de 5 secondes"
+                    >
+                        <i class="fas fa-backward"></i>
+                    </button>
+
+
+                    <!-- PLAY -->
+
+                    <button
+                        class="primary-btn"
+                        id="playPauseBtn"
+                        onclick="togglePlayPause()"
+                        title="Lecture / Pause"
+                    >
+
+                        <i
+                            class="fas fa-play"
+                            id="playPauseIcon"
+                        ></i>
+
+                    </button>
+
+
+                    <!-- AVANCER -->
+
+                    <button
+                        onclick="skipVideo(5)"
+                        title="Avancer de 5 secondes"
+                    >
+                        <i class="fas fa-forward"></i>
+                    </button>
+
+
+                    <!-- TEMPS -->
+
+                    <span
+                        class="time-display"
+                        id="timeDisplay"
+                    >
+                        00:00 / 00:00
+                    </span>
+
+
+                    <!-- VOLUME -->
+
+                    <div class="volume-container">
+
+                        <button
+                            id="muteBtn"
+                            onclick="toggleMute()"
+                            title="Couper / remettre le son"
+                        >
+                            <i
+                                class="fas fa-volume-high"
+                                id="volumeIcon"
+                            ></i>
+                        </button>
+
+                        <input
+                            type="range"
+                            id="volumeSlider"
+                            class="volume-slider"
+                            min="0"
+                            max="1"
+                            step="0.05"
+                            value="1"
+                            oninput="changeVolume(this.value)"
+                            title="Volume"
+                        >
+
+                    </div>
+
+
+                    <!-- PLEIN ÉCRAN -->
+
+                    <button
+                        class="fullscreen-btn"
+                        onclick="toggleFullscreen()"
+                        title="Plein écran"
+                    >
+
+                        <i
+                            class="fas fa-expand"
+                            id="fullscreenIcon"
+                        ></i>
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================================
+         HEADER
+    ========================================================= -->
+
+    <header
+        class="bg-skillora-dark shadow-lg sticky top-0 z-50"
+        style="border-bottom:4px solid #FFB52E;"
+    >
+
+        <div
+            class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex justify-between items-center"
+        >
+
+            <!-- LOGO -->
+
+            <div class="flex items-center">
+
+                <div class="flex items-center gap-3">
+
+                    <!-- Logo Skillora -->
+
+                    <svg
+                        viewBox="0 0 100 100"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="w-10 h-10"
+                    >
+
+                        <path
+                            d="M50 5 L82 37 L70 49 L50 29 L30 49 L18 37 Z"
+                            fill="#FFB52E"
+                        />
+
+                        <path
+                            d="M38 43 L50 31 L82 63 L70 75 L50 55 L30 75 L18 63 Z"
+                            fill="#FFB52E"
+                        />
+
+                        <path
+                            d="M30 70 L42 58 L70 86 L58 98 Z"
+                            fill="#FFB52E"
+                        />
+
+                    </svg>
+
+                    <span
+                        class="text-white text-2xl font-bold tracking-wide"
+                    >
+                        SKILLORA<span style="color:#FFB52E;">.</span>
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- NAVIGATION -->
+
+            <nav
+                class="hidden md:flex space-x-6 text-white/90 font-medium"
+            >
+
+                <a
+                    href="#"
+                    class="hover:text-[#FFB52E] transition"
+                >
+                    Accueil
+                </a>
+
+                <a
+                    href="#"
+                    class="text-[#FFB52E] font-semibold border-b-2 border-[#FFB52E] pb-1"
+                >
+                    Formations
+                </a>
+
+                <a
+                    href="#"
+                    class="hover:text-[#FFB52E] transition"
+                >
+                    Progression
+                </a>
+
+                <a
+                    href="#"
+                    class="hover:text-[#FFB52E] transition"
+                >
+                    Mon compte
+                </a>
+
+            </nav>
+
+
+            <!-- PROFIL -->
+
+            <button
+                class="hidden sm:inline-block px-5 py-2 rounded-full font-semibold shadow-md transition"
+                style="background:#FFB52E;color:#050518;"
+            >
+
+                <i class="fas fa-user mr-2"></i>
+                Profil
+
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- =========================================================
+         BANNIÈRE
+    ========================================================= -->
+
+    <section
+        class="text-white py-12"
+        style="
+            background:linear-gradient(
+                135deg,
+                #050518,
+                #0B0B2A,
+                #111B3A
+            );
+        "
+    >
+
+        <div
+            class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+        >
+
+            <div
+                class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6"
+            >
+
+                <div>
+
+                    <div class="flex items-center gap-3 mb-3">
+
+                        <span
+                            class="badge-web text-xs font-bold px-3 py-1 rounded-full"
+                        >
+                            DÉVELOPPEMENT WEB
+                        </span>
+
+                        <span class="text-gray-300 text-sm">
+
+                            <i
+                                class="fas fa-star"
+                                style="color:#FFB52E;"
+                            ></i>
+
+                            4.9 (312 avis)
+
+                        </span>
+
+                    </div>
+
+
+                    <h1 class="text-3xl md:text-4xl font-bold">
+
+                        <i
+                            class="fas fa-code mr-3"
+                            style="color:#FFB52E;"
+                        ></i>
+
+                        Développement Web
+
+                    </h1>
+
+
+                    <p class="text-gray-300 text-lg mt-2 max-w-2xl">
+
+                        Apprenez à créer des sites web modernes avec HTML,
+                        CSS et JavaScript, de débutant à avancé.
+
+                    </p>
+
+
+                    <div
+                        class="flex flex-wrap items-center gap-4 mt-4 text-sm text-gray-300"
+                    >
+
+                        <span>
+
+                            <i
+                                class="fas fa-video mr-2"
+                                style="color:#FFB52E;"
+                            ></i>
+
+                            <span id="totalVideos">20</span>
+                            vidéos
+
+                        </span>
+
+
+                        <span>
+
+                            <i
+                                class="fas fa-clock mr-2"
+                                style="color:#FFB52E;"
+                            ></i>
+
+                            10h de contenu
+
+                        </span>
+
+
+                        <span>
+
+                            <i
+                                class="fas fa-signal mr-2"
+                                style="color:#FFB52E;"
+                            ></i>
+
+                            Niveau : Débutant à Avancé
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- CONTINUER -->
+
+                <div
+                    class="flex flex-col sm:flex-row gap-3 w-full md:w-auto"
+                >
+
+                    <button
+                        id="continueBtn"
+                        class="px-6 py-3 rounded-full font-semibold shadow-lg flex items-center justify-center gap-2"
+                        style="
+                            background:#FFB52E;
+                            color:#050518;
+                        "
+                    >
+
+                        <i class="fas fa-play"></i>
+
+                        Continuer la formation
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================================
+         PROGRESSION
+    ========================================================= -->
+
+    <section class="bg-white border-b border-gray-200 py-4">
+
+        <div
+            class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+        >
+
+            <div
+                class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4"
+            >
+
+                <div
+                    class="flex items-center gap-4 w-full md:w-auto"
+                >
+
+                    <div class="text-sm">
+
+                        <span
+                            class="font-semibold text-skillora-dark"
+                        >
+                            Progression globale
+                        </span>
+
+                        <span class="text-gray-500 ml-2">
+
+                            <span id="completedCount">0</span>
+                            /
+                            <span id="totalVideosCount">20</span>
+                            vidéos
+
+                        </span>
+
+                    </div>
+
+
+                    <div class="progress-bar w-48">
+
+                        <div
+                            id="globalProgress"
+                            class="progress-fill"
+                            style="width:0%"
+                        ></div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="flex flex-wrap gap-3 text-sm">
+
+                    <span
+                        class="bg-green-100 text-green-800 px-3 py-1 rounded-full"
+                    >
+
+                        <i class="fas fa-check-circle mr-1"></i>
+
+                        <span id="completedBadge">0</span>
+                        terminées
+
+                    </span>
+
+
+                    <span
+                        class="px-3 py-1 rounded-full"
+                        style="
+                            background:#FFF4D6;
+                            color:#9A6700;
+                        "
+                    >
+
+                        <i class="fas fa-clock mr-1"></i>
+
+                        <span id="inProgressBadge">20</span>
+                        en cours
+
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================================
+         CONTENU
+    ========================================================= -->
+
+    <main class="py-10">
+
+        <div
+            class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+        >
+
+            <div
+                class="grid grid-cols-1 lg:grid-cols-3 gap-8"
+            >
+
+                <!-- =================================================
+                     CHAPITRES
+                ================================================= -->
+
+                <div class="lg:col-span-2 space-y-6">
+
+                    <h2
+                        class="text-2xl font-bold text-skillora-dark flex items-center gap-2"
+                    >
+
+                        <i
+                            class="fas fa-list-ul"
+                            style="color:#FFB52E;"
+                        ></i>
+
+                        Chapitres et vidéos
+
+                    </h2>
+
+
+                    <!-- CHAPITRE 1 -->
+
+                    <div
+                        id="chapter1"
+                        class="chapter-card"
+                    >
+
+                        <div
+                            class="flex items-start justify-between mb-3"
+                        >
+
+                            <div>
+
+                                <h3
+                                    class="text-lg font-bold text-skillora-dark flex items-center gap-2"
+                                >
+
+                                    <span
+                                        class="text-xs font-bold px-3 py-1 rounded-full"
+                                        style="
+                                            background:#FFB52E;
+                                            color:#050518;
+                                        "
+                                    >
+                                        CH. 1
+                                    </span>
+
+                                    Introduction au développement Web
+
+                                </h3>
+
+                                <p class="text-sm text-gray-500 mt-1">
+                                    5 vidéos · 2h
+                                </p>
+
+                            </div>
+
+                            <span
+                                id="ch1Status"
+                                class="text-yellow-600 text-sm font-semibold"
+                            >
+                                <i class="fas fa-clock mr-1"></i>
+                                En cours
+                            </span>
+
+                        </div>
+
+                        <ul
+                            id="ch1Videos"
+                            class="space-y-2"
+                        ></ul>
+
+                    </div>
+
+
+                    <!-- CHAPITRE 2 -->
+
+                    <div
+                        id="chapter2"
+                        class="chapter-card"
+                    >
+
+                        <div
+                            class="flex items-start justify-between mb-3"
+                        >
+
+                            <div>
+
+                                <h3
+                                    class="text-lg font-bold text-skillora-dark flex items-center gap-2"
+                                >
+
+                                    <span
+                                        class="text-xs font-bold px-3 py-1 rounded-full"
+                                        style="
+                                            background:#FFB52E;
+                                            color:#050518;
+                                        "
+                                    >
+                                        CH. 2
+                                    </span>
+
+                                    HTML & CSS
+
+                                </h3>
+
+                                <p class="text-sm text-gray-500 mt-1">
+                                    5 vidéos · 2h30
+                                </p>
+
+                            </div>
+
+                            <span
+                                id="ch2Status"
+                                class="text-yellow-600 text-sm font-semibold"
+                            >
+                                <i class="fas fa-clock mr-1"></i>
+                                En cours
+                            </span>
+
+                        </div>
+
+                        <ul
+                            id="ch2Videos"
+                            class="space-y-2"
+                        ></ul>
+
+                    </div>
+
+
+                    <!-- CHAPITRE 3 -->
+
+                    <div
+                        id="chapter3"
+                        class="chapter-card"
+                    >
+
+                        <div
+                            class="flex items-start justify-between mb-3"
+                        >
+
+                            <div>
+
+                                <h3
+                                    class="text-lg font-bold text-skillora-dark flex items-center gap-2"
+                                >
+
+                                    <span
+                                        class="text-xs font-bold px-3 py-1 rounded-full"
+                                        style="
+                                            background:#FFB52E;
+                                            color:#050518;
+                                        "
+                                    >
+                                        CH. 3
+                                    </span>
+
+                                    JavaScript
+
+                                </h3>
+
+                                <p class="text-sm text-gray-500 mt-1">
+                                    5 vidéos · 3h
+                                </p>
+
+                            </div>
+
+                            <span
+                                id="ch3Status"
+                                class="text-yellow-600 text-sm font-semibold"
+                            >
+                                <i class="fas fa-clock mr-1"></i>
+                                En cours
+                            </span>
+
+                        </div>
+
+                        <ul
+                            id="ch3Videos"
+                            class="space-y-2"
+                        ></ul>
+
+                    </div>
+
+
+                    <!-- CHAPITRE 4 -->
+
+                    <div
+                        id="chapter4"
+                        class="chapter-card"
+                    >
+
+                        <div
+                            class="flex items-start justify-between mb-3"
+                        >
+
+                            <div>
+
+                                <h3
+                                    class="text-lg font-bold text-skillora-dark flex items-center gap-2"
+                                >
+
+                                    <span
+                                        class="text-xs font-bold px-3 py-1 rounded-full"
+                                        style="
+                                            background:#FFB52E;
+                                            color:#050518;
+                                        "
+                                    >
+                                        CH. 4
+                                    </span>
+
+                                    Projets Web & Responsive Design
+
+                                </h3>
+
+                                <p class="text-sm text-gray-500 mt-1">
+                                    5 vidéos · 2h30
+                                </p>
+
+                            </div>
+
+                            <span
+                                id="ch4Status"
+                                class="text-yellow-600 text-sm font-semibold"
+                            >
+                                <i class="fas fa-clock mr-1"></i>
+                                En cours
+                            </span>
+
+                        </div>
+
+                        <ul
+                            id="ch4Videos"
+                            class="space-y-2"
+                        ></ul>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     COLONNE DROITE
+                ================================================= -->
+
+                <div class="space-y-6">
+
+
+                    <!-- INFORMATIONS -->
+
+                    <div
+                        class="bg-white rounded-2xl p-6 shadow-lg border border-gray-100"
+                    >
+
+                        <h3
+                            class="text-lg font-bold text-skillora-dark mb-4 flex items-center gap-2"
+                        >
+
+                            <i
+                                class="fas fa-info-circle"
+                                style="color:#FFB52E;"
+                            ></i>
+
+                            Informations
+
+                        </h3>
+
+
+                        <ul class="space-y-3 text-sm">
+
+                            <li
+                                class="flex justify-between border-b border-gray-100 pb-2 gap-4"
+                            >
+
+                                <span class="text-gray-500">
+                                    Formateur
+                                </span>
+
+                                <span
+                                    class="font-medium text-skillora-dark text-right"
+                                >
+                                    Mbinintsoa RAKOTOARIMANANA
+                                </span>
+
+                            </li>
+
+
+                            <li
+                                class="flex justify-between border-b border-gray-100 pb-2"
+                            >
+
+                                <span class="text-gray-500">
+                                    Niveau
+                                </span>
+
+                                <span class="font-medium text-skillora-dark">
+                                    Débutant - Avancé
+                                </span>
+
+                            </li>
+
+
+                            <li
+                                class="flex justify-between border-b border-gray-100 pb-2"
+                            >
+
+                                <span class="text-gray-500">
+                                    Durée totale
+                                </span>
+
+                                <span class="font-medium text-skillora-dark">
+                                    10 heures
+                                </span>
+
+                            </li>
+
+
+                            <li class="flex justify-between">
+
+                                <span class="text-gray-500">
+                                    Certification
+                                </span>
+
+                                <span class="font-medium text-green-600">
+
+                                    <i class="fas fa-check-circle mr-1"></i>
+                                    Oui
+
+                                </span>
+
+                            </li>
+
+                        </ul>
+
+                    </div>
+
+
+                    <!-- RESSOURCES -->
+
+                    <div
+                        class="bg-white rounded-2xl p-6 shadow-lg border border-gray-100"
+                    >
+
+                        <h3
+                            class="text-lg font-bold text-skillora-dark mb-4 flex items-center gap-2"
+                        >
+
+                            <i
+                                class="fas fa-download"
+                                style="color:#FFB52E;"
+                            ></i>
+
+                            Ressources
+
+                        </h3>
+
+
+                        <ul class="space-y-2 text-sm">
+
+                            <li>
+
+                                <a
+                                    href="#"
+                                    class="flex items-center gap-3 p-3 bg-gray-50 rounded-xl hover:bg-yellow-50 transition"
+                                >
+
+                                    <i
+                                        class="fas fa-file-pdf text-xl"
+                                        style="color:#FFB52E;"
+                                    ></i>
+
+                                    <div>
+
+                                        <p
+                                            class="font-medium text-skillora-dark"
+                                        >
+                                            Cours complet PDF
+                                        </p>
+
+                                        <p class="text-xs text-gray-400">
+                                            3.2 Mo
+                                        </p>
+
+                                    </div>
+
+                                    <i
+                                        class="fas fa-arrow-right ml-auto"
+                                        style="color:#FFB52E;"
+                                    ></i>
+
+                                </a>
+
+                            </li>
+
+
+                            <li>
+
+                                <a
+                                    href="#"
+                                    class="flex items-center gap-3 p-3 bg-gray-50 rounded-xl hover:bg-yellow-50 transition"
+                                >
+
+                                    <i
+                                        class="fas fa-file-code text-xl"
+                                        style="color:#FFB52E;"
+                                    ></i>
+
+                                    <div>
+
+                                        <p
+                                            class="font-medium text-skillora-dark"
+                                        >
+                                            Codes & Templates
+                                        </p>
+
+                                        <p class="text-xs text-gray-400">
+                                            5.4 Mo
+                                        </p>
+
+                                    </div>
+
+                                    <i
+                                        class="fas fa-arrow-right ml-auto"
+                                        style="color:#FFB52E;"
+                                    ></i>
+
+                                </a>
+
+                            </li>
+
+
+                            <li>
+
+                                <a
+                                    href="#"
+                                    class="flex items-center gap-3 p-3 bg-gray-50 rounded-xl hover:bg-yellow-50 transition"
+                                >
+
+                                    <i
+                                        class="fas fa-globe text-xl"
+                                        style="color:#FFB52E;"
+                                    ></i>
+
+                                    <div>
+
+                                        <p
+                                            class="font-medium text-skillora-dark"
+                                        >
+                                            Ressources Web
+                                        </p>
+
+                                        <p class="text-xs text-gray-400">
+                                            Développement Web
+                                        </p>
+
+                                    </div>
+
+                                    <i
+                                        class="fas fa-arrow-right ml-auto"
+                                        style="color:#FFB52E;"
+                                    ></i>
+
+                                </a>
+
+                            </li>
+
+                        </ul>
+
+                    </div>
+
+
+                    <!-- NOTES -->
+
+                    <div
+                        class="bg-white rounded-2xl p-6 shadow-lg border border-gray-100"
+                    >
+
+                        <h3
+                            class="text-lg font-bold text-skillora-dark mb-4 flex items-center gap-2"
+                        >
+
+                            <i
+                                class="fas fa-sticky-note"
+                                style="color:#FFB52E;"
+                            ></i>
+
+                            Notes
+
+                        </h3>
+
+
+                        <textarea
+                            id="noteTextarea"
+                            class="w-full border border-gray-200 rounded-xl p-3 text-sm focus:border-[#FFB52E] focus:ring-2 focus:ring-yellow-200 outline-none resize-none"
+                            rows="3"
+                            placeholder="Ajoutez vos notes..."
+                        ></textarea>
+
+
+                        <button
+                            id="saveNoteBtn"
+                            class="mt-3 px-4 py-2 rounded-lg text-sm font-semibold w-full"
+                            style="
+                                background:#FFB52E;
+                                color:#050518;
+                            "
+                        >
+
+                            <i class="fas fa-save mr-2"></i>
+
+                            Sauvegarder
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <!-- =========================================================
+         FOOTER
+    ========================================================= -->
+
+    <footer
+        class="bg-skillora-dark text-white/80 py-8 mt-6"
+        style="border-top:4px solid #FFB52E;"
+    >
+
+        <div
+            class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-4"
+        >
+
+            <div class="flex items-center space-x-2">
+
+                <svg
+                    width="32"
+                    height="32"
+                    viewBox="0 0 100 100"
+                    fill="none"
+                >
+
+                    <path
+                        d="M50 5 L82 37 L70 49 L50 29 L30 49 L18 37 Z"
+                        fill="#FFB52E"
+                    />
+
+                    <path
+                        d="M38 43 L50 31 L82 63 L70 75 L50 55 L30 75 L18 63 Z"
+                        fill="#FFB52E"
+                    />
+
+                    <path
+                        d="M30 70 L42 58 L70 86 L58 98 Z"
+                        fill="#FFB52E"
+                    />
+
+                </svg>
+
+                <span class="font-bold text-lg">
+                    SKILLORA
+                </span>
+
+            </div>
+
+
+            <div class="flex space-x-6">
+
+                <a
+                    href="#"
+                    class="hover:text-[#FFB52E]"
+                >
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+
+                <a
+                    href="#"
+                    class="hover:text-[#FFB52E]"
+                >
+                    <i class="fab fa-twitter"></i>
+                </a>
+
+                <a
+                    href="#"
+                    class="hover:text-[#FFB52E]"
+                >
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+
+            </div>
+
+
+            <p class="text-sm">
+                © 2026 Skillora. Tous droits réservés.
+            </p>
+
+        </div>
+
+    </footer>
+
+
+    <!-- =========================================================
+         JAVASCRIPT
+    ========================================================= -->
+
+    <script>
+
+        /* =========================================================
+           VIDÉOS WEB
+           IMPORTANT :
+           Les fichiers doivent être dans le dossier WEB
+        ========================================================= */
+
+        const VIDEO_URLS = {
+
+            1: 'WEB/video1.mp4',
+            2: 'WEB/video2.mp4',
+            3: 'WEB/video3.mp4',
+            4: 'WEB/video4.mp4',
+            5: 'WEB/video5.mp4',
+
+            6: 'WEB/video6.mp4',
+            7: 'WEB/video7.mp4',
+            8: 'WEB/video8.mp4',
+            9: 'WEB/video9.mp4',
+            10: 'WEB/video10.mp4',
+
+            11: 'WEB/video11.mp4',
+            12: 'WEB/video12.mp4',
+            13: 'WEB/video13.mp4',
+            14: 'WEB/video14.mp4',
+            15: 'WEB/video15.mp4',
+
+            16: 'WEB/video16.mp4',
+            17: 'WEB/video17.mp4',
+            18: 'WEB/video18.mp4',
+            19: 'WEB/video19.mp4',
+            20: 'WEB/video20.mp4'
+
+        };
+
+
+        /* =========================================================
+           CHAPITRES DÉVELOPPEMENT WEB
+        ========================================================= */
+
+        const chaptersData = [
+
+            {
+                id: 1,
+
+                title: "Introduction au développement Web",
+
+                unlocked: true,
+
+                videos: [
+
+                    {
+                        id: 1,
+                        title: "Qu'est-ce que le développement Web ?",
+                        duration: "08:30"
+                    },
+
+                    {
+                        id: 2,
+                        title: "Comment fonctionne un site Web ?",
+                        duration: "10:15"
+                    },
+
+                    {
+                        id: 3,
+                        title: "HTML, CSS et JavaScript",
+                        duration: "09:00"
+                    },
+
+                    {
+                        id: 4,
+                        title: "Les outils du développeur Web",
+                        duration: "12:00"
+                    },
+
+                    {
+                        id: 5,
+                        title: "Créer son premier projet Web",
+                        duration: "11:30"
+                    }
+
+                ]
+            },
+
+
+            {
+                id: 2,
+
+                title: "HTML & CSS",
+
+                unlocked: true,
+
+                videos: [
+
+                    {
+                        id: 6,
+                        title: "Introduction au HTML",
+                        duration: "14:20"
+                    },
+
+                    {
+                        id: 7,
+                        title: "Les principales balises HTML",
+                        duration: "18:30"
+                    },
+
+                    {
+                        id: 8,
+                        title: "Introduction au CSS",
+                        duration: "15:00"
+                    },
+
+                    {
+                        id: 9,
+                        title: "Créer une page Web moderne",
+                        duration: "20:00"
+                    },
+
+                    {
+                        id: 10,
+                        title: "Projet : première page Web",
+                        duration: "25:00"
+                    }
+
+                ]
+            },
+
+
+            {
+                id: 3,
+
+                title: "JavaScript",
+
+                unlocked: true,
+
+                videos: [
+
+                    {
+                        id: 11,
+                        title: "Introduction à JavaScript",
+                        duration: "10:00"
+                    },
+
+                    {
+                        id: 12,
+                        title: "Variables et types de données",
+                        duration: "18:00"
+                    },
+
+                    {
+                        id: 13,
+                        title: "Conditions et boucles",
+                        duration: "22:00"
+                    },
+
+                    {
+                        id: 14,
+                        title: "Fonctions et événements",
+                        duration: "25:00"
+                    },
+
+                    {
+                        id: 15,
+                        title: "Projet : page Web interactive",
+                        duration: "30:00"
+                    }
+
+                ]
+            },
+
+
+            {
+                id: 4,
+
+                title: "Projets Web & Responsive Design",
+
+                unlocked: true,
+
+                videos: [
+
+                    {
+                        id: 16,
+                        title: "Comprendre le Responsive Design",
+                        duration: "15:00"
+                    },
+
+                    {
+                        id: 17,
+                        title: "Adapter un site aux mobiles",
+                        duration: "20:00"
+                    },
+
+                    {
+                        id: 18,
+                        title: "Créer une navigation responsive",
+                        duration: "18:00"
+                    },
+
+                    {
+                        id: 19,
+                        title: "Projet complet HTML CSS JavaScript",
+                        duration: "30:00"
+                    },
+
+                    {
+                        id: 20,
+                        title: "Projet final : créer son site Web",
+                        duration: "40:00"
+                    }
+
+                ]
+            }
+
+        ];
+
+
+        /* =========================================================
+           ÉTAT
+        ========================================================= */
+
+        let state = {
+
+            chapters: JSON.parse(
+                JSON.stringify(chaptersData)
+            ),
+
+            videoCompleted: {},
+
+            currentVideo: null
+
+        };
+
+
+        /* =========================================================
+           CHARGER LA PROGRESSION
+        ========================================================= */
+
+        function loadState() {
+
+            try {
+
+                const saved =
+                    localStorage.getItem(
+                        'skillora_web_state'
+                    );
+
+                if (saved) {
+
+                    const parsed =
+                        JSON.parse(saved);
+
+                    if (parsed.videoCompleted) {
+
+                        state.videoCompleted =
+                            parsed.videoCompleted;
+
+                    }
+
+                }
+
+            } catch (error) {
+
+                console.warn(
+                    'Erreur chargement état:',
+                    error
+                );
+
+            }
+
+        }
+
+
+        /* =========================================================
+           SAUVEGARDER LA PROGRESSION
+        ========================================================= */
+
+        function saveState() {
+
+            try {
+
+                const toSave = {
+                    videoCompleted: {}
+                };
+
+                state.chapters.forEach(chapter => {
+
+                    chapter.videos.forEach(video => {
+
+                        if (video.completed) {
+
+                            toSave.videoCompleted[
+                                video.id
+                            ] = true;
+
+                        }
+
+                    });
+
+                });
+
+                localStorage.setItem(
+                    'skillora_web_state',
+                    JSON.stringify(toSave)
+                );
+
+            } catch (error) {
+
+                console.warn(
+                    'Erreur sauvegarde:',
+                    error
+                );
+
+            }
+
+        }
+
+
+        /* =========================================================
+           TOAST
+        ========================================================= */
+
+        function showToast(
+            message,
+            type = 'success'
+        ) {
+
+            const toast =
+                document.getElementById('toast');
+
+            const toastMessage =
+                document.getElementById(
+                    'toastMessage'
+                );
+
+            const icon =
+                type === 'success'
+                    ? 'fa-check-circle'
+                    : 'fa-info-circle';
+
+            toastMessage.innerHTML = `
+
+                <i
+                    class="fas ${icon}"
+                    style="color:#FFB52E;"
+                ></i>
+
+                ${message}
+
+            `;
+
+            toast.classList.add('show');
+
+            clearTimeout(toast._timeout);
+
+            toast._timeout =
+                setTimeout(
+                    () => toast.classList.remove('show'),
+                    4000
+                );
+
+        }
+
+
+        function hideToast() {
+
+            document
+                .getElementById('toast')
+                .classList.remove('show');
+
+        }
+
+
+        /* =========================================================
+           PROGRESSION
+        ========================================================= */
+
+        function updateProgress() {
+
+            let totalVideos = 0;
+
+            let completedVideos = 0;
+
+
+            state.chapters.forEach(chapter => {
+
+                chapter.videos.forEach(video => {
+
+                    totalVideos++;
+
+                    if (video.completed) {
+
+                        completedVideos++;
+
+                    }
+
+                });
+
+            });
+
+
+            const progress =
+                totalVideos > 0
+                    ? (
+                        completedVideos /
+                        totalVideos
+                    ) * 100
+                    : 0;
+
+
+            document
+                .getElementById('globalProgress')
+                .style.width =
+                `${progress}%`;
+
+
+            document
+                .getElementById('completedCount')
+                .textContent =
+                completedVideos;
+
+
+            document
+                .getElementById('totalVideosCount')
+                .textContent =
+                totalVideos;
+
+
+            document
+                .getElementById('completedBadge')
+                .textContent =
+                completedVideos;
+
+
+            document
+                .getElementById('inProgressBadge')
+                .textContent =
+                totalVideos -
+                completedVideos;
+
+
+            document
+                .getElementById('totalVideos')
+                .textContent =
+                totalVideos;
+
+
+            state.chapters.forEach(
+                (chapter, index) => {
+
+                    const statusEl =
+                        document.getElementById(
+                            `ch${index + 1}Status`
+                        );
+
+                    const allCompleted =
+                        chapter.videos.every(
+                            video =>
+                                video.completed
+                        );
+
+
+                    if (allCompleted) {
+
+                        statusEl.innerHTML =
+                            '<i class="fas fa-check-circle mr-1"></i> Terminé';
+
+                        statusEl.className =
+                            'text-green-600 text-sm font-semibold';
+
+                    } else {
+
+                        statusEl.innerHTML =
+                            '<i class="fas fa-clock mr-1"></i> En cours';
+
+                        statusEl.className =
+                            'text-yellow-600 text-sm font-semibold';
+
+                    }
+
+                }
+            );
+
+
+            saveState();
+
+            updateContinueButton();
+
+        }
+
+
+        /* =========================================================
+           AFFICHER UN CHAPITRE
+        ========================================================= */
+
+        function renderChapter(chapterIndex) {
+
+            const chapter =
+                state.chapters[
+                    chapterIndex - 1
+                ];
+
+
+            const container =
+                document.getElementById(
+                    `ch${chapterIndex}Videos`
+                );
+
+
+            if (!container) return;
+
+
+            container.innerHTML = '';
+
+
+            chapter.videos.forEach(
+                (video, idx) => {
+
+                    const li =
+                        document.createElement('li');
+
+
+                    li.className =
+                        `video-item ${
+                            video.completed
+                                ? 'completed'
+                                : ''
+                        }`;
+
+
+                    li.id =
+                        `video-${video.id}`;
+
+
+                    const iconClass =
+                        video.completed
+                            ? 'fa-check-circle'
+                            : 'fa-play-circle';
+
+
+                    const iconColor =
+                        video.completed
+                            ? '#22c55e'
+                            : '#FFB52E';
+
+
+                    li.innerHTML = `
+
+                        <i
+                            class="fas ${iconClass}"
+                            style="
+                                color:${iconColor};
+                                font-size:1.2rem;
+                                flex-shrink:0;
+                            "
+                        ></i>
+
+
+                        <div class="flex-1 min-w-0">
+
+                            <span
+                                class="font-medium text-skillora-dark"
+                            >
+
+                                ${video.id}.
+                                ${video.title}
+
+                            </span>
+
+
+                            <span
+                                class="text-sm text-gray-400 ml-2"
+                            >
+
+                                ${video.duration}
+
+                            </span>
+
+                        </div>
+
+
+                        <button
+                            class="btn-play-video ${
+                                video.completed
+                                    ? 'playing'
+                                    : ''
+                            }"
+
+                            onclick="
+                                openVideo(
+                                    ${chapterIndex},
+                                    ${idx}
+                                )
+                            "
+
+                            ${
+                                video.completed
+                                    ? 'disabled'
+                                    : ''
+                            }
+                        >
+
+                            ${
+                                video.completed
+                                    ? '<i class="fas fa-check mr-1"></i> Terminé'
+                                    : '▶ Regarder'
+                            }
+
+                        </button>
+
+                    `;
+
+
+                    container.appendChild(li);
+
+                }
+            );
+
+        }
+
+
+        /* =========================================================
+           AFFICHER TOUS LES CHAPITRES
+        ========================================================= */
+
+        function renderAllChapters() {
+
+            for (
+                let i = 1;
+                i <= state.chapters.length;
+                i++
+            ) {
+
+                renderChapter(i);
+
+            }
+
+            updateProgress();
+
+        }
+
+
+        /* =========================================================
+           VARIABLES VIDÉO
+        ========================================================= */
+
+        let videoInterval = null;
+
+
+        /* =========================================================
+           OUVRIR VIDÉO
+        ========================================================= */
+
+        function openVideo(
+            chapterIndex,
+            videoIndex
+        ) {
+
+            const chapter =
+                state.chapters[
+                    chapterIndex - 1
+                ];
+
+
+            const video =
+                chapter.videos[
+                    videoIndex
+                ];
+
+
+            if (video.completed) return;
+
+
+            const videoUrl =
+                VIDEO_URLS[
+                    video.id
+                ];
+
+
+            if (!videoUrl) {
+
+                showToast(
+                    '❌ Vidéo introuvable. Vérifiez le dossier WEB.',
+                    'error'
+                );
+
+                return;
+
+            }
+
+
+            const modal =
+                document.getElementById(
+                    'videoModal'
+                );
+
+
+            const modalVideo =
+                document.getElementById(
+                    'modalVideo'
+                );
+
+
+            const modalSource =
+                document.getElementById(
+                    'modalVideoSource'
+                );
+
+
+            const modalTitle =
+                document.getElementById(
+                    'modalVideoTitle'
+                );
+
+
+            modalSource.src =
+                videoUrl;
+
+
+            modalVideo.load();
+
+
+            modalTitle.textContent =
+                `${video.id}. ${video.title}`;
+
+
+            modal.classList.add('active');
+
+
+            state.currentVideo = {
+
+                chapterIndex,
+                videoIndex,
+                video
+
+            };
+
+
+            /* Volume */
+
+            modalVideo.volume = 1;
+
+            modalVideo.muted = false;
+
+
+            document
+                .getElementById('volumeSlider')
+                .value = 1;
+
+
+            updateVolumeIcon();
+
+
+            /* Contrôles */
+
+            document
+                .getElementById('playPauseIcon')
+                .className =
+                'fas fa-play';
+
+
+            document
+                .getElementById('progressFillCustom')
+                .style.width =
+                '0%';
+
+
+            document
+                .getElementById('timeDisplay')
+                .textContent =
+                '00:00 / 00:00';
+
+
+            document
+                .getElementById('videoControls')
+                .classList.add('show');
+
+
+            document
+                .getElementById('videoProgressBar')
+                .classList.add('show');
+
+
+            modalVideo
+                .play()
+                .catch(() => {});
+
+
+            updatePlayPauseIcon();
+
+
+            modalVideo.onended =
+                function () {
+
+                    completeVideo(
+                        chapterIndex,
+                        videoIndex
+                    );
+
+                    closeVideoModal();
+
+                };
+
+
+            modalVideo.onerror =
+                function () {
+
+                    showToast(
+                        '❌ Erreur de chargement de la vidéo.',
+                        'error'
+                    );
+
+                    closeVideoModal();
+
+                };
+
+
+            if (videoInterval) {
+
+                clearInterval(videoInterval);
+
+            }
+
+
+            videoInterval =
+                setInterval(
+                    updateVideoProgress,
+                    500
+                );
+
+
+            modalVideo.onloadedmetadata =
+                function () {
+
+                    updateTimeDisplay();
+
+                };
+
+
+            setupProgressBar();
+
+        }
+
+
+        /* =========================================================
+           BARRE PROGRESSION
+        ========================================================= */
+
+        function setupProgressBar() {
+
+            const progressBar =
+                document.getElementById(
+                    'videoProgressBar'
+                );
+
+
+            progressBar.onclick =
+                function (e) {
+
+                    const video =
+                        document.getElementById(
+                            'modalVideo'
+                        );
+
+
+                    if (
+                        !video.duration ||
+                        !isFinite(video.duration)
+                    ) return;
+
+
+                    const rect =
+                        this.getBoundingClientRect();
+
+
+                    const pos =
+                        (
+                            e.clientX -
+                            rect.left
+                        ) /
+                        rect.width;
+
+
+                    video.currentTime =
+                        pos *
+                        video.duration;
+
+                };
+
+        }
+
+
+        /* =========================================================
+           PROGRESSION VIDÉO
+        ========================================================= */
+
+        function updateVideoProgress() {
+
+            const video =
+                document.getElementById(
+                    'modalVideo'
+                );
+
+
+            if (
+                !video ||
+                !video.duration ||
+                !isFinite(video.duration)
+            ) return;
+
+
+            const percent =
+                (
+                    video.currentTime /
+                    video.duration
+                ) * 100;
+
+
+            document
+                .getElementById(
+                    'progressFillCustom'
+                )
+                .style.width =
+                `${percent}%`;
+
+
+            updateTimeDisplay();
+
+        }
+
+
+        /* =========================================================
+           TEMPS
+        ========================================================= */
+
+        function updateTimeDisplay() {
+
+            const video =
+                document.getElementById(
+                    'modalVideo'
+                );
+
+
+            if (!video) return;
+
+
+            const current =
+                formatTime(
+                    video.currentTime
+                );
+
+
+            const total =
+                formatTime(
+                    video.duration
+                );
+
+
+            document
+                .getElementById(
+                    'timeDisplay'
+                )
+                .textContent =
+                `${current} / ${total}`;
+
+        }
+
+
+        function formatTime(seconds) {
+
+            if (
+                isNaN(seconds) ||
+                !isFinite(seconds)
+            ) {
+
+                return '00:00';
+
+            }
+
+
+            const mins =
+                Math.floor(
+                    seconds / 60
+                );
+
+
+            const secs =
+                Math.floor(
+                    seconds % 60
+                );
+
+
+            return `${
+                String(mins).padStart(2, '0')
+            }:${
+                String(secs).padStart(2, '0')
+            }`;
+
+        }
+
+
+        /* =========================================================
+           PLAY / PAUSE
+        ========================================================= */
+
+        function togglePlayPause() {
+
+            const video =
+                document.getElementById(
+                    'modalVideo'
+                );
+
+
+            if (video.paused) {
+
+                video
+                    .play()
+                    .catch(() => {});
+
+            } else {
+
+                video.pause();
+
+            }
+
+
+            updatePlayPauseIcon();
+
+        }
+
+
+        function updatePlayPauseIcon() {
+
+            const video =
+                document.getElementById(
+                    'modalVideo'
+                );
+
+
+            const icon =
+                document.getElementById(
+                    'playPauseIcon'
+                );
+
+
+            if (video.paused) {
+
+                icon.className =
+                    'fas fa-play';
+
+            } else {
+
+                icon.className =
+                    'fas fa-pause';
+
+            }
+
+        }
+
+
+        /* =========================================================
+           AVANCER / RECULER
+        ========================================================= */
+
+        function skipVideo(seconds) {
+
+            const video =
+                document.getElementById(
+                    'modalVideo'
+                );
+
+
+            if (!video) return;
+
+
+            if (
+                !video.duration ||
+                !isFinite(video.duration)
+            ) return;
+
+
+            video.currentTime =
+                Math.max(
+                    0,
+                    Math.min(
+                        video.duration,
+                        video.currentTime +
+                        seconds
+                    )
+                );
+
+
+            updateVideoProgress();
+
+        }
+
+
+        /* =========================================================
+           VOLUME
+        ========================================================= */
+
+        function changeVolume(value) {
+
+            const video =
+                document.getElementById(
+                    'modalVideo'
+                );
+
+
+            const volume =
+                parseFloat(value);
+
+
+            video.volume =
+                volume;
+
+
+            video.muted =
+                volume === 0;
+
+
+            updateVolumeIcon();
+
+        }
+
+
+        function toggleMute() {
+
+            const video =
+                document.getElementById(
+                    'modalVideo'
+                );
+
+
+            video.muted =
+                !video.muted;
+
+
+            if (video.muted) {
+
+                document
+                    .getElementById(
+                        'volumeSlider'
+                    )
+                    .value = 0;
+
+            } else {
+
+                if (video.volume === 0) {
+
+                    video.volume = 1;
+
+                }
+
+                document
+                    .getElementById(
+                        'volumeSlider'
+                    )
+                    .value =
+                    video.volume;
+
+            }
+
+
+            updateVolumeIcon();
+
+        }
+
+
+        function updateVolumeIcon() {
+
+            const video =
+                document.getElementById(
+                    'modalVideo'
+                );
+
+
+            const icon =
+                document.getElementById(
+                    'volumeIcon'
+                );
+
+
+            if (
+                video.muted ||
+                video.volume === 0
+            ) {
+
+                icon.className =
+                    'fas fa-volume-xmark';
+
+            } else if (
+                video.volume < 0.5
+            ) {
+
+                icon.className =
+                    'fas fa-volume-low';
+
+            } else {
+
+                icon.className =
+                    'fas fa-volume-high';
+
+            }
+
+        }
+
+
+        /* =========================================================
+           PLEIN ÉCRAN
+        ========================================================= */
+
+        function toggleFullscreen() {
+
+            const container =
+                document.getElementById(
+                    'videoPlayerContainer'
+                );
+
+
+            if (!document.fullscreenElement) {
+
+                if (
+                    container.requestFullscreen
+                ) {
+
+                    container
+                        .requestFullscreen()
+                        .catch(() => {});
+
+                } else if (
+                    container.webkitRequestFullscreen
+                ) {
+
+                    container.webkitRequestFullscreen();
+
+                }
+
+
+                document
+                    .getElementById(
+                        'fullscreenIcon'
+                    )
+                    .className =
+                    'fas fa-compress';
+
+            } else {
+
+                if (document.exitFullscreen) {
+
+                    document.exitFullscreen();
+
+                }
+
+
+                document
+                    .getElementById(
+                        'fullscreenIcon'
+                    )
+                    .className =
+                    'fas fa-expand';
+
+            }
+
+        }
+
+
+        /* =========================================================
+           DÉTECTION SORTIE PLEIN ÉCRAN
+        ========================================================= */
+
+        document.addEventListener(
+            'fullscreenchange',
+            function () {
+
+                const icon =
+                    document.getElementById(
+                        'fullscreenIcon'
+                    );
+
+
+                if (document.fullscreenElement) {
+
+                    icon.className =
+                        'fas fa-compress';
+
+                } else {
+
+                    icon.className =
+                        'fas fa-expand';
+
+                }
+
+            }
+        );
+
+
+        /* =========================================================
+           FERMER LA VIDÉO
+        ========================================================= */
+
+        function closeVideoModal(event) {
+
+            if (
+                event &&
+                event.target !== event.currentTarget
+            ) {
+
+                return;
+
+            }
+
+
+            const modal =
+                document.getElementById(
+                    'videoModal'
+                );
+
+
+            const video =
+                document.getElementById(
+                    'modalVideo'
+                );
+
+
+            if (
+                document.fullscreenElement
+            ) {
+
+                document
+                    .exitFullscreen()
+                    .catch(() => {});
+
+            }
+
+
+            video.pause();
+
+            video.currentTime = 0;
+
+            modal.classList.remove(
+                'active'
+            );
+
+
+            state.currentVideo = null;
+
+
+            if (videoInterval) {
+
+                clearInterval(videoInterval);
+
+                videoInterval = null;
+
+            }
+
+
+            document
+                .getElementById(
+                    'fullscreenIcon'
+                )
+                .className =
+                'fas fa-expand';
+
+        }
+
+
+        /* =========================================================
+           TERMINER UNE VIDÉO
+        ========================================================= */
+
+        function completeVideo(
+            chapterIndex,
+            videoIndex
+        ) {
+
+            const chapter =
+                state.chapters[
+                    chapterIndex - 1
+                ];
+
+
+            const video =
+                chapter.videos[
+                    videoIndex
+                ];
+
+
+            if (video.completed) return;
+
+
+            video.completed = true;
+
+
+            state.videoCompleted[
+                video.id
+            ] = true;
+
+
+            showToast(
+                `✅ "${video.title}" terminée !`,
+                'success'
+            );
+
+
+            renderAllChapters();
+
+            saveState();
+
+        }
+
+
+        /* =========================================================
+           BOUTON CONTINUER
+        ========================================================= */
+
+        function updateContinueButton() {
+
+            const btn =
+                document.getElementById(
+                    'continueBtn'
+                );
+
+
+            for (
+                const chapter
+                of state.chapters
+            ) {
+
+                for (
+                    const video
+                    of chapter.videos
+                ) {
+
+                    if (!video.completed) {
+
+                        btn.innerHTML = `
+
+                            <i class="fas fa-play"></i>
+
+                            Continuer :
+                            ${video.title}
+
+                        `;
+
+
+                        btn.onclick =
+                            () => {
+
+                                const chIdx =
+                                    state.chapters
+                                        .indexOf(
+                                            chapter
+                                        ) + 1;
+
+
+                                const vidIdx =
+                                    chapter.videos
+                                        .indexOf(
+                                            video
+                                        );
+
+
+                                openVideo(
+                                    chIdx,
+                                    vidIdx
+                                );
+
+                            };
+
+
+                        return;
+
+                    }
+
+                }
+
+            }
+
+
+            btn.innerHTML = `
+
+                <i class="fas fa-check-circle"></i>
+
+                Formation terminée !
+
+            `;
+
+
+            btn.onclick =
+                () => {
+
+                    showToast(
+                        '🎉 Félicitations ! Formation terminée !',
+                        'success'
+                    );
+
+                };
+
+        }
+
+
+        /* =========================================================
+           NOTES
+        ========================================================= */
+
+        function initNotes() {
+
+            const textarea =
+                document.getElementById(
+                    'noteTextarea'
+                );
+
+
+            const savedNote =
+                localStorage.getItem(
+                    'skillora_web_note'
+                );
+
+
+            if (savedNote) {
+
+                textarea.value =
+                    savedNote;
+
+            }
+
+
+            document
+                .getElementById(
+                    'saveNoteBtn'
+                )
+                .addEventListener(
+                    'click',
+                    function () {
+
+                        localStorage.setItem(
+                            'skillora_web_note',
+                            textarea.value
+                        );
+
+
+                        showToast(
+                            '✅ Notes sauvegardées !',
+                            'success'
+                        );
+
+                    }
+                );
+
+        }
+
+
+        /* =========================================================
+           PROTECTION
+        ========================================================= */
+
+        document.addEventListener(
+            'contextmenu',
+            function (e) {
+
+                e.preventDefault();
+
+            }
+        );
+
+
+        document.addEventListener(
+            'dragstart',
+            function (e) {
+
+                if (
+                    e.target.tagName ===
+                    'VIDEO'
+                ) {
+
+                    e.preventDefault();
+
+                }
+
+            }
+        );
+
+
+        /* =========================================================
+           RACCOURCIS CLAVIER
+        ========================================================= */
+
+        document.addEventListener(
+            'keydown',
+            function (e) {
+
+                const modal =
+                    document.getElementById(
+                        'videoModal'
+                    );
+
+
+                if (
+                    !modal.classList.contains(
+                        'active'
+                    )
+                ) {
+
+                    return;
+
+                }
+
+
+                if (
+                    e.ctrlKey &&
+                    (
+                        e.key === 's' ||
+                        e.key === 'u'
+                    )
+                ) {
+
+                    e.preventDefault();
+
+                    showToast(
+                        '🔒 Action désactivée',
+                        'info'
+                    );
+
+                    return;
+
+                }
+
+
+                if (
+                    e.ctrlKey &&
+                    e.shiftKey &&
+                    (
+                        e.key === 'I' ||
+                        e.key === 'J' ||
+                        e.key === 'C'
+                    )
+                ) {
+
+                    e.preventDefault();
+
+                    return;
+
+                }
+
+
+                if (
+                    e.key === 'F12'
+                ) {
+
+                    e.preventDefault();
+
+                    return;
+
+                }
+
+
+                if (
+                    e.key === ' '
+                ) {
+
+                    e.preventDefault();
+
+                    togglePlayPause();
+
+                }
+
+
+                if (
+                    e.key === 'ArrowRight'
+                ) {
+
+                    e.preventDefault();
+
+                    skipVideo(5);
+
+                }
+
+
+                if (
+                    e.key === 'ArrowLeft'
+                ) {
+
+                    e.preventDefault();
+
+                    skipVideo(-5);
+
+                }
+
+
+                if (
+                    e.key === 'f' ||
+                    e.key === 'F'
+                ) {
+
+                    e.preventDefault();
+
+                    toggleFullscreen();
+
+                }
+
+
+                if (
+                    e.key === 'Escape'
+                ) {
+
+                    closeVideoModal();
+
+                }
+
+            }
+        );
+
+
+        /* =========================================================
+           INITIALISATION
+        ========================================================= */
+
+        function init() {
+
+            loadState();
+
+
+            state.chapters.forEach(
+                chapter => {
+
+                    chapter.videos.forEach(
+                        video => {
+
+                            if (
+                                state.videoCompleted[
+                                    video.id
+                                ]
+                            ) {
+
+                                video.completed =
+                                    true;
+
+                            }
+
+                        }
+                    );
+
+                }
+            );
+
+
+            renderAllChapters();
+
+            updateContinueButton();
+
+            initNotes();
+
+
+            console.log(
+                'Skillora - Formation Développement Web'
+            );
+
+            console.log(
+                'Vidéos chargées depuis le dossier WEB/'
+            );
+
+        }
+
+
+        document.addEventListener(
+            'DOMContentLoaded',
+            init
+        );
+
+    </script>
+
+</body>
+</html>

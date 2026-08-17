@@ -1,0 +1,1393 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Skillora · Connexion</title>
+
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Font Awesome -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+  />
+
+  <style>
+
+    /* =========================================================
+       PALETTE SKILLORA
+       ========================================================= */
+
+    :root {
+      --skillora-dark: #040419;
+      --skillora-medium: #10102E;
+      --skillora-accent: #FBB03B;
+      --skillora-accent-hover: #E39A25;
+      --skillora-white: #FFFFFF;
+    }
+
+
+    /* =========================================================
+       BODY
+       ========================================================= */
+
+    body {
+      background:
+        linear-gradient(
+          145deg,
+          var(--skillora-dark) 0%,
+          var(--skillora-medium) 100%
+        );
+
+      min-height: 100vh;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      font-family:
+        'Inter',
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        'Segoe UI',
+        sans-serif;
+
+      margin: 0;
+    }
+
+
+    /* =========================================================
+       CARTE DE CONNEXION
+       ========================================================= */
+
+    .login-card {
+
+      background: rgba(255, 255, 255, 0.97);
+
+      backdrop-filter: blur(6px);
+
+      border-radius: 2.5rem;
+
+      box-shadow:
+        0 30px 50px -20px rgba(0, 0, 0, 0.65);
+
+      border:
+        1px solid rgba(251, 176, 59, 0.25);
+
+      transition: all 0.2s;
+
+      width: 100%;
+
+      max-width: 420px;
+    }
+
+
+    .login-card:hover {
+
+      border-color:
+        rgba(251, 176, 59, 0.55);
+
+    }
+
+
+    /* =========================================================
+       GROUPE INPUT
+       ========================================================= */
+
+    .input-group {
+
+      position: relative;
+
+    }
+
+
+    .input-group i {
+
+      position: absolute;
+
+      left: 16px;
+
+      top: 50%;
+
+      transform: translateY(-50%);
+
+      color: var(--skillora-dark);
+
+      opacity: 0.6;
+
+      transition: all 0.2s;
+
+      z-index: 2;
+    }
+
+
+    /* =========================================================
+       INPUT
+       ========================================================= */
+
+    .input-group input {
+
+      width: 100%;
+
+      padding:
+        0.9rem
+        1rem
+        0.9rem
+        3rem;
+
+      border:
+        2px solid #e2e8f0;
+
+      border-radius: 1.25rem;
+
+      font-size: 1rem;
+
+      background: white;
+
+      transition: all 0.2s;
+
+      outline: none;
+
+      box-sizing: border-box;
+    }
+
+
+    .input-group input:focus {
+
+      border-color:
+        var(--skillora-accent);
+
+      box-shadow:
+        0 0 0 4px
+        rgba(251, 176, 59, 0.20);
+
+    }
+
+
+    .input-group input:focus + i {
+
+      color:
+        var(--skillora-accent);
+
+      opacity: 1;
+
+    }
+
+
+    /* =========================================================
+       BOUTON CONNEXION
+       ========================================================= */
+
+    .btn-login {
+
+      background:
+        var(--skillora-accent);
+
+      color: white;
+
+      font-weight: 700;
+
+      padding:
+        0.9rem
+        1.5rem;
+
+      border-radius: 1.5rem;
+
+      border: none;
+
+      width: 100%;
+
+      font-size: 1.1rem;
+
+      transition: all 0.25s;
+
+      cursor: pointer;
+
+      box-shadow:
+        0 8px 18px
+        rgba(251, 176, 59, 0.35);
+
+      letter-spacing: 0.5px;
+    }
+
+
+    .btn-login:hover {
+
+      background:
+        var(--skillora-accent-hover);
+
+      transform:
+        translateY(-2px);
+
+      box-shadow:
+        0 12px 24px
+        rgba(251, 176, 59, 0.45);
+
+    }
+
+
+    .btn-login:active {
+
+      transform:
+        scale(0.97);
+
+    }
+
+
+    /* =========================================================
+       BOUTON AFFICHER MOT DE PASSE
+       ========================================================= */
+
+    .toggle-password {
+
+      position: absolute;
+
+      right: 16px;
+
+      top: 50%;
+
+      transform:
+        translateY(-50%);
+
+      background: transparent;
+
+      border: none;
+
+      color: #64748b;
+
+      cursor: pointer;
+
+      font-size: 1.1rem;
+
+      padding:
+        4px 6px;
+
+      border-radius: 30px;
+
+      transition: all 0.15s;
+
+      z-index: 5;
+    }
+
+
+    .toggle-password:hover {
+
+      color:
+        var(--skillora-dark);
+
+      background:
+        rgba(4, 4, 25, 0.06);
+
+    }
+
+
+    /* =========================================================
+       MESSAGE ERREUR
+       ========================================================= */
+
+    .error-msg {
+
+      color: #dc2626;
+
+      font-size: 0.9rem;
+
+      margin-top: 0.5rem;
+
+      display: flex;
+
+      align-items: center;
+
+      gap: 0.4rem;
+
+      opacity: 0;
+
+      transition: opacity 0.3s;
+
+      min-height: 1.8rem;
+    }
+
+
+    .error-msg.show {
+
+      opacity: 1;
+
+    }
+
+
+    /* =========================================================
+       LOGO
+       ========================================================= */
+
+    .logo-skillora {
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      gap: 12px;
+
+      margin-bottom: 10px;
+    }
+
+
+    .logo-skillora img {
+
+      width: 58px;
+
+      height: 58px;
+
+      object-fit: cover;
+
+      border-radius: 10px;
+
+      display: block;
+    }
+
+
+    /* =========================================================
+       TEXTE FOOTER
+       ========================================================= */
+
+    .footer-text {
+
+      color: #64748b;
+
+      font-size: 0.85rem;
+    }
+
+
+    .footer-text a {
+
+      color:
+        var(--skillora-accent);
+
+      font-weight: 600;
+
+      text-decoration: none;
+    }
+
+
+    .footer-text a:hover {
+
+      text-decoration: underline;
+
+    }
+
+
+    /* =========================================================
+       BADGES
+       ========================================================= */
+
+    .user-badge {
+
+      display: inline-block;
+
+      padding:
+        2px 10px;
+
+      border-radius: 20px;
+
+      font-size: 0.7rem;
+
+      font-weight: 600;
+
+      margin:
+        0 2px;
+    }
+
+
+    .badge-dev {
+
+      background: #dbeafe;
+
+      color: #1e40af;
+
+    }
+
+
+    .badge-ia {
+
+      background: #f3e8ff;
+
+      color: #6b21a5;
+
+    }
+
+
+    .badge-bureau {
+
+      background: #d1fae5;
+
+      color: #065f46;
+
+    }
+
+
+    .badge-admin {
+
+      background: #fef3c7;
+
+      color: #92400e;
+
+    }
+
+
+    /* =========================================================
+       ANIMATION ERREUR
+       ========================================================= */
+
+    @keyframes shake {
+
+      0%,
+      100% {
+        transform: translateX(0);
+      }
+
+      25% {
+        transform: translateX(-10px);
+      }
+
+      75% {
+        transform: translateX(10px);
+      }
+
+    }
+
+
+    /* =========================================================
+       RESPONSIVE MOBILE
+       ========================================================= */
+
+    @media (max-width: 480px) {
+
+      body {
+
+        padding:
+          20px;
+
+      }
+
+
+      .login-card {
+
+        border-radius:
+          2rem;
+
+        max-width:
+          100%;
+
+      }
+
+
+      .logo-skillora img {
+
+        width: 52px;
+
+        height: 52px;
+
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+  <!-- =========================================================
+       CARTE DE CONNEXION
+       ========================================================= -->
+
+  <div class="login-card p-8 md:p-10 mx-4">
+
+
+    <!-- =======================================================
+         LOGO + TITRE
+         ======================================================= -->
+
+    <div class="flex flex-col items-center text-center mb-6">
+
+
+      <div class="logo-skillora">
+
+
+        <!--
+          VOTRE LOGO SKILLORA
+
+          IMPORTANT :
+          logo-skillora.png doit être dans
+          le même dossier que ce fichier HTML.
+        -->
+
+        <img
+          src="logo/logo.png"
+          alt="Logo Skillora"
+        />
+
+
+        <span
+          class="text-3xl font-bold"
+          style="color: #040419;"
+        >
+
+          Skillora<span
+            style="color: #FBB03B;"
+          >.</span>
+
+        </span>
+
+      </div>
+
+
+      <h2
+        class="text-xl font-semibold"
+        style="color: #040419;"
+      >
+
+        Connexion
+
+      </h2>
+
+
+      <p class="text-sm text-gray-500">
+
+        Entrez vos identifiants pour accéder
+
+      </p>
+
+
+    </div>
+
+
+    <!-- =======================================================
+         FORMULAIRE
+         ======================================================= -->
+
+    <form
+      id="loginForm"
+      class="space-y-5"
+      autocomplete="off"
+    >
+
+
+      <!-- =====================================================
+           IDENTIFIANT
+           ===================================================== -->
+
+      <div class="input-group">
+
+        <i class="fas fa-user"></i>
+
+
+        <input
+          type="text"
+          id="loginInput"
+          placeholder="Identifiant"
+          required
+          autocomplete="username"
+          class="pl-12"
+        />
+
+      </div>
+
+
+      <!-- =====================================================
+           MOT DE PASSE
+           ===================================================== -->
+
+      <div class="input-group">
+
+        <i class="fas fa-lock"></i>
+
+
+        <input
+          type="password"
+          id="passwordInput"
+          placeholder="Mot de passe"
+          required
+          autocomplete="current-password"
+          class="pl-12 pr-12"
+        />
+
+
+        <!-- Bouton afficher / masquer -->
+
+        <button
+          type="button"
+          id="togglePasswordBtn"
+          class="toggle-password"
+          aria-label="Afficher ou masquer le mot de passe"
+        >
+
+          <i
+            class="fas fa-eye"
+            id="eyeIcon"
+          ></i>
+
+        </button>
+
+
+      </div>
+
+
+      <!-- =====================================================
+           MESSAGE D'ERREUR
+           ===================================================== -->
+
+      <div
+        id="errorMessage"
+        class="error-msg"
+      >
+
+        <i class="fas fa-circle-exclamation"></i>
+
+        <span id="errorText">
+
+          Identifiant ou mot de passe incorrect.
+
+        </span>
+
+      </div>
+
+
+      <!-- =====================================================
+           BOUTON CONNEXION
+           ===================================================== -->
+
+      <button
+        type="submit"
+        class="btn-login"
+      >
+
+        <i
+          class="fas fa-arrow-right-to-bracket mr-2"
+        ></i>
+
+        Se connecter
+
+      </button>
+
+
+    </form>
+
+
+  </div>
+
+
+
+  <!-- =========================================================
+       JAVASCRIPT
+       ========================================================= -->
+
+  <script>
+
+    (function() {
+
+      "use strict";
+
+
+      /* =======================================================
+         ÉLÉMENTS DOM
+         ======================================================= */
+
+      const loginForm =
+        document.getElementById('loginForm');
+
+      const loginInput =
+        document.getElementById('loginInput');
+
+      const passwordInput =
+        document.getElementById('passwordInput');
+
+      const errorMsg =
+        document.getElementById('errorMessage');
+
+      const errorText =
+        document.getElementById('errorText');
+
+      const toggleBtn =
+        document.getElementById('togglePasswordBtn');
+
+      const eyeIcon =
+        document.getElementById('eyeIcon');
+
+
+
+      /* =======================================================
+         1. AFFICHER / MASQUER LE MOT DE PASSE
+         ======================================================= */
+
+      let passwordVisible = false;
+
+
+      toggleBtn.addEventListener(
+        'click',
+        function(e) {
+
+          e.preventDefault();
+
+
+          passwordVisible =
+            !passwordVisible;
+
+
+          passwordInput.type =
+            passwordVisible
+              ? 'text'
+              : 'password';
+
+
+          eyeIcon.className =
+            passwordVisible
+              ? 'fas fa-eye-slash'
+              : 'fas fa-eye';
+
+
+          passwordInput.focus();
+
+        }
+      );
+
+
+
+      /* =======================================================
+         2. STOCKAGE DU MOT DE PASSE
+         ======================================================= */
+
+      const realValueMap =
+        new WeakMap();
+
+
+      Object.defineProperty(
+        passwordInput,
+        '_realValue',
+        {
+
+          get: function() {
+
+            return (
+              realValueMap.get(this)
+              || ''
+            );
+
+          },
+
+
+          set: function(value) {
+
+            realValueMap.set(
+              this,
+              value
+            );
+
+          },
+
+
+          configurable: true
+
+        }
+      );
+
+
+      passwordInput._realValue =
+        passwordInput.value;
+
+
+
+      /* =======================================================
+         PROTECTION DES LOGS CONSOLE
+         ======================================================= */
+
+      const originalLog =
+        console.log;
+
+      const originalWarn =
+        console.warn;
+
+      const originalError =
+        console.error;
+
+      const originalInfo =
+        console.info;
+
+      const originalDebug =
+        console.debug;
+
+
+
+      function maskPasswordInArgs(args) {
+
+        const password =
+          passwordInput._realValue || '';
+
+
+        if (!password) {
+
+          return args;
+
+        }
+
+
+        return args.map(
+          arg => {
+
+            if (
+              typeof arg === 'string'
+              &&
+              arg.includes(password)
+            ) {
+
+              return arg.replaceAll(
+                password,
+                '••••••'
+              );
+
+            }
+
+
+            if (
+              typeof arg === 'object'
+              &&
+              arg !== null
+            ) {
+
+              try {
+
+                const str =
+                  JSON.stringify(arg);
+
+
+                if (
+                  str.includes(password)
+                ) {
+
+                  const newStr =
+                    str.replaceAll(
+                      password,
+                      '••••••'
+                    );
+
+
+                  return JSON.parse(
+                    newStr
+                  );
+
+                }
+
+              } catch (e) {}
+
+            }
+
+
+            return arg;
+
+          }
+        );
+
+      }
+
+
+
+      function patchConsole(
+        method,
+        original
+      ) {
+
+        console[method] =
+          function(...args) {
+
+            const maskedArgs =
+              maskPasswordInArgs(args);
+
+
+            original.apply(
+              console,
+              maskedArgs
+            );
+
+          };
+
+      }
+
+
+      patchConsole(
+        'log',
+        originalLog
+      );
+
+
+      patchConsole(
+        'warn',
+        originalWarn
+      );
+
+
+      patchConsole(
+        'error',
+        originalError
+      );
+
+
+      patchConsole(
+        'info',
+        originalInfo
+      );
+
+
+      patchConsole(
+        'debug',
+        originalDebug
+      );
+
+
+
+      /* =======================================================
+         CONSOLE.DIR
+         ======================================================= */
+
+      const originalDir =
+        console.dir;
+
+
+      console.dir =
+        function(obj, options) {
+
+          const password =
+            passwordInput._realValue || '';
+
+
+          if (
+            password
+            &&
+            typeof obj === 'object'
+            &&
+            obj !== null
+          ) {
+
+            try {
+
+              const str =
+                JSON.stringify(obj);
+
+
+              if (
+                str.includes(password)
+              ) {
+
+                const newStr =
+                  str.replaceAll(
+                    password,
+                    '••••••'
+                  );
+
+
+                const newObj =
+                  JSON.parse(newStr);
+
+
+                originalDir.call(
+                  console,
+                  newObj,
+                  options
+                );
+
+
+                return;
+
+              }
+
+            } catch (e) {}
+
+          }
+
+
+          originalDir.call(
+            console,
+            obj,
+            options
+          );
+
+        };
+
+
+
+      /* =======================================================
+         CONSOLE.TABLE
+         ======================================================= */
+
+      const originalTable =
+        console.table;
+
+
+      console.table =
+        function(data, columns) {
+
+          const password =
+            passwordInput._realValue || '';
+
+
+          if (
+            password
+            &&
+            (
+              typeof data === 'object'
+              ||
+              Array.isArray(data)
+            )
+          ) {
+
+            try {
+
+              const str =
+                JSON.stringify(data);
+
+
+              if (
+                str.includes(password)
+              ) {
+
+                const newStr =
+                  str.replaceAll(
+                    password,
+                    '••••••'
+                  );
+
+
+                const newData =
+                  JSON.parse(newStr);
+
+
+                originalTable.call(
+                  console,
+                  newData,
+                  columns
+                );
+
+
+                return;
+
+              }
+
+            } catch (e) {}
+
+          }
+
+
+          originalTable.call(
+            console,
+            data,
+            columns
+          );
+
+        };
+
+
+
+      /* =======================================================
+         MISE À JOUR DU MOT DE PASSE
+         ======================================================= */
+
+      passwordInput.addEventListener(
+        'input',
+        function() {
+
+          this._realValue =
+            this.value;
+
+        }
+      );
+
+
+      passwordInput._realValue =
+        passwordInput.value;
+
+
+
+      /* =======================================================
+         CONFIGURATION DES COMPTES
+         =======================================================
+
+         Vous pouvez modifier ici :
+
+         login
+         password
+         redirect
+         label
+
+         ======================================================= */
+
+
+      const users = [
+
+
+        /* =====================================================
+           COMPTE 1 : DÉVELOPPEMENT WEB
+           ===================================================== */
+
+        {
+
+          login: 'devWeb',
+
+          password: '2214',
+
+          redirect: 'devWeb.html',
+
+          label: 'Développement Web'
+
+        },
+
+
+        /* =====================================================
+           COMPTE 2 : IA & OUTILS DIGITAUX
+           ===================================================== */
+
+        {
+
+          login: 'SkilloraAI006',
+
+          password: 'JkL28',
+
+          redirect: 'AISkillora.html',
+
+          label: 'IA & Outils Digitaux'
+
+        },
+
+
+        /* =====================================================
+           COMPTE 3 : BUREAUTIQUE
+           ===================================================== */
+
+        {
+
+          login: 'bureauPro',
+
+          password: '123',
+
+          redirect: 'bureautique.html',
+
+          label: 'Bureautique'
+
+        },
+
+
+        /* =====================================================
+           COMPTE 4 : ADMINISTRATEUR
+           ===================================================== */
+
+        {
+
+          login: 'admin',
+
+          password: 'admin123',
+
+          redirect: 'admin.html',
+
+          label: 'Administration'
+
+        }
+
+
+      ];
+
+
+
+      /* =======================================================
+         GESTION DE LA CONNEXION
+         ======================================================= */
+
+      loginForm.addEventListener(
+        'submit',
+        function(e) {
+
+          e.preventDefault();
+
+
+          const login =
+            loginInput.value.trim();
+
+
+          const password =
+            passwordInput._realValue
+            ||
+            passwordInput.value;
+
+
+
+          /* ===================================================
+             RECHERCHE DE L'UTILISATEUR
+             =================================================== */
+
+          const user =
+            users.find(
+              u =>
+                u.login === login
+                &&
+                u.password === password
+            );
+
+
+
+          /* ===================================================
+             CONNEXION RÉUSSIE
+             =================================================== */
+
+          if (user) {
+
+            window.location.href =
+              user.redirect;
+
+          }
+
+
+          /* ===================================================
+             CONNEXION ÉCHOUÉE
+             =================================================== */
+
+          else {
+
+            const userExists =
+              users.find(
+                u =>
+                  u.login === login
+              );
+
+
+            if (userExists) {
+
+              errorText.textContent =
+                'Mot de passe incorrect.';
+
+            }
+
+            else {
+
+              errorText.textContent =
+                'Identifiant inconnu.';
+
+            }
+
+
+            errorMsg.classList.add(
+              'show'
+            );
+
+
+            loginForm.style.animation =
+              'shake 0.4s ease-in-out';
+
+
+            setTimeout(
+              () => {
+
+                loginForm.style.animation =
+                  '';
+
+              },
+              500
+            );
+
+          }
+
+        }
+      );
+
+
+
+      /* =======================================================
+         CACHER LE MESSAGE D'ERREUR
+         ======================================================= */
+
+      loginInput.addEventListener(
+        'input',
+        function() {
+
+          errorMsg.classList.remove(
+            'show'
+          );
+
+        }
+      );
+
+
+      passwordInput.addEventListener(
+        'input',
+        function() {
+
+          errorMsg.classList.remove(
+            'show'
+          );
+
+
+          this._realValue =
+            this.value;
+
+        }
+      );
+
+
+
+      /* =======================================================
+         MESSAGE CONSOLE
+         ======================================================= */
+
+      console.log(
+        '%c🔒 Skillora : les mots de passe sont masqués dans la console',
+        'font-size:14px; font-weight:bold; color:#FBB03B;'
+      );
+
+
+      window.demoPassword =
+        function() {
+
+          console.log(
+            'Contenu du champ password (valeur réelle masquée) :',
+            passwordInput.value
+          );
+
+
+          console.log(
+            'Objet input :',
+            passwordInput
+          );
+
+
+          console.log(
+            'Valeur stockée dans _realValue :',
+            passwordInput._realValue
+          );
+
+        };
+
+
+      console.log(
+        '💡 Pour tester, tapez demoPassword() dans la console.'
+      );
+
+
+      console.log(
+        '📋 Comptes disponibles : devWeb, ai, bureauPro, admin'
+      );
+
+
+      console.log(
+        '✏️ Pour modifier les identifiants/mots de passe, cherchez le tableau "users" dans le code.'
+      );
+
+
+    })();
+
+  </script>
+
+
+</body>
+</html>

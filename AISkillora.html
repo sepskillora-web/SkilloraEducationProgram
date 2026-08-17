@@ -1,0 +1,5016 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#050518" />
+    <title>Skillora · Formation IA & Outils Digitaux</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
+    <style>
+
+        /* ============================================================
+           PALETTE SKILLORA - RESPECT DU LOGO
+        ============================================================ */
+
+        :root {
+            --skillora-dark: #050518;
+            --skillora-dark-2: #080820;
+            --skillora-medium: #11113A;
+            --skillora-gold: #FFB52E;
+            --skillora-gold-hover: #E9A01F;
+            --skillora-white: #FFFFFF;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #f6f7fb;
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        /* ============================================================
+           COULEURS SKILLORA
+        ============================================================ */
+
+        .bg-skillora-dark {
+            background-color: var(--skillora-dark) !important;
+        }
+
+        .bg-skillora-accent {
+            background-color: var(--skillora-gold) !important;
+        }
+
+        .text-skillora-dark {
+            color: var(--skillora-dark) !important;
+        }
+
+        .text-skillora-accent {
+            color: var(--skillora-gold) !important;
+        }
+
+        /* ============================================================
+           BOUTONS
+        ============================================================ */
+
+        .btn-accent {
+            background-color: var(--skillora-gold);
+            color: var(--skillora-dark);
+            transition: all 0.2s ease;
+            font-weight: 700;
+        }
+
+        .btn-accent:hover {
+            background-color: var(--skillora-gold-hover);
+            transform: scale(1.02);
+        }
+
+        .btn-outline-accent {
+            border: 2px solid var(--skillora-gold);
+            color: var(--skillora-dark);
+            background: transparent;
+            transition: all 0.2s ease;
+        }
+
+        .btn-outline-accent:hover {
+            background: var(--skillora-gold);
+            color: var(--skillora-dark);
+        }
+
+        /* ============================================================
+           LISTE DES VIDÉOS
+        ============================================================ */
+
+        .video-item {
+            background: white;
+            border-radius: 1rem;
+            padding: 0.75rem 1.25rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            border-left: 4px solid var(--skillora-gold);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .video-item:hover {
+            background: #fffaf0;
+            box-shadow: 0 4px 12px rgba(255, 181, 46, 0.18);
+            transform: translateX(4px);
+        }
+
+        .video-item.completed {
+            border-left-color: #22c55e;
+        }
+
+        /* ============================================================
+           CHAPITRES
+        ============================================================ */
+
+        .chapter-card {
+            background: white;
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            border: 1px solid #eef2f6;
+        }
+
+        .chapter-card:hover {
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+            border-color: var(--skillora-gold);
+        }
+
+        /* ============================================================
+           PROGRESSION
+        ============================================================ */
+
+        .progress-bar {
+            height: 6px;
+            background: #e2e8f0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-bar .progress-fill {
+            height: 100%;
+            background: var(--skillora-gold);
+            border-radius: 10px;
+            transition: width 0.5s ease;
+        }
+
+        /* ============================================================
+           MODULES VERROUILLÉS À PARTIR DU MODULE 3
+        ============================================================ */
+
+        .locked-module {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .module-lock-overlay {
+            position: absolute;
+            inset: 0;
+            z-index: 50;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(90, 90, 90, 0.92);
+            border-radius: inherit;
+            min-height: 180px;
+        }
+
+        .module-lock-message {
+            text-align: center;
+            color: white;
+            padding: 20px;
+        }
+
+        .module-lock-message .lock-big {
+            font-size: 35px;
+            margin-bottom: 10px;
+        }
+
+        .module-lock-message p {
+            margin: 8px 0 15px;
+            font-size: 14px;
+        }
+
+        .module-lock-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 22px;
+            border: none;
+            border-radius: 10px;
+            background: #050518;
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: not-allowed;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.25);
+        }
+
+        @media (max-width: 640px) {
+            .module-lock-overlay { min-height: 160px; }
+            .module-lock-button { padding: 10px 16px; font-size: 13px; }
+            .module-lock-message .lock-big { font-size: 28px; }
+        }
+
+        /* ============================================================
+           TOAST
+        ============================================================ */
+
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--skillora-dark);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 1rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.4s ease;
+            z-index: 9999;
+            border-left: 4px solid var(--skillora-gold);
+            max-width: 400px;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* ============================================================
+           BOUTON REGARDER
+        ============================================================ */
+
+        .btn-play-video {
+            background: var(--skillora-gold);
+            color: var(--skillora-dark);
+            border: none;
+            padding: 0.35rem 0.85rem;
+            border-radius: 2rem;
+            font-size: 0.7rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .btn-play-video:hover:not(:disabled) {
+            background: var(--skillora-gold-hover);
+            transform: scale(1.05);
+        }
+
+        .btn-play-video:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn-play-video.playing {
+            background: #22c55e;
+            color: white;
+        }
+
+        /* ============================================================
+           PROTECTION VIDÉO
+        ============================================================ */
+
+        .video-player-container {
+            position: relative;
+            background: #000;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+            width: 100%;
+        }
+
+        .video-player-container video {
+            width: 100%;
+            display: block;
+            background: #000;
+            object-fit: contain;
+        }
+
+        .drive-video-frame {
+            display: block;
+            width: 100%;
+            height: 62vh;
+            min-height: 360px;
+            border: 0;
+            background: #000;
+        }
+
+        @media (max-width: 900px) {
+            .drive-video-frame {
+                height: 58vh;
+                min-height: 300px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .drive-video-frame {
+                width: 100%;
+                height: 56.25vw;
+                min-height: 220px;
+                max-height: 70vh;
+            }
+        }
+
+        video {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            pointer-events: auto;
+            -webkit-touch-callout: none;
+            -webkit-user-drag: none;
+        }
+
+        video::-webkit-media-controls-download-button {
+            display: none;
+        }
+
+        video::-internal-media-controls-download-button {
+            display: none;
+        }
+
+        /* ============================================================
+           MODAL VIDÉO
+        ============================================================ */
+
+        .video-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100dvh;
+            background: rgba(3, 3, 15, 0.97);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+        }
+
+        .video-modal.active {
+            display: flex;
+        }
+
+        .video-modal-content {
+            position: relative;
+            width: 100%;
+            max-width: 1100px;
+            background: #000;
+            border-radius: 1rem;
+            overflow: visible;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+        }
+
+        .video-modal-content video {
+            width: 100%;
+            max-height: 82vh;
+            display: block;
+        }
+
+        /* ============================================================
+           BOUTON QUITTER EN HAUT DE LA VIDÉO
+        ============================================================ */
+
+        .video-modal-close {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            z-index: 100;
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+            background: rgba(5, 5, 24, 0.85);
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            border: 2px solid rgba(255, 181, 46, 0.8);
+            backdrop-filter: blur(8px);
+        }
+
+        .video-modal-close:hover {
+            background: var(--skillora-gold);
+            color: var(--skillora-dark);
+            transform: scale(1.08);
+        }
+
+        /* Texte titre */
+        .video-modal-title {
+            margin-top: 12px;
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        /* ============================================================
+           FILIGRANE
+        ============================================================ */
+
+        .watermark {
+            position: absolute;
+            bottom: 90px;
+            right: 20px;
+            color: rgba(255, 255, 255, 0.18);
+            font-size: 0.8rem;
+            font-weight: 300;
+            pointer-events: none;
+            z-index: 5;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* ============================================================
+           OVERLAY PROTECTION
+        ============================================================ */
+
+        .no-context-menu {
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        .video-protection-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        /* ============================================================
+           BADGE IA
+        ============================================================ */
+
+        .badge-ia {
+            background: var(--skillora-gold);
+            color: var(--skillora-dark);
+        }
+
+        .border-ia {
+            border-color: var(--skillora-gold);
+        }
+
+        .text-ia {
+            color: var(--skillora-gold);
+        }
+
+        .bg-ia {
+            background: var(--skillora-gold);
+            color: var(--skillora-dark);
+        }
+
+        .bg-ia:hover {
+            background: var(--skillora-gold-hover);
+        }
+
+        .btn-ia {
+            background: var(--skillora-gold);
+            color: var(--skillora-dark);
+            transition: all 0.2s ease;
+            font-weight: 700;
+        }
+
+        .btn-ia:hover {
+            background: var(--skillora-gold-hover);
+            transform: scale(1.02);
+        }
+
+        /* ============================================================
+           CONTROLES VIDÉO
+        ============================================================ */
+
+        .video-controls {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+
+            background:
+                linear-gradient(
+                    transparent,
+                    rgba(0, 0, 0, 0.92)
+                );
+
+            padding: 55px 20px 18px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+
+            z-index: 20;
+
+            opacity: 0;
+            transition: opacity 0.35s ease;
+
+            flex-wrap: wrap;
+        }
+
+        .video-player-container:hover .video-controls,
+        .video-controls.show {
+            opacity: 1;
+        }
+
+        .video-controls button {
+            background: rgba(255, 255, 255, 0.14);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 44px;
+            height: 44px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            cursor: pointer;
+            transition: all 0.2s ease;
+
+            font-size: 1rem;
+
+            backdrop-filter: blur(5px);
+        }
+
+        .video-controls button:hover {
+            background: rgba(255, 181, 46, 0.9);
+            color: var(--skillora-dark);
+            transform: scale(1.08);
+        }
+
+        .video-controls button.primary-btn {
+            width: 56px;
+            height: 56px;
+            font-size: 1.4rem;
+            background: var(--skillora-gold);
+            color: var(--skillora-dark);
+        }
+
+        .video-controls button.primary-btn:hover {
+            background: var(--skillora-gold-hover);
+        }
+
+        /* ============================================================
+           VOLUME
+        ============================================================ */
+
+        .volume-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            background: rgba(255, 255, 255, 0.10);
+            padding: 5px 10px;
+            border-radius: 25px;
+
+            backdrop-filter: blur(5px);
+        }
+
+        .volume-container button {
+            width: 36px;
+            height: 36px;
+            flex-shrink: 0;
+        }
+
+        .volume-slider {
+            width: 90px;
+            height: 4px;
+            cursor: pointer;
+            accent-color: var(--skillora-gold);
+        }
+
+        .volume-value {
+            color: white;
+            font-size: 0.7rem;
+            min-width: 32px;
+            text-align: center;
+        }
+
+        /* ============================================================
+           TEMPS
+        ============================================================ */
+
+        .video-controls .time-display {
+            color: white;
+            font-size: 0.85rem;
+            font-family: monospace;
+            min-width: 100px;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 5px 12px;
+            border-radius: 20px;
+            backdrop-filter: blur(4px);
+        }
+
+        /* ============================================================
+           BOUTON FERMER
+        ============================================================ */
+
+        .video-controls .close-btn {
+            background: rgba(255, 70, 70, 0.25);
+        }
+
+        .video-controls .close-btn:hover {
+            background: #ef4444;
+            color: white;
+        }
+
+        /* ============================================================
+           PLEIN ÉCRAN
+        ============================================================ */
+
+        .video-controls .fullscreen-btn {
+            background: rgba(255, 255, 255, 0.10);
+        }
+
+        .video-controls .fullscreen-btn:hover {
+            background: var(--skillora-gold);
+            color: var(--skillora-dark);
+        }
+
+        /* ============================================================
+           BARRE DE PROGRESSION VIDÉO
+        ============================================================ */
+
+        .video-progress-bar {
+            position: absolute;
+            bottom: 72px;
+            left: 20px;
+            right: 20px;
+
+            height: 5px;
+
+            background: rgba(255, 255, 255, 0.2);
+
+            border-radius: 4px;
+            cursor: pointer;
+
+            z-index: 20;
+
+            opacity: 0;
+
+            transition: opacity 0.35s ease;
+        }
+
+        .video-player-container:hover .video-progress-bar,
+        .video-progress-bar.show {
+            opacity: 1;
+        }
+
+        .video-progress-bar .progress-fill-custom {
+            height: 100%;
+            background: var(--skillora-gold);
+            border-radius: 4px;
+            width: 0%;
+            transition: width 0.1s linear;
+        }
+
+        .video-progress-bar .progress-handle {
+            position: absolute;
+            top: 50%;
+            transform: translate(-50%, -50%);
+
+            width: 14px;
+            height: 14px;
+
+            background: var(--skillora-gold);
+
+            border-radius: 50%;
+
+            border: 2px solid white;
+
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+
+            display: none;
+        }
+
+        .video-progress-bar:hover .progress-handle {
+            display: block;
+        }
+
+        .video-modal-content:hover .video-controls,
+        .video-modal-content:hover .video-progress-bar {
+            opacity: 1;
+        }
+
+        /* Le lecteur Google Drive possède ses propres contrôles. */
+        #videoModal .video-controls,
+        #videoModal .video-progress-bar {
+            display: none !important;
+        }
+
+        .video-controls .skip-label {
+            font-size: 0.6rem;
+            opacity: 0.8;
+            display: block;
+            margin-top: 2px;
+        }
+
+        /* ============================================================
+           MODE PLEIN ÉCRAN
+        ============================================================ */
+
+        .video-player-container:fullscreen {
+            width: 100vw;
+            height: 100vh;
+            height: 100dvh;
+            max-width: none;
+            border-radius: 0;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .video-player-container:fullscreen video {
+            width: 100%;
+            height: 100%;
+            max-height: none;
+            object-fit: contain;
+        }
+
+        .video-player-container:-webkit-full-screen {
+            width: 100vw;
+            height: 100vh;
+            background: #000;
+        }
+
+        .video-player-container:-webkit-full-screen video {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+
+        /* ============================================================
+           EXERCICES PAR CHAPITRE
+        ============================================================ */
+
+        .exercise-box {
+            margin-top: 1.25rem;
+            padding: 1rem;
+            background: linear-gradient(135deg, #fffaf0, #ffffff);
+            border: 1px solid #f3d58b;
+            border-radius: 1rem;
+        }
+
+        .exercise-box .exercise-title {
+            color: var(--skillora-dark);
+            font-weight: 800;
+            font-size: 1rem;
+        }
+
+        .exercise-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.65rem;
+            margin-top: 0.85rem;
+        }
+
+        .exercise-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.65rem 0.9rem;
+            border-radius: 0.75rem;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-decoration: none;
+            border: 1px solid #e5e7eb;
+            background: #fff;
+            color: var(--skillora-dark);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .exercise-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .exercise-btn.primary {
+            background: var(--skillora-gold);
+            border-color: var(--skillora-gold);
+        }
+
+        .exercise-btn.pdf i {
+            color: #dc2626;
+        }
+
+        .exercise-btn.image i {
+            color: #2563eb;
+        }
+
+        .exercise-btn.send i {
+            color: #16a34a;
+        }
+
+        /* ============================================================
+           MODAL RÉPONSE EXERCICE
+        ============================================================ */
+
+        .exercise-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 2000;
+            background: rgba(3, 3, 15, 0.82);
+            padding: 20px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .exercise-modal.active {
+            display: flex;
+        }
+
+        .exercise-modal-card {
+            width: 100%;
+            max-width: 650px;
+            max-height: 90vh;
+            overflow-y: auto;
+            background: #fff;
+            border-radius: 1.25rem;
+            padding: 1.5rem;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+        }
+
+        .exercise-modal-card textarea {
+            width: 100%;
+            min-height: 180px;
+            resize: vertical;
+            border: 1px solid #dbe2ea;
+            border-radius: 0.85rem;
+            padding: 0.9rem;
+            outline: none;
+        }
+
+        .exercise-modal-card textarea:focus {
+            border-color: var(--skillora-gold);
+            box-shadow: 0 0 0 3px rgba(255,181,46,0.15);
+        }
+
+        @media (max-width: 640px) {
+            .exercise-actions {
+                flex-direction: column;
+            }
+
+            .exercise-btn {
+                width: 100%;
+            }
+
+            .exercise-modal {
+                padding: 10px;
+            }
+
+            .exercise-modal-card {
+                padding: 1rem;
+            }
+        }
+
+        /* ============================================================
+           TABLETTE
+        ============================================================ */
+
+        @media (max-width: 900px) {
+
+            .video-modal {
+                padding: 20px;
+            }
+
+            .video-modal-content {
+                max-width: 100%;
+            }
+
+            .video-modal-content video {
+                max-height: 75vh;
+            }
+
+            .video-controls {
+                gap: 8px;
+            }
+
+            .volume-slider {
+                width: 70px;
+            }
+        }
+
+        /* ============================================================
+           MOBILE
+        ============================================================ */
+
+        @media (max-width: 640px) {
+
+            .video-modal {
+                padding: 0;
+                align-items: center;
+                background: #000;
+            }
+
+            .video-modal-content {
+                width: 100%;
+                max-width: 100%;
+                border-radius: 0;
+                box-shadow: none;
+            }
+
+            .video-player-container {
+                border-radius: 0;
+                min-height: 220px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .video-modal-content video {
+                width: 100%;
+                max-height: 70vh;
+                object-fit: contain;
+            }
+
+            .video-modal-close {
+                top: 10px;
+                right: 10px;
+                width: 42px;
+                height: 42px;
+                font-size: 0.9rem;
+            }
+
+            .video-modal-title {
+                display: none;
+            }
+
+            .video-controls {
+                padding: 55px 8px 12px;
+                gap: 6px;
+                justify-content: center;
+            }
+
+            .video-controls button {
+                width: 36px;
+                height: 36px;
+                font-size: 0.75rem;
+            }
+
+            .video-controls button.primary-btn {
+                width: 46px;
+                height: 46px;
+                font-size: 1.1rem;
+            }
+
+            .video-controls .time-display {
+                font-size: 0.65rem;
+                min-width: 72px;
+                padding: 4px 7px;
+            }
+
+            .volume-container {
+                padding: 3px 6px;
+                gap: 4px;
+            }
+
+            .volume-container button {
+                width: 32px;
+                height: 32px;
+            }
+
+            .volume-slider {
+                width: 55px;
+            }
+
+            .volume-value {
+                display: none;
+            }
+
+            .video-progress-bar {
+                left: 10px;
+                right: 10px;
+                bottom: 66px;
+                height: 4px;
+            }
+
+            .watermark {
+                bottom: 80px;
+                right: 10px;
+                font-size: 0.55rem;
+            }
+
+            .video-item {
+                padding: 0.7rem;
+                gap: 0.5rem;
+            }
+
+            .video-item .btn-play-video {
+                font-size: 0.65rem;
+                padding: 0.35rem 0.65rem;
+            }
+
+            .chapter-card {
+                padding: 1rem;
+                border-radius: 1rem;
+            }
+
+            .toast {
+                left: 12px;
+                right: 12px;
+                bottom: 15px;
+                max-width: none;
+                font-size: 0.85rem;
+            }
+        }
+
+        /* ============================================================
+           TRÈS PETITS ÉCRANS
+        ============================================================ */
+
+        @media (max-width: 380px) {
+
+            .video-controls {
+                gap: 4px;
+                padding-left: 4px;
+                padding-right: 4px;
+            }
+
+            .video-controls button {
+                width: 32px;
+                height: 32px;
+            }
+
+            .video-controls button.primary-btn {
+                width: 42px;
+                height: 42px;
+            }
+
+            .volume-slider {
+                width: 45px;
+            }
+
+            .video-controls .time-display {
+                min-width: 65px;
+                font-size: 0.6rem;
+            }
+        }
+
+    </style>
+</head>
+
+<body class="no-context-menu">
+
+    <!-- ============================================================
+         TOAST
+    ============================================================ -->
+
+    <div id="toast" class="toast">
+        <div class="flex items-center justify-between">
+            <span id="toastMessage">
+                <i class="fas fa-check-circle text-[#FFB52E] mr-2"></i>
+                Vidéo terminée !
+            </span>
+
+            <span class="toast-close cursor-pointer ml-4 opacity-70 hover:opacity-100"
+                  onclick="hideToast()">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+    </div>
+
+
+    <!-- ============================================================
+         MODAL VIDÉO
+    ============================================================ -->
+
+    <div id="videoModal"
+         class="video-modal"
+         onclick="closeVideoModal(event)">
+
+        <div class="video-modal-content"
+             onclick="event.stopPropagation()">
+
+            <!-- ====================================================
+                 BOUTON QUITTER EN HAUT À DROITE
+            ===================================================== -->
+
+            <button class="video-modal-close"
+                    onclick="closeVideoModal()"
+                    title="Quitter la vidéo"
+                    aria-label="Quitter la vidéo">
+
+                <i class="fas fa-times"></i>
+
+            </button>
+
+
+            <!-- ====================================================
+                 LECTEUR VIDÉO
+            ===================================================== -->
+
+            <div class="video-player-container"
+                 id="videoPlayerContainer">
+
+                <!-- =================================================
+                     LECTEUR GOOGLE DRIVE NATIF
+                     =================================================
+                     Le lecteur Google Drive est utilisé directement.
+                     Il gère lui-même lecture, pause, volume,
+                     plein écran et compatibilité navigateur.
+                ================================================== -->
+
+                <iframe id="driveVideoFrame"
+                        class="drive-video-frame"
+                        src=""
+                        title="Vidéo de formation Skillora"
+                        allow="autoplay; fullscreen; picture-in-picture"
+                        allowfullscreen
+                        loading="eager"
+                        referrerpolicy="no-referrer">
+                </iframe>
+
+                <!-- FILIGRANE -->
+
+                <div class="watermark">
+                    SKILLORA · IA & OUTILS
+                </div>
+
+            </div>
+
+
+            <!-- TITRE -->
+
+            <div id="modalVideoTitle"
+                 class="video-modal-title">
+
+                Chargement...
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ============================================================
+         MODAL ENVOI RÉPONSE EXERCICE
+    ============================================================ -->
+
+    <div id="exerciseModal"
+         class="exercise-modal"
+         onclick="closeExerciseModal(event)">
+
+        <div class="exercise-modal-card"
+             onclick="event.stopPropagation()">
+
+            <div class="flex items-center justify-between mb-4">
+                <div>
+                    <h2 class="text-xl font-bold text-skillora-dark">
+                        <i class="fas fa-paper-plane mr-2"
+                           style="color:#FFB52E;"></i>
+                        Envoyer une réponse
+                    </h2>
+                    <p id="exerciseModalChapter"
+                       class="text-sm text-gray-500 mt-1">
+                        Exercice
+                    </p>
+                </div>
+
+                <button type="button"
+                        onclick="closeExerciseModal()"
+                        class="w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <form id="exerciseResponseForm"
+                  onsubmit="sendExerciseResponse(event)">
+
+                <input type="hidden"
+                       id="exerciseChapterId"
+                       value="">
+
+                <label class="block text-sm font-semibold text-skillora-dark mb-2">
+                    Votre réponse
+                </label>
+
+                <textarea id="exerciseResponse"
+                          required
+                          placeholder="Écrivez votre réponse à l'exercice ici..."></textarea>
+
+                <p class="text-xs text-gray-500 mt-2">
+                    Après avoir cliqué sur « Envoyer », votre messagerie
+                    s'ouvrira avec votre réponse préparée.
+                </p>
+
+                <div class="flex flex-col sm:flex-row gap-3 mt-5">
+                    <button type="button"
+                            onclick="closeExerciseModal()"
+                            class="flex-1 px-5 py-3 rounded-xl bg-gray-100 font-semibold">
+                        Annuler
+                    </button>
+
+                    <button type="submit"
+                            class="flex-1 btn-ia px-5 py-3 rounded-xl font-semibold">
+                        <i class="fas fa-paper-plane mr-2"></i>
+                        Envoyer une réponse
+                    </button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+    <!-- ============================================================
+         HEADER
+    ============================================================ -->
+
+    <header class="bg-skillora-dark shadow-lg border-b-4 sticky top-0 z-50"
+            style="border-color:#FFB52E;">
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3
+                    flex justify-between items-center">
+
+            <!-- LOGO -->
+
+            <div class="flex items-center space-x-3">
+
+                <div class="flex items-center gap-3">
+
+                    <!-- Logo inspiré du logo Skillora -->
+
+                    <svg viewBox="0 0 100 100"
+                         fill="none"
+                         xmlns="http://www.w3.org/2000/svg"
+                         class="w-10 h-10">
+
+                        <path d="M50 5 L90 45 L78 57 L50 29 L35 44 L62 71 L50 83 L10 43 L22 31 L50 59 L65 44 L38 17 Z"
+                              fill="#FFB52E"/>
+
+                        <path d="M30 65 L50 85 L70 65 L62 57 L50 69 L38 57 Z"
+                              fill="#FFB52E"/>
+
+                    </svg>
+
+                    <span class="text-white text-2xl font-bold tracking-wide">
+
+                        Skillora<span style="color:#FFB52E;">.</span>
+
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- NAVIGATION -->
+
+            <nav class="hidden md:flex space-x-6 text-white/90 font-medium">
+
+                <a href="#"
+                   class="hover:text-[#FFB52E] transition">
+                    Accueil
+                </a>
+
+                <a href="#"
+                   class="font-semibold border-b-2 pb-1"
+                   style="color:#FFB52E;border-color:#FFB52E;">
+                    Formations
+                </a>
+
+                <a href="#"
+                   class="hover:text-[#FFB52E] transition">
+                    Progression
+                </a>
+
+                <a href="#"
+                   class="hover:text-[#FFB52E] transition">
+                    Mon compte
+                </a>
+
+            </nav>
+
+
+            <!-- PROFIL -->
+
+            <div class="flex items-center space-x-3">
+
+                <button class="hidden sm:inline-block text-white px-5 py-2
+                               rounded-full font-semibold shadow-md transition"
+                        style="background:#FFB52E;color:#050518;"
+                        onmouseover="this.style.background='#E9A01F'"
+                        onmouseout="this.style.background='#FFB52E'">
+
+                    <i class="fas fa-user mr-2"></i>
+                    Profil
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- ============================================================
+         BANNIÈRE FORMATION
+    ============================================================ -->
+
+    <section class="text-white py-12"
+             style="background:linear-gradient(135deg,#050518,#11113A);">
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+            <div class="flex flex-col md:flex-row items-start
+                        md:items-center justify-between gap-6">
+
+                <div>
+
+                    <div class="flex items-center gap-3 mb-3">
+
+                        <span class="text-xs font-bold px-3 py-1 rounded-full"
+                              style="background:#FFB52E;color:#050518;">
+
+                            INTELLIGENCE ARTIFICIELLE
+
+                        </span>
+
+                        <span class="text-gray-300 text-sm">
+
+                            <i class="fas fa-star mr-1"
+                               style="color:#FFB52E;">
+                            </i>
+
+                            4.9 (312 avis)
+
+                        </span>
+
+                    </div>
+
+
+                    <h1 class="text-3xl md:text-4xl font-bold">
+
+                        <i class="fas fa-brain mr-3"
+                           style="color:#FFB52E;">
+                        </i>
+
+                        IA & Outils Digitaux
+
+                    </h1>
+
+
+                    <p class="text-gray-300 text-lg mt-2 max-w-2xl">
+
+                        Maîtrisez l'intelligence artificielle,
+                        l'automatisation, le no-code et les outils digitaux.
+
+                    </p>
+
+
+                    <div class="flex flex-wrap items-center gap-4 mt-4
+                                text-sm text-gray-300">
+
+                        <span>
+
+                            <i class="fas fa-video mr-2"
+                               style="color:#FFB52E;">
+                            </i>
+
+                            <span id="totalVideos">20</span> vidéos
+
+                        </span>
+
+                        <span>
+
+                            <i class="fas fa-clock mr-2"
+                               style="color:#FFB52E;">
+                            </i>
+
+                            10h de contenu
+
+                        </span>
+
+                        <span>
+
+                            <i class="fas fa-signal mr-2"
+                               style="color:#FFB52E;">
+                            </i>
+
+                            Niveau : Débutant à Avancé
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="flex flex-col sm:flex-row gap-3
+                            w-full md:w-auto">
+
+                    <button id="continueBtn"
+                            class="btn-ia px-6 py-3 rounded-full
+                                   font-semibold shadow-lg
+                                   flex items-center justify-center gap-2">
+
+                        <i class="fas fa-play"></i>
+                        Continuer la formation
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ============================================================
+         PROGRESSION
+    ============================================================ -->
+
+    <section class="bg-white border-b border-gray-200 py-4">
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+            <div class="flex flex-col md:flex-row items-start
+                        md:items-center justify-between gap-4">
+
+                <div class="flex items-center gap-4 w-full md:w-auto">
+
+                    <div class="text-sm">
+
+                        <span class="font-semibold text-skillora-dark">
+                            Progression globale
+                        </span>
+
+                        <span class="text-gray-500 ml-2">
+
+                            <span id="completedCount">0</span>/
+                            <span id="totalVideosCount">20</span> vidéos
+
+                        </span>
+
+                    </div>
+
+                    <div class="progress-bar w-48">
+
+                        <div id="globalProgress"
+                             class="progress-fill"
+                             style="width:0%">
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="flex flex-wrap gap-3 text-sm">
+
+                    <span class="bg-green-100 text-green-800
+                                 px-3 py-1 rounded-full">
+
+                        <i class="fas fa-check-circle mr-1"></i>
+
+                        <span id="completedBadge">0</span>
+                        terminées
+
+                    </span>
+
+
+                    <span class="bg-yellow-100 text-yellow-800
+                                 px-3 py-1 rounded-full">
+
+                        <i class="fas fa-clock mr-1"></i>
+
+                        <span id="inProgressBadge">0</span>
+                        en cours
+
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ============================================================
+         CONTENU PRINCIPAL
+    ============================================================ -->
+
+    <main class="py-10">
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+
+                <!-- =================================================
+                     CHAPITRES
+                ================================================== -->
+
+                <div class="lg:col-span-2 space-y-6">
+
+                    <h2 class="text-2xl font-bold text-skillora-dark
+                               flex items-center gap-2">
+
+                        <i class="fas fa-list-ul"
+                           style="color:#FFB52E;">
+                        </i>
+
+                        Chapitres et vidéos
+
+                    </h2>
+
+
+                    <!-- CHAPITRE 1 -->
+
+                    <div id="chapter1"
+                         class="chapter-card">
+
+                        <div class="flex items-start justify-between mb-3">
+
+                            <div>
+
+                                <h3 class="text-lg font-bold
+                                           text-skillora-dark
+                                           flex items-center gap-2">
+
+                                    <span class="text-xs font-bold px-3 py-1
+                                                 rounded-full"
+                                          style="background:#FFB52E;color:#050518;">
+
+                                        Module 1
+
+                                    </span>
+
+                                    AI POWER USER & EXPLORATION
+
+                                </h3>
+
+                                <p class="text-sm text-gray-500 mt-1">
+                                    5 vidéos · 44 min 32 s
+                                </p>
+
+                            </div>
+
+                            <span id="ch1Status"
+                                  class="text-yellow-600 text-sm font-semibold">
+
+                                <i class="fas fa-clock mr-1"></i>
+                                En cours
+
+                            </span>
+
+                        </div>
+
+                        <ul id="ch1Videos"
+                            class="space-y-2">
+                        </ul>
+
+                        <div id="ch1Exercise"></div>
+
+                    </div>
+
+
+                    <!-- CHAPITRE 2 -->
+
+                    <div id="chapter2"
+                         class="chapter-card">
+
+                        <div class="flex items-start justify-between mb-3">
+
+                            <div>
+
+                                <h3 class="text-lg font-bold
+                                           text-skillora-dark
+                                           flex items-center gap-2">
+
+                                    <span class="text-xs font-bold px-3 py-1
+                                                 rounded-full"
+                                          style="background:#FFB52E;color:#050518;">
+
+                                        Module 2
+
+                                    </span>
+
+                                    Google Workspace
+
+                                </h3>
+
+                                <p class="text-sm text-gray-500 mt-1">
+                                    7 vidéos · 39 min 11 s
+                                </p>
+
+                            </div>
+
+                            <span id="ch2Status"
+                                  class="text-yellow-600 text-sm font-semibold">
+
+                                <i class="fas fa-clock mr-1"></i>
+                                En cours
+
+                            </span>
+
+                        </div>
+
+                        <ul id="ch2Videos"
+                            class="space-y-2">
+                        </ul>
+
+                        <div id="ch2Exercise"></div>
+
+                    </div>
+
+
+                    <!-- CHAPITRE 3 -->
+
+                    <!--
+<div id="chapter3"
+                         class="chapter-card">
+
+                        
+
+  
+
+                            <div class="flex items-start justify-between mb-3">
+
+                                <div>
+
+                                    <h3 class="text-lg font-bold
+                                               text-skillora-dark
+                                               flex items-center gap-2">
+
+                                        <span class="text-xs font-bold px-3 py-1
+                                                     rounded-full"
+                                              style="background:#FFB52E;color:#050518;">
+
+                                            Module 3
+
+                                        </span>
+
+                                        Construire son système de travail
+
+                                    </h3>
+
+                                    <p class="text-sm text-gray-500 mt-1">
+                                        5 vidéos · 1h30
+                                    </p>
+
+                                </div>
+
+                                <span id="ch3Status"
+                                      class="text-yellow-600 text-sm font-semibold">
+
+                                    <i class="fas fa-clock mr-1"></i>
+                                    En cours
+
+                                </span>
+
+                            </div>
+
+                            <ul id="ch3Videos"
+                                class="space-y-2">
+                            </ul>
+
+                            <div id="ch3Exercise"></div>
+
+                        
+
+                    </div>
+-->
+
+
+                    <!-- CHAPITRE 4 -->
+
+                    <!--
+<div id="chapter4"
+                         class="chapter-card">
+
+                        
+
+                        
+
+                            <div class="flex items-start justify-between mb-3">
+
+                                <div>
+
+                                    <h3 class="text-lg font-bold
+                                               text-skillora-dark
+                                               flex items-center gap-2">
+
+                                        <span class="text-xs font-bold px-3 py-1
+                                                     rounded-full"
+                                              style="background:#FFB52E;color:#050518;">
+
+                                            Module 4
+
+                                        </span>
+
+                                        Recherche et Intelligence
+
+                                    </h3>
+
+                                    <p class="text-sm text-gray-500 mt-1">
+                                        5 vidéos · 1h
+                                    </p>
+
+                                </div>
+
+                                <span id="ch4Status"
+                                      class="text-yellow-600 text-sm font-semibold">
+
+                                    <i class="fas fa-clock mr-1"></i>
+                                    En cours
+
+                                </span>
+
+                            </div>
+
+                            <ul id="ch4Videos"
+                                class="space-y-2">
+                            </ul>
+
+                            <div id="ch4Exercise"></div>
+
+                        
+
+                    </div>
+-->
+
+
+                    <!-- CHAPITRE 5 -->
+
+                    <!--
+<div id="chapter5"
+                         class="chapter-card">
+
+                        
+
+                        
+
+                            <div class="flex items-start justify-between mb-3">
+
+                                <div>
+
+                                    <h3 class="text-lg font-bold
+                                               text-skillora-dark
+                                               flex items-center gap-2">
+
+                                        <span class="text-xs font-bold px-3 py-1
+                                                     rounded-full"
+                                              style="background:#FFB52E;color:#050518;">
+
+                                            Module 5
+
+                                        </span>
+
+                                        Module 5
+
+                                    </h3>
+
+                                    <p class="text-sm text-gray-500 mt-1">
+                                        5 vidéos
+                                    </p>
+
+                                </div>
+
+                                <span id="ch5Status"
+                                      class="text-yellow-600 text-sm font-semibold">
+
+                                    <i class="fas fa-clock mr-1"></i>
+                                    En cours
+
+                                </span>
+
+                            </div>
+
+                            <ul id="ch5Videos"
+                                class="space-y-2">
+                            </ul>
+
+                            <div id="ch5Exercise"></div>
+
+                        
+
+                    </div>
+-->
+
+
+                    <!-- CHAPITRE 6 -->
+
+                    <!--
+<div id="chapter6"
+                         class="chapter-card">
+
+                        
+
+                        
+
+                            <div class="flex items-start justify-between mb-3">
+
+                                <div>
+
+                                    <h3 class="text-lg font-bold
+                                               text-skillora-dark
+                                               flex items-center gap-2">
+
+                                        <span class="text-xs font-bold px-3 py-1
+                                                     rounded-full"
+                                              style="background:#FFB52E;color:#050518;">
+
+                                            Module 6
+
+                                        </span>
+
+                                        Module 6
+
+                                    </h3>
+
+                                    <p class="text-sm text-gray-500 mt-1">
+                                        5 vidéos
+                                    </p>
+
+                                </div>
+
+                                <span id="ch6Status"
+                                      class="text-yellow-600 text-sm font-semibold">
+
+                                    <i class="fas fa-clock mr-1"></i>
+                                    En cours
+
+                                </span>
+
+                            </div>
+
+                            <ul id="ch6Videos"
+                                class="space-y-2">
+                            </ul>
+
+                            <div id="ch6Exercise"></div>
+
+                        
+
+                    </div>
+-->
+
+
+                    <!-- CHAPITRE 7 -->
+
+                    <!--
+<div id="chapter7"
+                         class="chapter-card">
+
+                        
+
+                        
+
+                            <div class="flex items-start justify-between mb-3">
+
+                                <div>
+
+                                    <h3 class="text-lg font-bold
+                                               text-skillora-dark
+                                               flex items-center gap-2">
+
+                                        <span class="text-xs font-bold px-3 py-1
+                                                     rounded-full"
+                                              style="background:#FFB52E;color:#050518;">
+
+                                            Module 7
+
+                                        </span>
+
+                                        Module 7
+
+                                    </h3>
+
+                                    <p class="text-sm text-gray-500 mt-1">
+                                        5 vidéos
+                                    </p>
+
+                                </div>
+
+                                <span id="ch7Status"
+                                      class="text-yellow-600 text-sm font-semibold">
+
+                                    <i class="fas fa-clock mr-1"></i>
+                                    En cours
+
+                                </span>
+
+                            </div>
+
+                            <ul id="ch7Videos"
+                                class="space-y-2">
+                            </ul>
+
+                            <div id="ch7Exercise"></div>
+
+                        
+
+                    </div>
+-->
+
+
+                    <!-- CHAPITRE 8 -->
+
+                    <!--
+<div id="chapter8"
+                         class="chapter-card">
+
+                        
+
+                        
+
+                            <div class="flex items-start justify-between mb-3">
+
+                                <div>
+
+                                    <h3 class="text-lg font-bold
+                                               text-skillora-dark
+                                               flex items-center gap-2">
+
+                                        <span class="text-xs font-bold px-3 py-1
+                                                     rounded-full"
+                                              style="background:#FFB52E;color:#050518;">
+
+                                            Module 8
+
+                                        </span>
+
+                                        Module 8
+
+                                    </h3>
+
+                                    <p class="text-sm text-gray-500 mt-1">
+                                        5 vidéos
+                                    </p>
+
+                                </div>
+
+                                <span id="ch8Status"
+                                      class="text-yellow-600 text-sm font-semibold">
+
+                                    <i class="fas fa-clock mr-1"></i>
+                                    En cours
+
+                                </span>
+
+                            </div>
+
+                            <ul id="ch8Videos"
+                                class="space-y-2">
+                            </ul>
+
+                            <div id="ch8Exercise"></div>
+
+                        
+
+                    </div>
+-->
+
+
+                    <!-- CHAPITRE 9 -->
+
+                    <!--
+<div id="chapter9"
+                         class="chapter-card">
+
+                        
+
+                        
+
+                            <div class="flex items-start justify-between mb-3">
+
+                                <div>
+
+                                    <h3 class="text-lg font-bold
+                                               text-skillora-dark
+                                               flex items-center gap-2">
+
+                                        <span class="text-xs font-bold px-3 py-1
+                                                     rounded-full"
+                                              style="background:#FFB52E;color:#050518;">
+
+                                            Module 9
+
+                                        </span>
+
+                                        Module 9
+
+                                    </h3>
+
+                                    <p class="text-sm text-gray-500 mt-1">
+                                        5 vidéos
+                                    </p>
+
+                                </div>
+
+                                <span id="ch9Status"
+                                      class="text-yellow-600 text-sm font-semibold">
+
+                                    <i class="fas fa-clock mr-1"></i>
+                                    En cours
+
+                                </span>
+
+                            </div>
+
+                            <ul id="ch9Videos"
+                                class="space-y-2">
+                            </ul>
+
+                            <div id="ch9Exercise"></div>
+
+                        
+
+                    </div>
+-->
+
+
+                    <!-- CHAPITRE 10 -->
+
+                    <!--
+<div id="chapter10"
+                         class="chapter-card">
+
+                        
+
+                        
+
+                            <div class="flex items-start justify-between mb-3">
+
+                                <div>
+
+                                    <h3 class="text-lg font-bold
+                                               text-skillora-dark
+                                               flex items-center gap-2">
+
+                                        <span class="text-xs font-bold px-3 py-1
+                                                     rounded-full"
+                                              style="background:#FFB52E;color:#050518;">
+
+                                            Module 10
+
+                                        </span>
+
+                                        Module 10
+
+                                    </h3>
+
+                                    <p class="text-sm text-gray-500 mt-1">
+                                        5 vidéos
+                                    </p>
+
+                                </div>
+
+                                <span id="ch10Status"
+                                      class="text-yellow-600 text-sm font-semibold">
+
+                                    <i class="fas fa-clock mr-1"></i>
+                                    En cours
+
+                                </span>
+
+                            </div>
+
+                            <ul id="ch10Videos"
+                                class="space-y-2">
+                            </ul>
+
+                            <div id="ch10Exercise"></div>
+
+                        
+
+                    </div>
+-->
+
+
+                    <!-- CHAPITRE 11 -->
+
+                    <!--
+<div id="chapter11"
+                         class="chapter-card">
+
+                        
+
+                        
+
+                            <div class="flex items-start justify-between mb-3">
+
+                                <div>
+
+                                    <h3 class="text-lg font-bold
+                                               text-skillora-dark
+                                               flex items-center gap-2">
+
+                                        <span class="text-xs font-bold px-3 py-1
+                                                     rounded-full"
+                                              style="background:#FFB52E;color:#050518;">
+
+                                            Module 11
+
+                                        </span>
+
+                                        Module 11
+
+                                    </h3>
+
+                                    <p class="text-sm text-gray-500 mt-1">
+                                        5 vidéos
+                                    </p>
+
+                                </div>
+
+                                <span id="ch11Status"
+                                      class="text-yellow-600 text-sm font-semibold">
+
+                                    <i class="fas fa-clock mr-1"></i>
+                                    En cours
+
+                                </span>
+
+                            </div>
+
+                            <ul id="ch11Videos"
+                                class="space-y-2">
+                            </ul>
+
+                            <div id="ch11Exercise"></div>
+
+                        
+
+                    </div>
+-->
+
+
+                    <!-- CHAPITRE 12 -->
+
+                    <!--
+<div id="chapter12"
+                         class="chapter-card">
+
+                        
+
+                        
+
+                            <div class="flex items-start justify-between mb-3">
+
+                                <div>
+
+                                    <h3 class="text-lg font-bold
+                                               text-skillora-dark
+                                               flex items-center gap-2">
+
+                                        <span class="text-xs font-bold px-3 py-1
+                                                     rounded-full"
+                                              style="background:#FFB52E;color:#050518;">
+
+                                            Module 12
+
+                                        </span>
+
+                                        Module 12
+
+                                    </h3>
+
+                                    <p class="text-sm text-gray-500 mt-1">
+                                        5 vidéos
+                                    </p>
+
+                                </div>
+
+                                <span id="ch12Status"
+                                      class="text-yellow-600 text-sm font-semibold">
+
+                                    <i class="fas fa-clock mr-1"></i>
+                                    En cours
+
+                                </span>
+
+                            </div>
+
+                            <ul id="ch12Videos"
+                                class="space-y-2">
+                            </ul>
+
+                            <div id="ch12Exercise"></div>
+
+                        
+
+                    </div>
+-->
+
+
+                    <!-- CHAPITRE 13 -->
+
+                    <!--
+<div id="chapter13"
+                         class="chapter-card">
+
+                        
+
+                        
+
+                            <div class="flex items-start justify-between mb-3">
+
+                                <div>
+
+                                    <h3 class="text-lg font-bold
+                                               text-skillora-dark
+                                               flex items-center gap-2">
+
+                                        <span class="text-xs font-bold px-3 py-1
+                                                     rounded-full"
+                                              style="background:#FFB52E;color:#050518;">
+
+                                            Module 13
+
+                                        </span>
+
+                                        Module 13
+
+                                    </h3>
+
+                                    <p class="text-sm text-gray-500 mt-1">
+                                        5 vidéos
+                                    </p>
+
+                                </div>
+
+                                <span id="ch13Status"
+                                      class="text-yellow-600 text-sm font-semibold">
+
+                                    <i class="fas fa-clock mr-1"></i>
+                                    En cours
+
+                                </span>
+
+                            </div>
+
+                            <ul id="ch13Videos"
+                                class="space-y-2">
+                            </ul>
+
+                            <div id="ch13Exercise"></div>
+
+                        
+
+                    </div>
+-->
+
+
+                    <!-- CHAPITRE 14 -->
+
+                    <!--
+<div id="chapter14"
+                         class="chapter-card">
+
+                        
+
+                        
+
+                            <div class="flex items-start justify-between mb-3">
+
+                                <div>
+
+                                    <h3 class="text-lg font-bold
+                                               text-skillora-dark
+                                               flex items-center gap-2">
+
+                                        <span class="text-xs font-bold px-3 py-1
+                                                     rounded-full"
+                                              style="background:#FFB52E;color:#050518;">
+
+                                            Module 14
+
+                                        </span>
+
+                                        Module 14
+
+                                    </h3>
+
+                                    <p class="text-sm text-gray-500 mt-1">
+                                        5 vidéos
+                                    </p>
+
+                                </div>
+
+                                <span id="ch14Status"
+                                      class="text-yellow-600 text-sm font-semibold">
+
+                                    <i class="fas fa-clock mr-1"></i>
+                                    En cours
+
+                                </span>
+
+                            </div>
+
+                            <ul id="ch14Videos"
+                                class="space-y-2">
+                            </ul>
+
+                            <div id="ch14Exercise"></div>
+
+                        
+
+                    </div>
+-->
+
+
+                    <!-- CHAPITRE 15 -->
+
+                    <!--
+<div id="chapter15"
+                         class="chapter-card">
+
+                        
+
+                        
+
+                            <div class="flex items-start justify-between mb-3">
+
+                                <div>
+
+                                    <h3 class="text-lg font-bold
+                                               text-skillora-dark
+                                               flex items-center gap-2">
+
+                                        <span class="text-xs font-bold px-3 py-1
+                                                     rounded-full"
+                                              style="background:#FFB52E;color:#050518;">
+
+                                            Module 15
+
+                                        </span>
+
+                                        Module 15
+
+                                    </h3>
+
+                                    <p class="text-sm text-gray-500 mt-1">
+                                        5 vidéos
+                                    </p>
+
+                                </div>
+
+                                <span id="ch15Status"
+                                      class="text-yellow-600 text-sm font-semibold">
+
+                                    <i class="fas fa-clock mr-1"></i>
+                                    En cours
+
+                                </span>
+
+                            </div>
+
+                            <ul id="ch15Videos"
+                                class="space-y-2">
+                            </ul>
+
+                            <div id="ch15Exercise"></div>
+
+                        </div>
+-->
+
+                    </div>
+
+
+                <!-- =================================================
+                     COLONNE DROITE
+                ================================================== -->
+
+                <div class="space-y-6">
+
+
+                    <!-- INFORMATIONS -->
+
+                    <div class="bg-white rounded-2xl p-6 shadow-lg
+                                border border-gray-100">
+
+                        <h3 class="text-lg font-bold text-skillora-dark mb-4
+                                   flex items-center gap-2">
+
+                            <i class="fas fa-info-circle"
+                               style="color:#FFB52E;">
+                            </i>
+
+                            Informations
+
+                        </h3>
+
+
+                        <ul class="space-y-3 text-sm">
+
+                            <li class="flex justify-between
+                                       border-b border-gray-100 pb-2">
+
+                                <span class="text-gray-500">
+                                    Formateur
+                                </span>
+
+                                <span class="font-medium text-skillora-dark">
+                                    Mbinintsoa RAKOTOARIMANANA
+                                </span>
+
+                            </li>
+
+
+                            <li class="flex justify-between
+                                       border-b border-gray-100 pb-2">
+
+                                <span class="text-gray-500">
+                                    Niveau
+                                </span>
+
+                                <span class="font-medium text-skillora-dark">
+                                    Débutant - Avancé
+                                </span>
+
+                            </li>
+
+
+                            <li class="flex justify-between
+                                       border-b border-gray-100 pb-2">
+
+                                <span class="text-gray-500">
+                                    Durée totale
+                                </span>
+
+                                <span class="font-medium text-skillora-dark">
+                                    10 heures
+                                </span>
+
+                            </li>
+
+
+                            <li class="flex justify-between">
+
+                                <span class="text-gray-500">
+                                    Certification
+                                </span>
+
+                                <span class="font-medium text-green-600">
+
+                                    <i class="fas fa-check-circle mr-1"></i>
+                                    Oui
+
+                                </span>
+
+                            </li>
+
+                        </ul>
+
+                    </div>
+
+
+                    <!-- RESSOURCES -->
+
+                    <div class="bg-white rounded-2xl p-6 shadow-lg
+                                border border-gray-100">
+
+                        <h3 class="text-lg font-bold text-skillora-dark mb-4
+                                   flex items-center gap-2">
+
+                            <i class="fas fa-download"
+                               style="color:#FFB52E;">
+                            </i>
+
+                            Ressources
+
+                        </h3>
+
+
+                        <ul class="space-y-2 text-sm">
+
+                            <li>
+
+                                <a href="#"
+                                   class="flex items-center gap-3 p-3
+                                          bg-gray-50 rounded-xl
+                                          transition"
+                                   onmouseover="this.style.background='#fff8e8'"
+                                   onmouseout="this.style.background='#f9fafb'">
+
+                                    <i class="fas fa-file-pdf text-xl"
+                                       style="color:#FFB52E;">
+                                    </i>
+
+                                    <div>
+
+                                        <p class="font-medium text-skillora-dark">
+                                            Cours complet PDF
+                                        </p>
+
+                                        <p class="text-xs text-gray-400">
+                                            3.2 Mo
+                                        </p>
+
+                                    </div>
+
+                                    <i class="fas fa-arrow-right ml-auto"
+                                       style="color:#FFB52E;">
+                                    </i>
+
+                                </a>
+
+                            </li>
+
+
+                            <li>
+
+                                <a href="#"
+                                   class="flex items-center gap-3 p-3
+                                          bg-gray-50 rounded-xl transition"
+                                   onmouseover="this.style.background='#fff8e8'"
+                                   onmouseout="this.style.background='#f9fafb'">
+
+                                    <i class="fas fa-file-code text-xl"
+                                       style="color:#FFB52E;">
+                                    </i>
+
+                                    <div>
+
+                                        <p class="font-medium text-skillora-dark">
+                                            Scripts & Templates
+                                        </p>
+
+                                        <p class="text-xs text-gray-400">
+                                            5.4 Mo
+                                        </p>
+
+                                    </div>
+
+                                    <i class="fas fa-arrow-right ml-auto"
+                                       style="color:#FFB52E;">
+                                    </i>
+
+                                </a>
+
+                            </li>
+
+
+                            <li>
+
+                                <a href="#"
+                                   class="flex items-center gap-3 p-3
+                                          bg-gray-50 rounded-xl transition"
+                                   onmouseover="this.style.background='#fff8e8'"
+                                   onmouseout="this.style.background='#f9fafb'">
+
+                                    <i class="fas fa-link text-xl"
+                                       style="color:#FFB52E;">
+                                    </i>
+
+                                    <div>
+
+                                        <p class="font-medium text-skillora-dark">
+                                            Liens utiles
+                                        </p>
+
+                                        <p class="text-xs text-gray-400">
+                                            Ressources IA
+                                        </p>
+
+                                    </div>
+
+                                    <i class="fas fa-arrow-right ml-auto"
+                                       style="color:#FFB52E;">
+                                    </i>
+
+                                </a>
+
+                            </li>
+
+                        </ul>
+
+                    </div>
+
+
+                    <!-- NOTES -->
+
+                    <div class="bg-white rounded-2xl p-6 shadow-lg
+                                border border-gray-100">
+
+                        <h3 class="text-lg font-bold text-skillora-dark mb-4
+                                   flex items-center gap-2">
+
+                            <i class="fas fa-sticky-note"
+                               style="color:#FFB52E;">
+                            </i>
+
+                            Notes
+
+                        </h3>
+
+
+                        <textarea
+                            class="w-full border border-gray-200 rounded-xl
+                                   p-3 text-sm outline-none resize-none"
+                            rows="3"
+                            placeholder="Ajoutez vos notes..."></textarea>
+
+
+                        <button
+                            class="mt-3 btn-ia px-4 py-2 rounded-lg
+                                   text-sm font-semibold w-full">
+
+                            <i class="fas fa-save mr-2"></i>
+
+                            Sauvegarder
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <!-- ============================================================
+         FOOTER
+    ============================================================ -->
+
+    <footer class="text-white/80 py-8 mt-6 border-t-4"
+            style="background:#050518;border-color:#FFB52E;">
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8
+                    flex flex-col md:flex-row
+                    justify-between items-center">
+
+            <div class="flex items-center space-x-2">
+
+                <svg width="32"
+                     height="32"
+                     viewBox="0 0 100 100"
+                     fill="none">
+
+                    <path d="M50 5 L90 45 L78 57 L50 29 L35 44 L62 71 L50 83 L10 43 L22 31 L50 59 L65 44 L38 17 Z"
+                          fill="#FFB52E"/>
+
+                    <path d="M30 65 L50 85 L70 65 L62 57 L50 69 L38 57 Z"
+                          fill="#FFB52E"/>
+
+                </svg>
+
+                <span class="font-bold text-lg">
+                    Skillora Digital
+                </span>
+
+            </div>
+
+
+            <div class="flex space-x-6 mt-4 md:mt-0">
+
+                <a href="#"
+                   class="hover:text-[#FFB52E]">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+
+                <a href="#"
+                   class="hover:text-[#FFB52E]">
+                    <i class="fab fa-twitter"></i>
+                </a>
+
+                <a href="#"
+                   class="hover:text-[#FFB52E]">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+
+            </div>
+
+
+            <p class="text-sm mt-4 md:mt-0">
+
+                &copy; 2026 Skillora.
+                Tous droits réservés.
+
+            </p>
+
+        </div>
+
+    </footer>
+
+
+    <!-- ============================================================
+         JAVASCRIPT
+    ============================================================ -->
+
+    <script>
+
+        /* ============================================================
+           CONFIGURATION DES VIDÉOS
+        ============================================================ */
+
+        const VIDEO_URLS = {
+
+            1: 'https://drive.google.com/file/d/1v-YB-RxFIi4r0GXCfYO-VasQdwBGGkiU/preview',
+            2: 'https://drive.google.com/file/d/1RehO-4X-qi8G5ai7LUmyv00515CVGBA4/preview',
+            3: 'https://drive.google.com/file/d/1B_o5agWY2kE5G4Ts8LzPdqGeCrOu6qni/preview',
+            4: 'https://drive.google.com/file/d/1MCr41duXHRaxM6SQTSUbh6J0jsL3z34r/preview',
+            5: 'https://drive.google.com/file/d/1MCr41duXHRaxM6SQTSUbh6J0jsL3z34r/preview',
+
+            6: 'https://drive.google.com/file/d/1mN0_hCmJTkVyxV6wM7FIkwj6-phFjJ_N/preview',
+            7: 'https://drive.google.com/file/d/1AbTS3oXEByunVJwtpEa64H-sOMZCB6G1/preview',
+            8: 'https://drive.google.com/file/d/12vZZL-VCbKv0OH7i8ZLTqXZbJtu5lrKl/preview',
+            9: 'https://drive.google.com/file/d/1Eg9NSaSrutY7RVGzYoDrwUimp6hTUdOe/preview',
+            10: 'https://drive.google.com/file/d/1YN0xJrM4UKKxicTY0UrhoeudTJqY8Bcu/preview',
+
+            11: 'https://drive.google.com/file/d/1kkarcOz43b3SUFhnHgL20_dOo-khU7kM/preview',
+            12: 'https://drive.google.com/file/d/1jusHENn6ug8t-AT-F6MllHQgVQY2k7Tk/preview',
+            13: 'AI/video13.mp4',
+            14: 'AI/video14.mp4',
+            15: 'AI/video15.mp4',
+
+            16: 'AI/video16.mp4',
+            17: 'AI/video17.mp4',
+            18: 'AI/video18.mp4',
+            19: 'AI/video19.mp4',
+            20: 'AI/video20.mp4',
+
+            21: 'AI/video21.mp4',
+            22: 'AI/video22.mp4',
+            23: 'AI/video23.mp4',
+            24: 'AI/video24.mp4',
+            25: 'AI/video25.mp4',
+            26: 'AI/video26.mp4',
+            27: 'AI/video27.mp4',
+            28: 'AI/video28.mp4',
+            29: 'AI/video29.mp4',
+            30: 'AI/video30.mp4',
+            31: 'AI/video31.mp4',
+            32: 'AI/video32.mp4',
+            33: 'AI/video33.mp4',
+            34: 'AI/video34.mp4',
+            35: 'AI/video35.mp4',
+            36: 'AI/video36.mp4',
+            37: 'AI/video37.mp4',
+            38: 'AI/video38.mp4',
+            39: 'AI/video39.mp4',
+            40: 'AI/video40.mp4',
+            41: 'AI/video41.mp4',
+            42: 'AI/video42.mp4',
+            43: 'AI/video43.mp4',
+            44: 'AI/video44.mp4',
+            45: 'AI/video45.mp4',
+            46: 'AI/video46.mp4',
+            47: 'AI/video47.mp4',
+            48: 'AI/video48.mp4',
+            49: 'AI/video49.mp4',
+            50: 'AI/video50.mp4',
+            51: 'AI/video51.mp4',
+            52: 'AI/video52.mp4',
+            53: 'AI/video53.mp4',
+            54: 'AI/video54.mp4',
+            55: 'AI/video55.mp4',
+            56: 'AI/video56.mp4',
+            57: 'AI/video57.mp4',
+            58: 'AI/video58.mp4',
+            59: 'AI/video59.mp4',
+            60: 'AI/video60.mp4',
+            61: 'AI/video61.mp4',
+            62: 'AI/video62.mp4',
+            63: 'AI/video63.mp4',
+            64: 'AI/video64.mp4',
+            65: 'AI/video65.mp4',
+            66: 'AI/video66.mp4',
+            67: 'AI/video67.mp4',
+            68: 'AI/video68.mp4',
+            69: 'AI/video69.mp4',
+            70: 'AI/video70.mp4',
+            71: 'AI/video71.mp4',
+            72: 'AI/video72.mp4',
+            73: 'AI/video73.mp4',
+            74: 'AI/video74.mp4',
+            75: 'AI/video75.mp4'
+
+        };
+
+
+        /* ============================================================
+           DONNÉES DES CHAPITRES
+        ============================================================ */
+
+        const chaptersData = [
+
+            {
+                id: 1,
+
+                title: "AI POWER USER & EXPLORATION",
+
+                unlocked: true,
+
+                exercise: {
+                    pdf: 'exercices/exercice1.pdf',
+                    image: 'exercices/exo1.png'
+                },
+
+                videos: [
+
+                    {
+                        id: 1,
+                        title: "L'écosystème IA",
+                        duration: "05:24"
+                    },
+
+                    {
+                        id: 2,
+                        title: "TP introduction",
+                        duration: "04:54"
+                    },
+
+                    {
+                        id: 3,
+                        title: "Faire une bonne demande",
+                        duration: "12:16"
+                    },
+
+                    {
+                        id: 4,
+                        title: "Faire travailler plusieurs IA ensemble – Partie I",
+                        duration: "15:04"
+                    },
+
+                    {
+                        id: 5,
+                        title: "Faire travailler plusieurs IA ensemble – Partie II",
+                        duration: "06:54"
+                    }
+
+                ]
+
+            },
+
+
+            {
+
+                id: 2,
+
+                title: "Google Workspace",
+
+                unlocked: true,
+
+                 exercise: {
+                    pdf: '',
+                    image: ''
+                },
+
+                videos: [
+
+                    {
+                        id: 6,
+                        title: "Découverte de Google Workspace",
+                        duration: "04:54"
+                    },
+
+                    {
+                        id: 7,
+                        title: "Google Drive",
+                        duration: "04:51"
+                    },
+
+                    {
+                        id: 8,
+                        title: "Google Docs + IA",
+                        duration: "04:44"
+                    },
+
+                    {
+                        id: 9,
+                        title: "Google Sheets + IA",
+                        duration: "04:03"
+                    },
+
+                    {
+                        id: 10,
+                        title: "Google Forms vers Google Sheets",
+                        duration: "09:31"
+                    },
+
+                    {
+                        id: 11,
+                        title: "Google Slides + IA",
+                        duration: "05:34"
+                    },
+
+                    {
+                        id: 12,
+                        title: "Gmail + IA",
+                        duration: "05:34"
+                    }
+
+                ]
+
+            },
+
+
+            {
+
+                id: 3,
+
+                title: "Automatisation & No-Code",
+
+                unlocked: true,
+
+                exercise: {
+                    pdf: '',
+                    image: 'exercices/chapitre3-exercice.png'
+                },
+
+                videos: [
+
+                    {
+                        id: 11,
+                        title: "Introduction au No-Code",
+                        duration: "10:00"
+                    },
+
+                    {
+                        id: 12,
+                        title: "Zapier / Make : automatiser vos tâches",
+                        duration: "22:00"
+                    },
+
+                    {
+                        id: 13,
+                        title: "Bubble / Webflow : créer des apps",
+                        duration: "25:00"
+                    },
+
+                    {
+                        id: 14,
+                        title: "Airtable : bases de données no-code",
+                        duration: "18:00"
+                    },
+
+                    {
+                        id: 15,
+                        title: "Projet : automatisation complète",
+                        duration: "20:00"
+                    }
+
+                ]
+
+            },
+
+
+            {
+
+                id: 4,
+
+                title: "Outils Digitaux & Productivité",
+
+                unlocked: true,
+
+                exercise: {
+                    pdf: '',
+                    image: ''
+                },
+
+                videos: [
+
+                    {
+                        id: 16,
+                        title: "Notion : prise de notes avancée",
+                        duration: "15:00"
+                    },
+
+                    {
+                        id: 17,
+                        title: "Trello / Asana : gestion de projet",
+                        duration: "12:00"
+                    },
+
+                    {
+                        id: 18,
+                        title: "Slack / Discord : communication",
+                        duration: "10:00"
+                    },
+
+                    {
+                        id: 19,
+                        title: "Google Workspace avancé",
+                        duration: "14:00"
+                    },
+
+                    {
+                        id: 20,
+                        title: "Projet : organiser sa productivité",
+                        duration: "18:00"
+                    }
+
+                ]
+
+            },
+
+
+            /* MODULES 5 À 15 — VERROUILLÉS */
+
+            {
+
+                id: 5,
+
+                title: "Module 5",
+
+                unlocked: true,
+
+                exercise: {
+                    pdf: 'exercices/chapitre5-exercice.pdf',
+                    image: 'exercices/chapitre5-exercice.png'
+                },
+
+                videos: [
+
+                    { id: 21, title: "Vidéo 1 - Module 5", duration: "10:00" },
+                    { id: 22, title: "Vidéo 2 - Module 5", duration: "10:00" },
+                    { id: 23, title: "Vidéo 3 - Module 5", duration: "10:00" },
+                    { id: 24, title: "Vidéo 4 - Module 5", duration: "10:00" },
+                    { id: 25, title: "Projet - Module 5", duration: "15:00" }
+
+                ]
+
+            },
+
+            {
+
+                id: 6,
+
+                title: "Module 6",
+
+                unlocked: true,
+
+                exercise: {
+                    pdf: 'exercices/chapitre6-exercice.pdf',
+                    image: 'exercices/chapitre6-exercice.png'
+                },
+
+                videos: [
+
+                    { id: 26, title: "Vidéo 1 - Module 6", duration: "10:00" },
+                    { id: 27, title: "Vidéo 2 - Module 6", duration: "10:00" },
+                    { id: 28, title: "Vidéo 3 - Module 6", duration: "10:00" },
+                    { id: 29, title: "Vidéo 4 - Module 6", duration: "10:00" },
+                    { id: 30, title: "Projet - Module 6", duration: "15:00" }
+
+                ]
+
+            },
+
+            {
+
+                id: 7,
+
+                title: "Module 7",
+
+                unlocked: true,
+
+                exercise: {
+                    pdf: 'exercices/chapitre7-exercice.pdf',
+                    image: 'exercices/chapitre7-exercice.png'
+                },
+
+                videos: [
+
+                    { id: 31, title: "Vidéo 1 - Module 7", duration: "10:00" },
+                    { id: 32, title: "Vidéo 2 - Module 7", duration: "10:00" },
+                    { id: 33, title: "Vidéo 3 - Module 7", duration: "10:00" },
+                    { id: 34, title: "Vidéo 4 - Module 7", duration: "10:00" },
+                    { id: 35, title: "Projet - Module 7", duration: "15:00" }
+
+                ]
+
+            },
+
+            {
+
+                id: 8,
+
+                title: "Module 8",
+
+                unlocked: true,
+
+                exercise: {
+                    pdf: 'exercices/chapitre8-exercice.pdf',
+                    image: 'exercices/chapitre8-exercice.png'
+                },
+
+                videos: [
+
+                    { id: 36, title: "Vidéo 1 - Module 8", duration: "10:00" },
+                    { id: 37, title: "Vidéo 2 - Module 8", duration: "10:00" },
+                    { id: 38, title: "Vidéo 3 - Module 8", duration: "10:00" },
+                    { id: 39, title: "Vidéo 4 - Module 8", duration: "10:00" },
+                    { id: 40, title: "Projet - Module 8", duration: "15:00" }
+
+                ]
+
+            },
+
+            {
+
+                id: 9,
+
+                title: "Module 9",
+
+                unlocked: true,
+
+                exercise: {
+                    pdf: 'exercices/chapitre9-exercice.pdf',
+                    image: 'exercices/chapitre9-exercice.png'
+                },
+
+                videos: [
+
+                    { id: 41, title: "Vidéo 1 - Module 9", duration: "10:00" },
+                    { id: 42, title: "Vidéo 2 - Module 9", duration: "10:00" },
+                    { id: 43, title: "Vidéo 3 - Module 9", duration: "10:00" },
+                    { id: 44, title: "Vidéo 4 - Module 9", duration: "10:00" },
+                    { id: 45, title: "Projet - Module 9", duration: "15:00" }
+
+                ]
+
+            },
+
+            {
+
+                id: 10,
+
+                title: "Module 10",
+
+                unlocked: true,
+
+                exercise: {
+                    pdf: 'exercices/chapitre10-exercice.pdf',
+                    image: 'exercices/chapitre10-exercice.png'
+                },
+
+                videos: [
+
+                    { id: 46, title: "Vidéo 1 - Module 10", duration: "10:00" },
+                    { id: 47, title: "Vidéo 2 - Module 10", duration: "10:00" },
+                    { id: 48, title: "Vidéo 3 - Module 10", duration: "10:00" },
+                    { id: 49, title: "Vidéo 4 - Module 10", duration: "10:00" },
+                    { id: 50, title: "Projet - Module 10", duration: "15:00" }
+
+                ]
+
+            },
+
+            {
+
+                id: 11,
+
+                title: "Module 11",
+
+                unlocked: true,
+
+                exercise: {
+                    pdf: 'exercices/chapitre11-exercice.pdf',
+                    image: 'exercices/chapitre11-exercice.png'
+                },
+
+                videos: [
+
+                    { id: 51, title: "Vidéo 1 - Module 11", duration: "10:00" },
+                    { id: 52, title: "Vidéo 2 - Module 11", duration: "10:00" },
+                    { id: 53, title: "Vidéo 3 - Module 11", duration: "10:00" },
+                    { id: 54, title: "Vidéo 4 - Module 11", duration: "10:00" },
+                    { id: 55, title: "Projet - Module 11", duration: "15:00" }
+
+                ]
+
+            },
+
+            {
+
+                id: 12,
+
+                title: "Module 12",
+
+                unlocked: true,
+
+                exercise: {
+                    pdf: 'exercices/chapitre12-exercice.pdf',
+                    image: 'exercices/chapitre12-exercice.png'
+                },
+
+                videos: [
+
+                    { id: 56, title: "Vidéo 1 - Module 12", duration: "10:00" },
+                    { id: 57, title: "Vidéo 2 - Module 12", duration: "10:00" },
+                    { id: 58, title: "Vidéo 3 - Module 12", duration: "10:00" },
+                    { id: 59, title: "Vidéo 4 - Module 12", duration: "10:00" },
+                    { id: 60, title: "Projet - Module 12", duration: "15:00" }
+
+                ]
+
+            },
+
+            {
+
+                id: 13,
+
+                title: "Module 13",
+
+                unlocked: true,
+
+                exercise: {
+                    pdf: 'exercices/chapitre13-exercice.pdf',
+                    image: 'exercices/chapitre13-exercice.png'
+                },
+
+                videos: [
+
+                    { id: 61, title: "Vidéo 1 - Module 13", duration: "10:00" },
+                    { id: 62, title: "Vidéo 2 - Module 13", duration: "10:00" },
+                    { id: 63, title: "Vidéo 3 - Module 13", duration: "10:00" },
+                    { id: 64, title: "Vidéo 4 - Module 13", duration: "10:00" },
+                    { id: 65, title: "Projet - Module 13", duration: "15:00" }
+
+                ]
+
+            },
+
+            {
+
+                id: 14,
+
+                title: "Module 14",
+
+                unlocked: true,
+
+                exercise: {
+                    pdf: 'exercices/chapitre14-exercice.pdf',
+                    image: 'exercices/chapitre14-exercice.png'
+                },
+
+                videos: [
+
+                    { id: 66, title: "Vidéo 1 - Module 14", duration: "10:00" },
+                    { id: 67, title: "Vidéo 2 - Module 14", duration: "10:00" },
+                    { id: 68, title: "Vidéo 3 - Module 14", duration: "10:00" },
+                    { id: 69, title: "Vidéo 4 - Module 14", duration: "10:00" },
+                    { id: 70, title: "Projet - Module 14", duration: "15:00" }
+
+                ]
+
+            },
+
+            {
+
+                id: 15,
+
+                title: "Module 15",
+
+                unlocked: true,
+
+                exercise: {
+                    pdf: 'exercices/chapitre15-exercice.pdf',
+                    image: 'exercices/chapitre15-exercice.png'
+                },
+
+                videos: [
+
+                    { id: 71, title: "Vidéo 1 - Module 15", duration: "10:00" },
+                    { id: 72, title: "Vidéo 2 - Module 15", duration: "10:00" },
+                    { id: 73, title: "Vidéo 3 - Module 15", duration: "10:00" },
+                    { id: 74, title: "Vidéo 4 - Module 15", duration: "10:00" },
+                    { id: 75, title: "Projet - Module 15", duration: "15:00" }
+
+                ]
+
+            },
+
+        ];
+
+
+        /* ============================================================
+           ÉTAT
+        ============================================================ */
+
+        let state = {
+
+            chapters: JSON.parse(
+                JSON.stringify(chaptersData)
+            ),
+
+            videoCompleted: {},
+
+            currentVideo: null
+
+        };
+
+
+        /* ============================================================
+           CHARGER L'ÉTAT
+        ============================================================ */
+
+        function loadState() {
+
+            try {
+
+                const saved =
+                    localStorage.getItem(
+                        'skillora_ia_state'
+                    );
+
+                if (saved) {
+
+                    const parsed =
+                        JSON.parse(saved);
+
+                    state.chapters.forEach(
+                        chapter => {
+
+                            chapter.videos.forEach(
+                                video => {
+
+                                    if (
+                                        parsed.videoCompleted &&
+                                        parsed.videoCompleted[video.id]
+                                    ) {
+
+                                        video.completed = true;
+
+                                    }
+
+                                }
+                            );
+
+                        }
+                    );
+
+
+                    if (parsed.videoCompleted) {
+
+                        state.videoCompleted =
+                            parsed.videoCompleted;
+
+                    }
+
+                }
+
+            } catch (e) {
+
+                console.warn(
+                    'Erreur chargement état:',
+                    e
+                );
+
+            }
+
+        }
+
+
+        /* ============================================================
+           SAUVEGARDER
+        ============================================================ */
+
+        function saveState() {
+
+            try {
+
+                const toSave = {
+                    videoCompleted: {}
+                };
+
+
+                state.chapters.forEach(
+                    chapter => {
+
+                        chapter.videos.forEach(
+                            video => {
+
+                                if (video.completed) {
+
+                                    toSave.videoCompleted[
+                                        video.id
+                                    ] = true;
+
+                                }
+
+                            }
+                        );
+
+                    }
+                );
+
+
+                localStorage.setItem(
+                    'skillora_ia_state',
+                    JSON.stringify(toSave)
+                );
+
+            } catch (e) {
+
+                console.warn(
+                    'Erreur sauvegarde:',
+                    e
+                );
+
+            }
+
+        }
+
+
+        /* ============================================================
+           TOAST
+        ============================================================ */
+
+        function showToast(
+            message,
+            type = 'success'
+        ) {
+
+            const toast =
+                document.getElementById('toast');
+
+            const toastMessage =
+                document.getElementById(
+                    'toastMessage'
+                );
+
+            const icon =
+                type === 'success'
+                    ? 'fa-check-circle'
+                    : 'fa-info-circle';
+
+
+            toastMessage.innerHTML = `
+
+                <i class="fas ${icon}"
+                   style="color:#FFB52E;margin-right:8px;">
+                </i>
+
+                ${message}
+
+            `;
+
+
+            toast.classList.add('show');
+
+
+            clearTimeout(toast._timeout);
+
+
+            toast._timeout = setTimeout(
+                () => {
+
+                    toast.classList.remove(
+                        'show'
+                    );
+
+                },
+                4000
+            );
+
+        }
+
+
+        function hideToast() {
+
+            document
+                .getElementById('toast')
+                .classList.remove('show');
+
+        }
+
+
+        /* ============================================================
+           PROGRESSION
+        ============================================================ */
+
+        function updateProgress() {
+
+            let totalVideos = 0;
+
+            let completedVideos = 0;
+
+
+            state.chapters.forEach(
+                chapter => {
+
+                    if (!chapter.unlocked) return;
+
+                    chapter.videos.forEach(
+                        video => {
+
+                            totalVideos++;
+
+                            if (video.completed) {
+
+                                completedVideos++;
+
+                            }
+
+                        }
+                    );
+
+                }
+            );
+
+
+            const progress =
+                totalVideos > 0
+                    ? (completedVideos / totalVideos) * 100
+                    : 0;
+
+
+            document.getElementById(
+                'globalProgress'
+            ).style.width =
+                `${progress}%`;
+
+
+            document.getElementById(
+                'completedCount'
+            ).textContent =
+                completedVideos;
+
+
+            document.getElementById(
+                'totalVideosCount'
+            ).textContent =
+                totalVideos;
+
+
+            document.getElementById(
+                'completedBadge'
+            ).textContent =
+                completedVideos;
+
+
+            document.getElementById(
+                'inProgressBadge'
+            ).textContent =
+                totalVideos - completedVideos;
+
+
+            document.getElementById(
+                'totalVideos'
+            ).textContent =
+                totalVideos;
+
+
+            state.chapters.forEach(
+                (chapter, index) => {
+
+                    const statusEl =
+                        document.getElementById(
+                            `ch${index + 1}Status`
+                        );
+
+
+                    if (!statusEl) return;
+
+                    if (!chapter.unlocked) {
+
+                        statusEl.innerHTML =
+                            '<i class="fas fa-clock mr-1"></i> En cours';
+
+                        statusEl.className =
+                            'text-gray-500 text-sm font-semibold';
+
+                        return;
+
+                    }
+
+                    const allCompleted =
+                        chapter.videos.every(
+                            v => v.completed
+                        );
+
+
+                    if (allCompleted) {
+
+                        statusEl.innerHTML =
+                            '<i class="fas fa-check-circle mr-1"></i> Terminé';
+
+                        statusEl.className =
+                            'text-green-600 text-sm font-semibold';
+
+                    } else {
+
+                        statusEl.innerHTML =
+                            '<i class="fas fa-clock mr-1"></i> En cours';
+
+                        statusEl.className =
+                            'text-yellow-600 text-sm font-semibold';
+
+                    }
+
+                }
+            );
+
+
+            saveState();
+
+            updateContinueButton();
+
+        }
+
+
+        /* ============================================================
+           AFFICHER UN CHAPITRE
+        ============================================================ */
+
+        function renderChapter(
+            chapterIndex
+        ) {
+
+            const chapter =
+                state.chapters[
+                    chapterIndex - 1
+                ];
+
+
+            const container =
+                document.getElementById(
+                    `ch${chapterIndex}Videos`
+                );
+
+
+            if (!container) return;
+
+
+            container.innerHTML = '';
+
+
+            chapter.videos.forEach(
+                (video, idx) => {
+
+                    const li =
+                        document.createElement(
+                            'li'
+                        );
+
+
+                    li.className =
+                        `video-item ${
+                            video.completed
+                                ? 'completed'
+                                : ''
+                        }`;
+
+
+                    li.id =
+                        `video-${video.id}`;
+
+
+                    const iconClass =
+                        video.completed
+                            ? 'fa-check-circle'
+                            : 'fa-play-circle';
+
+
+                    const iconColor =
+                        video.completed
+                            ? '#22c55e'
+                            : '#FFB52E';
+
+
+                    li.innerHTML = `
+                        <i class="fas ${iconClass}"
+                           style="
+                               color:${iconColor};
+                               font-size:1.2rem;
+                               flex-shrink:0;
+                           ">
+                        </i>
+
+                        <div class="flex-1 min-w-0">
+                            <span class="font-medium text-skillora-dark">
+                                ${video.id}.
+                                ${video.title}
+                            </span>
+
+                            <span class="text-sm text-gray-400 ml-2">
+                                ${video.duration}
+                            </span>
+                        </div>
+
+                        <button
+                            type="button"
+                            class="btn-play-video ${
+                                video.completed
+                                    ? 'playing'
+                                    : ''
+                            }"
+                            onclick="openVideo(
+                                ${chapterIndex},
+                                ${idx}
+                            )"
+                        >
+                            <i class="fas fa-play mr-1"></i>
+                            Regarder
+                        </button>
+                    `;
+
+
+                    container.appendChild(li);
+
+                }
+            );
+
+
+            /* EXERCICE DU CHAPITRE */
+
+            const exerciseContainer =
+                document.getElementById(
+                    `ch${chapterIndex}Exercise`
+                );
+
+            if (exerciseContainer) {
+
+                const exercise =
+                    chapter.exercise || {
+                        pdf: '#',
+                        image: '#'
+                    };
+
+                exerciseContainer.innerHTML = `
+                    <div class="exercise-box">
+
+                        <div class="exercise-title">
+                            <i class="fas fa-clipboard-check mr-2"
+                               style="color:#FFB52E;"></i>
+                            Exercice du chapitre ${chapterIndex}
+                        </div>
+
+                        <p class="text-sm text-gray-500 mt-1">
+                            Consultez l'exercice en PDF ou en image,
+                            puis envoyez votre réponse.
+                        </p>
+
+                        <div class="exercise-actions">
+
+                            <a href="${exercise.pdf}"
+                               target="_blank"
+                               rel="noopener"
+                               class="exercise-btn pdf">
+                                <i class="fas fa-file-pdf"></i>
+                                Voir l'exercice PDF
+                            </a>
+
+                            <a href="${exercise.image}"
+                               target="_blank"
+                               rel="noopener"
+                               class="exercise-btn image">
+                                <i class="fas fa-image"></i>
+                                Voir l'exercice en image
+                            </a>
+
+                            <button type="button"
+                                    onclick="openExerciseModal(${chapterIndex})"
+                                    class="exercise-btn primary send">
+                                <i class="fas fa-paper-plane"></i>
+                                Envoyer une réponse
+                            </button>
+
+                        
+
+                    </div>
+                `;
+
+            }
+
+        }
+
+
+        /* ============================================================
+           AFFICHER TOUS LES CHAPITRES
+        ============================================================ */
+
+        function renderAllChapters() {
+
+            for (
+                let i = 1;
+                i <= state.chapters.length;
+                i++
+            ) {
+
+                renderChapter(i);
+
+            }
+
+
+            updateProgress();
+
+        }
+
+
+        /* ============================================================
+           VARIABLES VIDÉO
+        ============================================================ */
+
+        let videoControlsActive = false;
+
+        let videoInterval = null;
+
+
+        /* ============================================================
+           OUVRIR VIDÉO
+        ============================================================ */
+
+        function openVideo(
+            chapterIndex,
+            videoIndex
+        ) {
+
+            const chapter =
+                state.chapters[
+                    chapterIndex - 1
+                ];
+
+            const video =
+                chapter.videos[
+                    videoIndex
+                ];
+
+            const videoUrl =
+                VIDEO_URLS[video.id];
+
+            if (!videoUrl) {
+
+                showToast(
+                    "❌ Vidéo introuvable. Vérifiez l'URL.",
+                    'error'
+                );
+
+                return;
+
+            }
+
+            const modal =
+                document.getElementById(
+                    'videoModal'
+                );
+
+            const driveFrame =
+                document.getElementById(
+                    'driveVideoFrame'
+                );
+
+            const modalTitle =
+                document.getElementById(
+                    'modalVideoTitle'
+                );
+
+            /*
+             * Google Drive utilise son propre lecteur intégré.
+             * On transforme automatiquement l'URL Drive en URL /preview.
+             */
+            const driveMatch =
+                videoUrl.match(
+                    /drive\.google\.com\/file\/d\/([^/]+)/
+                );
+
+            let embedUrl = videoUrl;
+
+            if (driveMatch) {
+                embedUrl =
+                    `https://drive.google.com/file/d/${driveMatch[1]}/preview`;
+            }
+
+            driveFrame.src = embedUrl;
+
+            modalTitle.textContent =
+                `${video.id}. ${video.title}`;
+
+            modal.classList.add('active');
+
+            state.currentVideo = {
+                chapterIndex,
+                videoIndex,
+                video
+            };
+
+            /*
+             * Le lecteur Drive possède ses propres contrôles.
+             * Les anciens contrôles HTML5 personnalisés restent
+             * dans le code pour ne pas modifier la structure globale,
+             * mais ils ne sont pas utilisés avec le lecteur Drive.
+             */
+
+            document.getElementById(
+                'videoControls'
+            ).classList.remove('show');
+
+            document.getElementById(
+                'videoProgressBar'
+            ).classList.remove('show');
+
+        }
+
+
+        /* ============================================================
+           PROGRESSION VIDÉO
+        ============================================================ */
+
+        function updateVideoProgress() {
+
+            const video =
+                document.getElementById(
+                    'modalVideo'
+                );
+
+
+            if (
+                !video ||
+                !video.duration ||
+                video.duration === 0
+            ) {
+
+                return;
+
+            }
+
+
+            const percent =
+                (
+                    video.currentTime /
+                    video.duration
+                ) * 100;
+
+
+            document.getElementById(
+                'progressFillCustom'
+            ).style.width =
+                `${percent}%`;
+
+
+            document.getElementById(
+                'progressHandle'
+            ).style.left =
+                `${percent}%`;
+
+
+            updateTimeDisplay();
+
+        }
+
+
+        /* ============================================================
+           TEMPS
+        ============================================================ */
+
+        function updateTimeDisplay() {
+
+            const video =
+                document.getElementById(
+                    'modalVideo'
+                );
+
+
+            if (!video) return;
+
+
+            const current =
+                formatTime(
+                    video.currentTime
+                );
+
+
+            const total =
+                formatTime(
+                    video.duration
+                );
+
+
+            document.getElementById(
+                'timeDisplay'
+            ).textContent =
+                `${current} / ${total}`;
+
+        }
+
+
+        function formatTime(
+            seconds
+        ) {
+
+            if (
+                isNaN(seconds) ||
+                !isFinite(seconds)
+            ) {
+
+                return '00:00';
+
+            }
+
+
+            const mins =
+                Math.floor(
+                    seconds / 60
+                );
+
+
+            const secs =
+                Math.floor(
+                    seconds % 60
+                );
+
+
+            return `${
+                String(mins).padStart(2, '0')
+            }:${
+                String(secs).padStart(2, '0')
+            }`;
+
+        }
+
+
+        /* ============================================================
+           PLAY / PAUSE
+        ============================================================ */
+
+        function togglePlayPause() {
+
+            const video =
+                document.getElementById(
+                    'modalVideo'
+                );
+
+
+            if (!video) return;
+
+
+            if (video.paused) {
+
+                video.play().catch(
+                    () => {}
+                );
+
+            } else {
+
+                video.pause();
+
+            }
+
+
+            updatePlayPauseIcon();
+
+        }
+
+
+        function updatePlayPauseIcon() {
+
+            const video =
+                document.getElementById(
+                    'modalVideo'
+                );
+
+
+            const icon =
+                document.getElementById(
+                    'playPauseIcon'
+                );
+
+
+            if (!video || !icon) return;
+
+
+            if (video.paused) {
+
+                icon.className =
+                    'fas fa-play';
+
+            } else {
+
+                icon.className =
+                    'fas fa-pause';
+
+            }
+
+        }
+
+
+        /* ============================================================
+           RECULER / AVANCER
+        ============================================================ */
+
+        function skipVideo(
+            seconds
+        ) {
+
+            const video =
+                document.getElementById(
+                    'modalVideo'
+                );
+
+
+            if (!video) return;
+
+
+            video.currentTime =
+                Math.max(
+                    0,
+                    Math.min(
+                        video.duration || 0,
+                        video.currentTime + seconds
+                    )
+                );
+
+
+            updateVideoProgress();
+
+
+            showToast(
+                seconds > 0
+                    ? `⏩ Avancé de ${seconds}s`
+                    : `⏪ Reculé de ${Math.abs(seconds)}s`,
+                'info'
+            );
+
+        }
+
+
+        /* ============================================================
+           VOLUME
+        ============================================================ */
+
+        function updateVolumeUI() {
+
+            const video =
+                document.getElementById(
+                    'modalVideo'
+                );
+
+
+            const slider =
+                document.getElementById(
+                    'volumeSlider'
+                );
+
+
+            const icon =
+                document.getElementById(
+                    'volumeIcon'
+                );
+
+
+            const value =
+                document.getElementById(
+                    'volumeValue'
+                );
+
+
+            if (
+                !video ||
+                !slider ||
+                !icon
+            ) {
+
+                return;
+
+            }
+
+
+            const volume =
+                video.muted
+                    ? 0
+                    : video.volume;
+
+
+            slider.value =
+                volume;
+
+
+            if (value) {
+
+                value.textContent =
+                    `${Math.round(volume * 100)}%`;
+
+            }
+
+
+            if (
+                video.muted ||
+                video.volume === 0
+            ) {
+
+                icon.className =
+                    'fas fa-volume-xmark';
+
+            } else if (
+                video.volume < 0.5
+            ) {
+
+                icon.className =
+                    'fas fa-volume-low';
+
+            } else {
+
+                icon.className =
+                    'fas fa-volume-high';
+
+            }
+
+        }
+
+
+        function toggleMute() {
+
+            const video =
+                document.getElementById(
+                    'modalVideo'
+                );
+
+
+            if (!video) return;
+
+
+            video.muted =
+                !video.muted;
+
+
+            updateVolumeUI();
+
+        }
+
+
+        /* ============================================================
+           CURSEUR VOLUME
+        ============================================================ */
+
+        document.addEventListener(
+            'DOMContentLoaded',
+            function() {
+
+                const slider =
+                    document.getElementById(
+                        'volumeSlider'
+                    );
+
+
+                if (!slider) return;
+
+
+                slider.addEventListener(
+                    'input',
+                    function() {
+
+                        const video =
+                            document.getElementById(
+                                'modalVideo'
+                            );
+
+
+                        if (!video) return;
+
+
+                        video.volume =
+                            parseFloat(
+                                this.value
+                            );
+
+
+                        video.muted =
+                            video.volume === 0;
+
+
+                        updateVolumeUI();
+
+                    }
+                );
+
+            }
+        );
+
+
+        /* ============================================================
+           PLEIN ÉCRAN AMÉLIORÉ
+        ============================================================ */
+
+        async function toggleFullscreen() {
+
+            const container =
+                document.getElementById(
+                    'videoPlayerContainer'
+                );
+
+
+            const icon =
+                document.getElementById(
+                    'fullscreenIcon'
+                );
+
+
+            if (!container) return;
+
+
+            try {
+
+                if (
+                    !document.fullscreenElement &&
+                    !document.webkitFullscreenElement
+                ) {
+
+                    if (
+                        container.requestFullscreen
+                    ) {
+
+                        await container.requestFullscreen();
+
+                    } else if (
+                        container.webkitRequestFullscreen
+                    ) {
+
+                        container.webkitRequestFullscreen();
+
+                    } else {
+
+                        showToast(
+                            '❌ Le plein écran n’est pas disponible sur ce navigateur.',
+                            'error'
+                        );
+
+                        return;
+
+                    }
+
+
+                    icon.className =
+                        'fas fa-compress';
+
+
+                } else {
+
+                    if (
+                        document.exitFullscreen
+                    ) {
+
+                        await document.exitFullscreen();
+
+                    } else if (
+                        document.webkitExitFullscreen
+                    ) {
+
+                        document.webkitExitFullscreen();
+
+                    }
+
+
+                    icon.className =
+                        'fas fa-expand';
+
+                }
+
+            } catch (error) {
+
+                console.warn(
+                    'Erreur plein écran:',
+                    error
+                );
+
+            }
+
+        }
+
+
+        /* ============================================================
+           DÉTECTION SORTIE PLEIN ÉCRAN
+        ============================================================ */
+
+        function updateFullscreenIcon() {
+
+            const icon =
+                document.getElementById(
+                    'fullscreenIcon'
+                );
+
+
+            if (!icon) return;
+
+
+            const fullscreen =
+                document.fullscreenElement ||
+                document.webkitFullscreenElement;
+
+
+            icon.className =
+                fullscreen
+                    ? 'fas fa-compress'
+                    : 'fas fa-expand';
+
+        }
+
+
+        document.addEventListener(
+            'fullscreenchange',
+            updateFullscreenIcon
+        );
+
+
+        document.addEventListener(
+            'webkitfullscreenchange',
+            updateFullscreenIcon
+        );
+
+
+        /* ============================================================
+           FERMER LA VIDÉO
+        ============================================================ */
+
+        function closeVideoModal(
+            event
+        ) {
+
+            if (
+                event &&
+                event.target !== event.currentTarget
+            ) {
+                return;
+            }
+
+            const modal =
+                document.getElementById(
+                    'videoModal'
+                );
+
+            const driveFrame =
+                document.getElementById(
+                    'driveVideoFrame'
+                );
+
+            /*
+             * L'iframe Google Drive est cross-origin :
+             * on ne peut pas commander directement sa lecture.
+             * On vide donc sa source pour arrêter complètement
+             * la vidéo lorsque la fenêtre est fermée.
+             */
+            if (driveFrame) {
+                driveFrame.src = '';
+            }
+
+            modal.classList.remove(
+                'active'
+            );
+
+            state.currentVideo = null;
+
+            if (videoInterval) {
+                clearInterval(
+                    videoInterval
+                );
+                videoInterval = null;
+            }
+
+            document.getElementById(
+                'videoControls'
+            ).classList.remove('show');
+
+            document.getElementById(
+                'videoProgressBar'
+            ).classList.remove('show');
+
+            document.getElementById(
+                'fullscreenIcon'
+            ).className =
+                'fas fa-expand';
+
+        }
+
+
+        /* ============================================================
+           TERMINER VIDÉO
+        ============================================================ */
+
+        function completeVideo(
+            chapterIndex,
+            videoIndex
+        ) {
+
+            const chapter =
+                state.chapters[
+                    chapterIndex - 1
+                ];
+
+
+            const video =
+                chapter.videos[
+                    videoIndex
+                ];
+
+
+            if (video.completed) return;
+
+
+            video.completed = true;
+
+
+            state.videoCompleted[
+                video.id
+            ] = true;
+
+
+            showToast(
+                `✅ "${video.title}" terminée !`,
+                'success'
+            );
+
+
+            renderAllChapters();
+
+            saveState();
+
+        }
+
+
+        /* ============================================================
+           BOUTON CONTINUER
+        ============================================================ */
+
+        function updateContinueButton() {
+
+            const btn =
+                document.getElementById(
+                    'continueBtn'
+                );
+
+            if (!btn) return;
+
+            btn.innerHTML = `
+                <i class="fas fa-play"></i>
+                Commencer la formation
+            `;
+
+            btn.className =
+                'btn-ia px-6 py-3 rounded-full font-semibold shadow-lg flex items-center justify-center gap-2';
+
+            btn.onclick = () => {
+                openVideo(1, 0);
+            };
+
+        }
+
+
+        /* ============================================================
+           EXERCICES
+        ============================================================ */
+
+        /*
+         * Pour un site 100% statique sur GitHub Pages, le bouton
+         * prépare un e-mail dans la messagerie de l'utilisateur.
+         *
+         * REMPLACEZ cette adresse par votre adresse réelle.
+         */
+        const EXERCISE_EMAIL =
+            'votre-email@example.com';
+
+
+        function openExerciseModal(
+            chapterIndex
+        ) {
+
+            const chapter =
+                state.chapters[
+                    chapterIndex - 1
+                ];
+
+            if (!chapter) return;
+
+            document.getElementById(
+                'exerciseChapterId'
+            ).value = chapterIndex;
+
+            document.getElementById(
+                'exerciseModalChapter'
+            ).textContent =
+                `Chapitre ${chapterIndex} · ${chapter.title}`;
+
+            document.getElementById(
+                'exerciseResponse'
+            ).value = '';
+
+            document.getElementById(
+                'exerciseModal'
+            ).classList.add('active');
+
+            setTimeout(() => {
+                document.getElementById(
+                    'exerciseResponse'
+                ).focus();
+            }, 100);
+
+        }
+
+
+        function closeExerciseModal(
+            event
+        ) {
+
+            if (
+                event &&
+                event.target !== event.currentTarget
+            ) {
+                return;
+            }
+
+            document.getElementById(
+                'exerciseModal'
+            ).classList.remove('active');
+
+        }
+
+
+        function sendExerciseResponse(
+            event
+        ) {
+
+            event.preventDefault();
+
+            const chapterIndex =
+                document.getElementById(
+                    'exerciseChapterId'
+                ).value;
+
+            const response =
+                document.getElementById(
+                    'exerciseResponse'
+                ).value.trim();
+
+            if (!response) {
+
+                showToast(
+                    '⚠️ Veuillez écrire votre réponse.',
+                    'error'
+                );
+
+                return;
+
+            }
+
+            const chapter =
+                state.chapters[
+                    Number(chapterIndex) - 1
+                ];
+
+            const subject =
+                encodeURIComponent(
+                    `Réponse exercice - Chapitre ${chapterIndex}`
+                );
+
+            const body =
+                encodeURIComponent(
+                    `Bonjour,\n\n` +
+                    `Voici ma réponse à l'exercice du chapitre ${chapterIndex} :\n` +
+                    `${chapter ? chapter.title : ''}\n\n` +
+                    `Réponse :\n${response}\n\n` +
+                    `Cordialement.`
+                );
+
+            /*
+             * Envoi via la messagerie de l'utilisateur.
+             * Aucun serveur n'est nécessaire pour cette version.
+             */
+            window.location.href =
+                `mailto:${EXERCISE_EMAIL}?subject=${subject}&body=${body}`;
+
+            localStorage.setItem(
+                `skillora_exercise_${chapterIndex}`,
+                response
+            );
+
+            closeExerciseModal();
+
+            showToast(
+                '📨 Votre réponse est prête à être envoyée par e-mail.',
+                'success'
+            );
+
+        }
+
+
+        /* ============================================================
+           PROTECTION GLOBALE
+        ============================================================ */
+
+        document.addEventListener(
+            'contextmenu',
+            (e) => {
+
+                e.preventDefault();
+
+                return false;
+
+            }
+        );
+
+
+        /* ============================================================
+           CLAVIER
+        ============================================================ */
+
+        document.addEventListener(
+            'keydown',
+            (e) => {
+
+                const modal =
+                    document.getElementById(
+                        'videoModal'
+                    );
+
+
+                const isVideoOpen =
+                    modal &&
+                    modal.classList.contains(
+                        'active'
+                    );
+
+
+                /* PROTECTION */
+
+                if (
+                    (e.ctrlKey &&
+                        (
+                            e.key === 's' ||
+                            e.key === 'u' ||
+                            e.key === 'i'
+                        )
+                    ) ||
+
+                    (
+                        e.ctrlKey &&
+                        e.shiftKey &&
+                        (
+                            e.key === 'I' ||
+                            e.key === 'J' ||
+                            e.key === 'C'
+                        )
+                    ) ||
+
+                    e.key === 'F12'
+                ) {
+
+                    e.preventDefault();
+
+
+                    showToast(
+                        '🔒 Action désactivée',
+                        'info'
+                    );
+
+
+                    return false;
+
+                }
+
+
+                if (!isVideoOpen) {
+
+                    return;
+
+                }
+
+
+                /* ESPACE */
+
+                if (
+                    e.key === ' ' ||
+                    e.key.toLowerCase() === 'k'
+                ) {
+
+                    e.preventDefault();
+
+                    togglePlayPause();
+
+                }
+
+
+                /* DROITE */
+
+                if (
+                    e.key === 'ArrowRight'
+                ) {
+
+                    e.preventDefault();
+
+                    skipVideo(5);
+
+                }
+
+
+                /* GAUCHE */
+
+                if (
+                    e.key === 'ArrowLeft'
+                ) {
+
+                    e.preventDefault();
+
+                    skipVideo(-5);
+
+                }
+
+
+                /* F */
+
+                if (
+                    e.key === 'f' ||
+                    e.key === 'F'
+                ) {
+
+                    e.preventDefault();
+
+                    toggleFullscreen();
+
+                }
+
+
+                /* ESC */
+
+                if (
+                    e.key === 'Escape'
+                ) {
+
+                    closeVideoModal();
+
+                }
+
+            }
+        );
+
+
+        /* ============================================================
+           INITIALISATION
+        ============================================================ */
+
+        function init() {
+
+            loadState();
+
+
+            state.chapters.forEach(
+                chapter => {
+
+                    chapter.videos.forEach(
+                        video => {
+
+                            if (
+                                state.videoCompleted[
+                                    video.id
+                                ]
+                            ) {
+
+                                video.completed =
+                                    true;
+
+                            }
+
+                        }
+                    );
+
+                }
+            );
+
+
+            renderAllChapters();
+
+            updateContinueButton();
+
+
+            /* NOTES */
+
+            const noteTextarea =
+                document.querySelector(
+                    'textarea'
+                );
+
+
+            const savedNote =
+                localStorage.getItem(
+                    'skillora_ia_note'
+                );
+
+
+            if (
+                savedNote &&
+                noteTextarea
+            ) {
+
+                noteTextarea.value =
+                    savedNote;
+
+            }
+
+
+            /* SAUVEGARDER NOTE */
+
+            const saveButtons =
+                document.querySelectorAll(
+                    '.btn-ia'
+                );
+
+
+            saveButtons.forEach(
+                button => {
+
+                    if (
+                        button.textContent.includes(
+                            'Sauvegarder'
+                        )
+                    ) {
+
+                        button.addEventListener(
+                            'click',
+                            function() {
+
+                                const textarea =
+                                    this
+                                        .closest(
+                                            '.bg-white'
+                                        )
+                                        ?.querySelector(
+                                            'textarea'
+                                        );
+
+
+                                if (textarea) {
+
+                                    localStorage.setItem(
+                                        'skillora_ia_note',
+                                        textarea.value
+                                    );
+
+
+                                    showToast(
+                                        '✅ Notes sauvegardées !',
+                                        'success'
+                                    );
+
+
+                                    textarea.style.borderColor =
+                                        '#FFB52E';
+
+
+                                    setTimeout(
+                                        () => {
+
+                                            textarea.style.borderColor =
+                                                '';
+
+                                        },
+                                        2000
+                                    );
+
+                                }
+
+                            }
+                        );
+
+                    }
+
+                }
+            );
+
+
+            console.log(
+                '🔒 Protection des vidéos activée'
+            );
+
+            console.log(
+                '📹 Les vidéos sont dans le dossier AI'
+            );
+
+            console.log(
+                '⌨️ Espace=Play/Pause | ←/→=±5s | F=Plein écran | ESC=Fermer'
+            );
+
+        }
+
+
+        /* ============================================================
+           LANCEMENT
+        ============================================================ */
+
+        document.addEventListener(
+            'DOMContentLoaded',
+            init
+        );
+
+    </script>
+
+</body>
+</html>
