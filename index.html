@@ -1013,6 +1013,18 @@
         }
 
 
+        .formation-top.design {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #1a1040,
+                    #2a1a5b
+                );
+
+        }
+
+
         .formation-top::before {
 
             content: "";
@@ -1421,518 +1433,6 @@
 
 
         /* =====================================================
-           PAGE FORMATIONS / VIDEOS
-        ====================================================== */
-
-        #coursePage {
-
-            display: none;
-
-            min-height: 100vh;
-
-            padding-top: 130px;
-
-            padding-bottom: 80px;
-
-        }
-
-
-        .course-header {
-
-            max-width: 800px;
-
-        }
-
-
-        .course-header .label {
-
-            color: var(--gold);
-
-            font-size: 11px;
-
-            letter-spacing: 3px;
-
-            font-weight: bold;
-
-        }
-
-
-        .course-header h1 {
-
-            font-size:
-                clamp(40px, 6vw, 65px);
-
-            line-height: 1.05;
-
-            margin-top: 15px;
-
-        }
-
-
-        .course-header p {
-
-            color: #888A9C;
-
-            font-size: 17px;
-
-            margin-top: 20px;
-
-        }
-
-
-        .back-button {
-
-            display: inline-flex;
-
-            align-items: center;
-
-            gap: 8px;
-
-            color: #A4A5B4;
-
-            border:
-                1px solid
-                rgba(255,255,255,0.1);
-
-            border-radius: 30px;
-
-            padding: 10px 18px;
-
-            margin-bottom: 35px;
-
-            cursor: pointer;
-
-            transition: 0.3s;
-
-        }
-
-
-        .back-button:hover {
-
-            color: var(--gold);
-
-            border-color: var(--gold);
-
-        }
-
-
-
-        /* =====================================================
-           PROGRESS
-        ====================================================== */
-
-        .progress-container {
-
-            margin-top: 45px;
-
-            padding: 22px;
-
-            background: #0D0D29;
-
-            border:
-                1px solid
-                rgba(255,255,255,0.07);
-
-            border-radius: 16px;
-
-        }
-
-
-        .progress-info {
-
-            display: flex;
-
-            justify-content: space-between;
-
-            margin-bottom: 12px;
-
-        }
-
-
-        .progress-info span {
-
-            color: #898B9C;
-
-        }
-
-
-        .progress-info strong {
-
-            color: var(--gold);
-
-        }
-
-
-        .progress-bar {
-
-            height: 7px;
-
-            border-radius: 20px;
-
-            background:
-                rgba(255,255,255,0.07);
-
-            overflow: hidden;
-
-        }
-
-
-        .progress-value {
-
-            height: 100%;
-
-            width: 0%;
-
-            background: var(--gold);
-
-            transition: 0.5s;
-
-        }
-
-
-
-        /* =====================================================
-           VIDEOS
-        ====================================================== */
-
-        .videos {
-
-            margin-top: 55px;
-
-        }
-
-
-        .videos-title {
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: space-between;
-
-            margin-bottom: 25px;
-
-        }
-
-
-        .videos-title h2 {
-
-            font-size: 30px;
-
-        }
-
-
-        .videos-title span {
-
-            color: #686A7C;
-
-            font-size: 13px;
-
-        }
-
-
-        .video-grid {
-
-            display: grid;
-
-            grid-template-columns:
-                repeat(3, 1fr);
-
-            gap: 20px;
-
-        }
-
-
-        .video-card {
-
-            background: #0D0D29;
-
-            border:
-                1px solid
-                rgba(255,255,255,0.07);
-
-            border-radius: 18px;
-
-            overflow: hidden;
-
-            transition: 0.3s;
-
-        }
-
-
-        .video-card:hover {
-
-            transform: translateY(-5px);
-
-            border-color:
-                rgba(255,177,46,0.4);
-
-        }
-
-
-        .video-thumbnail {
-
-            height: 170px;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #12123A,
-                    #0B0B24
-                );
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            position: relative;
-
-        }
-
-
-        .video-thumbnail-icon {
-
-            font-size: 58px;
-
-        }
-
-
-        .play {
-
-            position: absolute;
-
-            right: 15px;
-
-            bottom: 15px;
-
-            width: 45px;
-
-            height: 45px;
-
-            border: none;
-
-            border-radius: 50%;
-
-            background: var(--gold);
-
-            color: var(--navy);
-
-            cursor: pointer;
-
-            font-weight: bold;
-
-            transition: 0.3s;
-
-        }
-
-
-        .play:hover {
-
-            transform: scale(1.1);
-
-        }
-
-
-        .video-body {
-
-            padding: 20px;
-
-        }
-
-
-        .video-body h3 {
-
-            font-size: 16px;
-
-            line-height: 1.45;
-
-        }
-
-
-        .video-footer {
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: space-between;
-
-            margin-top: 18px;
-
-        }
-
-
-        .duration {
-
-            color: #67697A;
-
-            font-size: 12px;
-
-        }
-
-
-        .watch {
-
-            border: none;
-
-            background: transparent;
-
-            color: var(--gold);
-
-            cursor: pointer;
-
-            font-weight: bold;
-
-        }
-
-
-
-        /* =====================================================
-           MODAL VIDEO
-        ====================================================== */
-
-        .modal {
-
-            position: fixed;
-
-            inset: 0;
-
-            z-index: 2000;
-
-            background:
-                rgba(0,0,0,0.85);
-
-            backdrop-filter: blur(8px);
-
-            display: none;
-
-            align-items: center;
-
-            justify-content: center;
-
-            padding: 20px;
-
-        }
-
-
-        .modal.active {
-
-            display: flex;
-
-        }
-
-
-        .modal-content {
-
-            width: 100%;
-
-            max-width: 900px;
-
-            background: #0D0D29;
-
-            border:
-                1px solid
-                rgba(255,177,46,0.2);
-
-            border-radius: 20px;
-
-            overflow: hidden;
-
-            position: relative;
-
-        }
-
-
-        .modal-header {
-
-            display: flex;
-
-            justify-content: space-between;
-
-            align-items: center;
-
-            padding: 18px 22px;
-
-        }
-
-
-        .modal-header h3 {
-
-            font-size: 18px;
-
-        }
-
-
-        .close-modal {
-
-            width: 38px;
-
-            height: 38px;
-
-            border-radius: 50%;
-
-            border: none;
-
-            background:
-                rgba(255,255,255,0.08);
-
-            color: white;
-
-            cursor: pointer;
-
-            font-size: 20px;
-
-        }
-
-
-        .video-player {
-
-            width: 100%;
-
-            aspect-ratio: 16 / 9;
-
-            background: #000;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-        }
-
-
-        .video-placeholder {
-
-            text-align: center;
-
-            padding: 30px;
-
-        }
-
-
-        .video-placeholder .big-play {
-
-            font-size: 65px;
-
-            color: var(--gold);
-
-        }
-
-
-        .video-placeholder p {
-
-            color: #888A9C;
-
-            margin-top: 10px;
-
-        }
-
-
-
-        /* =====================================================
            ANIMATIONS
         ====================================================== */
 
@@ -2005,14 +1505,6 @@
                 grid-template-columns: 1fr;
 
                 gap: 50px;
-
-            }
-
-
-            .video-grid {
-
-                grid-template-columns:
-                    repeat(2, 1fr);
 
             }
 
@@ -2181,34 +1673,6 @@
                 gap: 15px;
 
                 text-align: center;
-
-            }
-
-
-            #coursePage {
-
-                padding-top: 110px;
-
-            }
-
-
-            .course-header h1 {
-
-                font-size: 42px;
-
-            }
-
-
-            .video-grid {
-
-                grid-template-columns: 1fr;
-
-            }
-
-
-            .videos-title h2 {
-
-                font-size: 24px;
 
             }
 
@@ -2571,7 +2035,7 @@
 
                 <article
                     class="formation-card fade-up"
-                    onclick="openCourse('web')">
+                    onclick="window.location.href='Login.html'">
 
 
                     <div
@@ -2653,7 +2117,7 @@
 
                 <article
                     class="formation-card fade-up"
-                    onclick="openCourse('ai')">
+                    onclick="window.location.href='Login.html'">
 
 
                     <div
@@ -2730,12 +2194,94 @@
 
 
                 <!-- =================================================
+                     CRÉATION DIGITALE
+                ================================================== -->
+
+                <article
+                    class="formation-card fade-up"
+                    onclick="window.location.href='Login.html'">
+
+
+                    <div
+                        class="formation-top design">
+
+
+                        <div class="formation-icon">
+
+                            🎨
+
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="formation-body">
+
+
+                        <div class="formation-number">
+
+                            FORMATION 03
+
+                        </div>
+
+
+                        <h3>
+
+                            Création Digitale
+
+                        </h3>
+
+
+                        <p>
+
+                            Apprenez les bases du design
+                            digital et les outils de création
+                            pour vos projets professionnels.
+
+                        </p>
+
+
+                        <div class="formation-details">
+
+                            <span>
+                                🎥 8 vidéos
+                            </span>
+
+                            <span>
+                                ⏱ 2h30
+                            </span>
+
+                        </div>
+
+
+                        <button
+                            class="formation-link">
+
+                            <span>
+                                Voir la formation
+                            </span>
+
+                            <span>
+                                →
+                            </span>
+
+                        </button>
+
+
+                    </div>
+
+                </article>
+
+
+
+                <!-- =================================================
                      BUREAUTIQUE
                 ================================================== -->
 
                 <article
                     class="formation-card fade-up"
-                    onclick="openCourse('office')">
+                    onclick="window.location.href='Login.html'">
 
 
                     <div
@@ -2757,7 +2303,7 @@
 
                         <div class="formation-number">
 
-                            FORMATION 03
+                            FORMATION 04
 
                         </div>
 
@@ -3060,692 +2606,10 @@
 
 
 <!-- =====================================================
-     PAGE FORMATION / VIDEOS
-====================================================== -->
-
-<section
-    id="coursePage"
-    class="course-page">
-
-
-    <div class="container">
-
-
-        <!-- RETOUR -->
-
-        <button
-            class="back-button"
-            onclick="showHome()">
-
-            ← Retour aux formations
-
-        </button>
-
-
-
-        <!-- INFORMATIONS -->
-
-        <div class="course-header">
-
-
-            <div
-                id="courseLabel"
-                class="label">
-
-                FORMATION
-
-            </div>
-
-
-            <h1
-                id="courseTitle">
-
-                Formation
-
-            </h1>
-
-
-            <p
-                id="courseDescription">
-
-                Description de la formation.
-
-            </p>
-
-
-        </div>
-
-
-
-        <!-- PROGRESSION -->
-
-        <div class="progress-container">
-
-
-            <div class="progress-info">
-
-
-                <span>
-
-                    Votre progression
-
-                </span>
-
-
-                <strong
-                    id="progressText">
-
-                    0%
-
-                </strong>
-
-
-            </div>
-
-
-            <div class="progress-bar">
-
-
-                <div
-                    id="progressValue"
-                    class="progress-value">
-
-                </div>
-
-
-            </div>
-
-
-        </div>
-
-
-
-        <!-- VIDEOS -->
-
-        <div class="videos">
-
-
-            <div class="videos-title">
-
-
-                <h2>
-
-                    Liste des vidéos
-
-                </h2>
-
-
-                <span
-                    id="videoCount">
-
-                    0 vidéos
-
-                </span>
-
-
-            </div>
-
-
-            <div
-                id="videoGrid"
-                class="video-grid">
-
-            </div>
-
-
-        </div>
-
-
-    </div>
-
-</section>
-
-
-
-<!-- =====================================================
-     MODAL VIDEO
-====================================================== -->
-
-<div
-    id="videoModal"
-    class="modal">
-
-
-    <div class="modal-content">
-
-
-        <div class="modal-header">
-
-
-            <h3
-                id="modalTitle">
-
-                Vidéo
-
-            </h3>
-
-
-            <button
-                class="close-modal"
-                onclick="closeVideo()">
-
-                ×
-
-            </button>
-
-
-        </div>
-
-
-        <div class="video-player">
-
-
-            <div class="video-placeholder">
-
-
-                <div class="big-play">
-
-                    ▶
-
-                </div>
-
-
-                <p>
-
-                    Votre vidéo sera affichée ici.
-
-                </p>
-
-
-                <p>
-
-                    Remplacez l'URL de la vidéo
-                    dans le JavaScript.
-
-                </p>
-
-
-            </div>
-
-
-        </div>
-
-
-    </div>
-
-</div>
-
-
-
-<!-- =====================================================
      JAVASCRIPT
 ====================================================== -->
 
 <script>
-
-    /* =====================================================
-       DONNÉES DES FORMATIONS
-    ====================================================== */
-
-    const courses = {
-
-        web: {
-
-            label: "FORMATION 01",
-
-            title: "Développement Web",
-
-            description:
-                "Apprenez progressivement à créer des sites web modernes avec HTML, CSS, JavaScript et Tailwind CSS.",
-
-            videos: [
-
-                {
-                    title:
-                        "Introduction au développement Web",
-                    duration:
-                        "12 min",
-                    icon:
-                        "🌐",
-                    url:
-                        ""
-                },
-
-                {
-                    title:
-                        "Comprendre le HTML",
-                    duration:
-                        "18 min",
-                    icon:
-                        "📄",
-                    url:
-                        ""
-                },
-
-                {
-                    title:
-                        "Les principales balises HTML",
-                    duration:
-                        "22 min",
-                    icon:
-                        "🏗️",
-                    url:
-                        ""
-                },
-
-                {
-                    title:
-                        "Introduction au CSS",
-                    duration:
-                        "20 min",
-                    icon:
-                        "🎨",
-                    url:
-                        ""
-                },
-
-                {
-                    title:
-                        "Créer sa première page Web",
-                    duration:
-                        "25 min",
-                    icon:
-                        "💻",
-                    url:
-                        ""
-                },
-
-                {
-                    title:
-                        "Les couleurs et les textes en CSS",
-                    duration:
-                        "19 min",
-                    icon:
-                        "🖌️",
-                    url:
-                        ""
-                },
-
-                {
-                    title:
-                        "Créer une mise en page",
-                    duration:
-                        "24 min",
-                    icon:
-                        "📐",
-                    url:
-                        ""
-                },
-
-                {
-                    title:
-                        "Introduction à JavaScript",
-                    duration:
-                        "24 min",
-                    icon:
-                        "⚡",
-                    url:
-                        ""
-                },
-
-                {
-                    title:
-                        "Les variables JavaScript",
-                    duration:
-                        "18 min",
-                    icon:
-                        "💡",
-                    url:
-                        ""
-                },
-
-                {
-                    title:
-                        "Les événements JavaScript",
-                    duration:
-                        "21 min",
-                    icon:
-                        "🖱️",
-                    url:
-                        ""
-                },
-
-                {
-                    title:
-                        "Créer un menu interactif",
-                    duration:
-                        "28 min",
-                    icon:
-                        "☰",
-                    url:
-                        ""
-                },
-
-                {
-                    title:
-                        "Projet final : créer un site Web",
-                    duration:
-                        "45 min",
-                    icon:
-                        "🚀",
-                    url:
-                        ""
-                }
-
-            ]
-
-        },
-
-
-        ai: {
-
-            label: "FORMATION 02",
-
-            title: "AI & Outils Digitaux",
-
-            description:
-                "Découvrez l'intelligence artificielle et les outils numériques permettant d'améliorer votre productivité.",
-
-            videos: [
-
-                {
-                    title:
-                        "Comprendre l'intelligence artificielle",
-                    duration:
-                        "15 min",
-                    icon:
-                        "🤖",
-                    url:
-                        ""
-                },
-
-                {
-                    title:
-                        "Comment fonctionne une IA ?",
-                    duration:
-                        "18 min",
-                    icon:
-                        "🧠",
-                    url:
-                        ""
-                },
-
-                {
-                    title:
-                        "Découvrir les assistants IA",
-                    duration:
-                        "20 min",
-                    icon:
-                        "💬",
-                    url:
-                        ""
-                },
-
-                {
-                    title:
-                        "Comprendre les prompts",
-                    duration:
-                        "17 min",
-                    icon:
-                        "✍️",
-                    url:
-                        ""
-                },
-
-                {
-                    title:
-                        "Créer un bon prompt",
-                    duration:
-                        "22 min",
-                    icon:
-                        "🎯",
-                    url:
-                        ""
-                },
-
-                {
-                    title:
-                        "IA pour la création de contenu",
-                    duration:
-                        "25 min",
-                    icon:
-                        "🎨",
-                    url:
-                        ""
-                },
-
-                {
-                    title:
-                        "IA pour les images",
-                    duration:
-                        "24 min",
-                    icon:
-                        "🖼️",
-                    url:
-                        ""
-                },
-
-                {
-                    title:
-                        "IA pour travailler plus rapidement",
-                    duration:
-                        "20 min",
-                    icon:
-                        "🚀",
-                    url:
-                        ""
-                },
-
-                {
-                    title:
-                        "Les outils digitaux essentiels",
-                    duration:
-                        "25 min",
-                    icon:
-                        "🛠️",
-                    url:
-                        ""
-                },
-
-                {
-                    title:
-                        "Projet pratique avec l'IA",
-                    duration:
-                        "35 min",
-                    icon:
-                        "💻",
-                    url:
-                        ""
-                }
-
-            ]
-
-        },
-
-
-        office: {
-
-            label: "FORMATION 03",
-
-            title: "Bureautique pour débutants",
-
-            description:
-                "Apprenez les bases de l'ordinateur, de Word, Excel et PowerPoint grâce à des vidéos simples et pratiques.",
-
-            videos: [
-
-                {
-                    title:
-                        "Découvrir l'ordinateur",
-                    duration:
-                        "15 min",
-                    icon:
-                        "🖥️",
-                    url:
-                        ""
-                },
-
-                {
-                    title:
-                        "Comprendre le clavier et la souris",
-                    duration:
-                        "15 min",
-                    icon:
-                        "⌨️",
-                    url:
-                        ""
-                },
-
-                {
-                    title:
-                        "Les bases de Windows",
-                    duration:
-                        "20 min",
-                    icon:
-                        "🪟",
-                    url:
-                        ""
-                },
-
-                {
-                    title:
-                        "Créer et organiser des dossiers",
-                    duration:
-                        "18 min",
-                    icon:
-                        "📁",
-                    url:
-                        ""
-                },
-
-                {
-                    title:
-                        "Copier, déplacer et supprimer des fichiers",
-                    duration:
-                        "16 min",
-                    icon:
-                        "📂",
-                    url:
-                        ""
-                },
-
-                {
-                    title:
-                        "Découvrir Microsoft Word",
-                    duration:
-                        "20 min",
-                    icon:
-                        "📝",
-                    url:
-                        ""
-                },
-
-                {
-                    title:
-                        "Créer un document Word",
-                    duration:
-                        "25 min",
-                    icon:
-                        "📄",
-                    url:
-                        ""
-                },
-
-                {
-                    title:
-                        "Mettre en forme un document",
-                    duration:
-                        "22 min",
-                    icon:
-                        "🎨",
-                    url:
-                        ""
-                },
-
-                {
-                    title:
-                        "Découvrir Microsoft Excel",
-                    duration:
-                        "25 min",
-                    icon:
-                        "📊",
-                    url:
-                        ""
-                },
-
-                {
-                    title:
-                        "Créer un tableau Excel",
-                    duration:
-                        "28 min",
-                    icon:
-                        "📈",
-                    url:
-                        ""
-                },
-
-                {
-                    title:
-                        "Les formules Excel de base",
-                    duration:
-                        "30 min",
-                    icon:
-                        "➗",
-                    url:
-                        ""
-                },
-
-                {
-                    title:
-                        "Découvrir PowerPoint",
-                    duration:
-                        "20 min",
-                    icon:
-                        "📽️",
-                    url:
-                        ""
-                },
-
-                {
-                    title:
-                        "Créer une présentation",
-                    duration:
-                        "25 min",
-                    icon:
-                        "🎞️",
-                    url:
-                        ""
-                },
-
-                {
-                    title:
-                        "Ajouter des images et du texte",
-                    duration:
-                        "18 min",
-                    icon:
-                        "🖼️",
-                    url:
-                        ""
-                },
-
-                {
-                    title:
-                        "Projet final bureautique",
-                    duration:
-                        "40 min",
-                    icon:
-                        "🎓",
-                    url:
-                        ""
-                }
-
-            ]
-
-        }
-
-    };
-
-
 
     /* =====================================================
        MENU MOBILE
@@ -3795,287 +2659,10 @@
 
 
     /* =====================================================
-       OUVRIR UNE FORMATION
-    ====================================================== */
-
-    function openCourse(courseId) {
-
-        window.location.href = "Login.html";
-
-    }
-
-
-    /* =====================================================
-       AFFICHER LA PROGRESSION
-    ====================================================== */
-
-    function updateProgress(courseId) {
-
-
-        const storageKey =
-            "skillora_" +
-            courseId;
-
-
-        const completed =
-            JSON.parse(
-                localStorage.getItem(
-                    storageKey
-                ) || "[]"
-            );
-
-
-        const total =
-            courses[courseId].videos.length;
-
-
-        const percentage =
-            total === 0
-                ? 0
-                : Math.round(
-                    (completed.length / total) * 100
-                );
-
-
-        document.getElementById(
-            "progressValue"
-        ).style.width =
-            percentage + "%";
-
-
-        document.getElementById(
-            "progressText"
-        ).textContent =
-            percentage + "%";
-
-    }
-
-
-
-    /* =====================================================
-       LIRE UNE VIDEO
-    ====================================================== */
-
-    function playVideo(
-        courseId,
-        videoIndex
-    ) {
-
-
-        const course =
-            courses[courseId];
-
-
-        const video =
-            course.videos[videoIndex];
-
-
-        document.getElementById(
-            "modalTitle"
-        ).textContent =
-            video.title;
-
-
-        const modal =
-            document.getElementById(
-                "videoModal"
-            );
-
-
-        modal.classList.add(
-            "active"
-        );
-
-
-        /*
-         * Si vous avez une vraie URL vidéo,
-         * elle peut être utilisée ici.
-         */
-
-        if (video.url) {
-
-            document.querySelector(
-                ".video-player"
-            ).innerHTML = `
-
-                <video
-                    controls
-                    autoplay
-                    style="
-                        width:100%;
-                        height:100%;
-                    "
-                >
-
-                    <source
-                        src="${video.url}"
-                        type="video/mp4">
-
-                    Votre navigateur
-                    ne supporte pas la vidéo.
-
-                </video>
-
-            `;
-
-        }
-
-
-        /*
-         * Marquer la vidéo comme terminée
-         * lorsque l'utilisateur la regarde.
-         */
-
-        markVideoCompleted(
-            courseId,
-            videoIndex
-        );
-
-    }
-
-
-
-    /* =====================================================
-       MARQUER VIDEO COMME TERMINEE
-    ====================================================== */
-
-    function markVideoCompleted(
-        courseId,
-        videoIndex
-    ) {
-
-
-        const storageKey =
-            "skillora_" +
-            courseId;
-
-
-        let completed =
-            JSON.parse(
-                localStorage.getItem(
-                    storageKey
-                ) || "[]"
-            );
-
-
-        if (
-            !completed.includes(
-                videoIndex
-            )
-        ) {
-
-            completed.push(
-                videoIndex
-            );
-
-        }
-
-
-        localStorage.setItem(
-            storageKey,
-            JSON.stringify(
-                completed
-            )
-        );
-
-
-        updateProgress(
-            courseId
-        );
-
-    }
-
-
-
-    /* =====================================================
-       FERMER VIDEO
-    ====================================================== */
-
-    function closeVideo() {
-
-
-        const modal =
-            document.getElementById(
-                "videoModal"
-            );
-
-
-        modal.classList.remove(
-            "active"
-        );
-
-
-        /*
-         * Remettre le contenu
-         * par défaut.
-         */
-
-        document.querySelector(
-            ".video-player"
-        ).innerHTML = `
-
-            <div class="video-placeholder">
-
-                <div class="big-play">
-                    ▶
-                </div>
-
-                <p>
-                    Votre vidéo sera affichée ici.
-                </p>
-
-                <p>
-                    Remplacez l'URL de la vidéo
-                    dans le JavaScript.
-                </p>
-
-            </div>
-
-        `;
-
-    }
-
-
-
-    /* =====================================================
-       FERMER MODAL EN CLIQUANT À L'EXTÉRIEUR
-    ====================================================== */
-
-    document.getElementById(
-        "videoModal"
-    ).addEventListener(
-        "click",
-        function(event) {
-
-            if (
-                event.target === this
-            ) {
-
-                closeVideo();
-
-            }
-
-        }
-    );
-
-
-
-    /* =====================================================
        RETOUR ACCUEIL
     ====================================================== */
 
     function showHome() {
-
-
-        document.getElementById(
-            "coursePage"
-        ).style.display = "none";
-
-
-        document.getElementById(
-            "homePage"
-        ).style.display = "block";
-
 
         window.scrollTo({
             top: 0,
