@@ -1,0 +1,1529 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no" />
+    <meta name="theme-color" content="#050518" />
+    <title>SKILLORA · Création Digitale</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
+    <style>
+        /* ============================================================
+           PALETTE SKILLORA - RESPECT DU LOGO
+        ============================================================ */
+
+        :root {
+            --skillora-dark: #050518;
+            --skillora-dark-2: #080820;
+            --skillora-medium: #11113A;
+            --skillora-gold: #FFB52E;
+            --skillora-gold-hover: #E9A01F;
+            --skillora-white: #FFFFFF;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #f6f7fb;
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        /* ============================================================
+           COULEURS SKILLORA
+        ============================================================ */
+
+        .bg-skillora-dark {
+            background-color: var(--skillora-dark) !important;
+        }
+
+        .bg-skillora-accent {
+            background-color: var(--skillora-gold) !important;
+        }
+
+        .text-skillora-dark {
+            color: var(--skillora-dark) !important;
+        }
+
+        .text-skillora-accent {
+            color: var(--skillora-gold) !important;
+        }
+
+        .border-skillora-accent {
+            border-color: var(--skillora-gold) !important;
+        }
+
+        /* ============================================================
+           BOUTONS
+        ============================================================ */
+
+        .btn-accent {
+            background-color: var(--skillora-gold);
+            color: var(--skillora-dark);
+            transition: all 0.2s ease;
+            font-weight: 700;
+        }
+
+        .btn-accent:hover {
+            background-color: var(--skillora-gold-hover);
+            transform: scale(1.02);
+        }
+
+        .btn-outline-accent {
+            border: 2px solid var(--skillora-gold);
+            color: var(--skillora-dark);
+            background: transparent;
+            transition: all 0.2s ease;
+        }
+
+        .btn-outline-accent:hover {
+            background: var(--skillora-gold);
+            color: var(--skillora-dark);
+        }
+
+        /* ============================================================
+           LISTE DES VIDÉOS
+        ============================================================ */
+
+        .video-item {
+            background: white;
+            border-radius: 1rem;
+            padding: 0.75rem 1.25rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            border-left: 4px solid var(--skillora-gold);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .video-item:hover {
+            background: #fffaf0;
+            box-shadow: 0 4px 12px rgba(255, 181, 46, 0.18);
+            transform: translateX(4px);
+        }
+
+        .video-item.completed {
+            border-left-color: #22c55e;
+        }
+
+        /* ============================================================
+           CHAPITRES
+        ============================================================ */
+
+        .chapter-card {
+            background: white;
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            border: 1px solid #eef2f6;
+        }
+
+        .chapter-card:hover {
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+            border-color: var(--skillora-gold);
+        }
+
+        /* ============================================================
+           PROGRESSION
+        ============================================================ */
+
+        .progress-bar {
+            height: 6px;
+            background: #e2e8f0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-bar .progress-fill {
+            height: 100%;
+            background: var(--skillora-gold);
+            border-radius: 10px;
+            transition: width 0.5s ease;
+        }
+
+        /* ============================================================
+           TOAST
+        ============================================================ */
+
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--skillora-dark);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 1rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.4s ease;
+            z-index: 9999;
+            border-left: 4px solid var(--skillora-gold);
+            max-width: 400px;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* ============================================================
+           BOUTON REGARDER
+        ============================================================ */
+
+        .btn-play-video {
+            background: var(--skillora-gold);
+            color: var(--skillora-dark);
+            border: none;
+            padding: 0.35rem 0.85rem;
+            border-radius: 2rem;
+            font-size: 0.7rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .btn-play-video:hover:not(:disabled) {
+            background: var(--skillora-gold-hover);
+            transform: scale(1.05);
+        }
+
+        .btn-play-video:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn-play-video.playing {
+            background: #22c55e;
+            color: white;
+        }
+
+        /* ============================================================
+           MODAL VIDÉO - Version mobile simplifiée
+        ============================================================ */
+
+        .video-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100dvh;
+            background: rgba(3, 3, 15, 0.98);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 8px;
+            overflow: hidden;
+        }
+
+        .video-modal.active {
+            display: flex;
+        }
+
+        .video-modal-content {
+            position: relative;
+            width: 100%;
+            max-width: 1100px;
+            background: #000;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.9);
+            aspect-ratio: 16 / 9;
+        }
+
+        .video-player-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            overflow: hidden;
+        }
+
+        .drive-video-frame {
+            position: absolute !important;
+            inset: 0 !important;
+            width: 100% !important;
+            height: 100% !important;
+            border: 0 !important;
+            display: block !important;
+            background: #000;
+        }
+
+        /* Bouton fermeture - uniquement visible sur desktop */
+        .video-modal-close {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            z-index: 100;
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+            background: rgba(5, 5, 24, 0.85);
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            border: 2px solid rgba(255, 181, 46, 0.8);
+            backdrop-filter: blur(8px);
+        }
+
+        .video-modal-close:hover {
+            background: var(--skillora-gold);
+            color: var(--skillora-dark);
+            transform: scale(1.08);
+        }
+
+        /* Filigrane - conservé mais non intrusif */
+        .watermark {
+            position: absolute;
+            bottom: 90px;
+            right: 20px;
+            color: rgba(255, 255, 255, 0.15);
+            font-size: 0.7rem;
+            font-weight: 300;
+            pointer-events: none;
+            z-index: 5;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* ============================================================
+           EXERCICES PAR CHAPITRE
+        ============================================================ */
+
+        .exercise-box {
+            margin-top: 1.25rem;
+            padding: 1rem;
+            background: linear-gradient(135deg, #fffaf0, #ffffff);
+            border: 1px solid #f3d58b;
+            border-radius: 1rem;
+        }
+
+        .exercise-box .exercise-title {
+            color: var(--skillora-dark);
+            font-weight: 800;
+            font-size: 1rem;
+        }
+
+        .exercise-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.65rem;
+            margin-top: 0.85rem;
+        }
+
+        .exercise-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.65rem 0.9rem;
+            border-radius: 0.75rem;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-decoration: none;
+            border: 1px solid #e5e7eb;
+            background: #fff;
+            color: var(--skillora-dark);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .exercise-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .exercise-btn.primary {
+            background: var(--skillora-gold);
+            border-color: var(--skillora-gold);
+        }
+
+        .exercise-btn.pdf i {
+            color: #dc2626;
+        }
+
+        .exercise-btn.image i {
+            color: #2563eb;
+        }
+
+        .exercise-btn.send i {
+            color: #16a34a;
+        }
+
+        /* ============================================================
+           MODAL RÉPONSE EXERCICE
+        ============================================================ */
+
+        .exercise-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 2000;
+            background: rgba(3, 3, 15, 0.82);
+            padding: 20px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .exercise-modal.active {
+            display: flex;
+        }
+
+        .exercise-modal-card {
+            width: 100%;
+            max-width: 650px;
+            max-height: 90vh;
+            overflow-y: auto;
+            background: #fff;
+            border-radius: 1.25rem;
+            padding: 1.5rem;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+        }
+
+        .exercise-modal-card textarea {
+            width: 100%;
+            min-height: 180px;
+            resize: vertical;
+            border: 1px solid #dbe2ea;
+            border-radius: 0.85rem;
+            padding: 0.9rem;
+            outline: none;
+        }
+
+        .exercise-modal-card textarea:focus {
+            border-color: var(--skillora-gold);
+            box-shadow: 0 0 0 3px rgba(255,181,46,0.15);
+        }
+
+        .btn-ia {
+            background: var(--skillora-gold);
+            color: var(--skillora-dark);
+            transition: all 0.2s ease;
+            font-weight: 700;
+        }
+
+        .btn-ia:hover {
+            background: var(--skillora-gold-hover);
+            transform: scale(1.02);
+        }
+
+        /* ============================================================
+           ANIMATIONS
+        ============================================================ */
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-in-up {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .animate-fade-in-up:nth-child(1) { animation-delay: 0.05s; }
+        .animate-fade-in-up:nth-child(2) { animation-delay: 0.15s; }
+        .animate-fade-in-up:nth-child(3) { animation-delay: 0.25s; }
+
+        @keyframes pulseGold {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(255, 181, 46, 0.4); }
+            50% { box-shadow: 0 0 0 10px rgba(255, 181, 46, 0); }
+        }
+
+        .pulse-gold {
+            animation: pulseGold 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+
+        /* ============================================================
+           MOBILE - STYLES SPÉCIFIQUES
+        ============================================================ */
+
+        @media (max-width: 640px) {
+
+            .video-modal {
+                padding: 4px;
+                background: rgba(0, 0, 0, 0.99);
+            }
+
+            .video-modal-content {
+                border-radius: 8px;
+                aspect-ratio: 16 / 9;
+                width: 100%;
+                max-width: 100%;
+            }
+
+            .video-player-container {
+                width: 100%;
+                height: 100%;
+            }
+
+            .drive-video-frame {
+                position: absolute !important;
+                inset: 0 !important;
+                width: 100% !important;
+                height: 100% !important;
+                border: 0 !important;
+            }
+
+            .video-modal-close {
+                display: none !important;
+            }
+
+            .watermark {
+                display: none !important;
+            }
+
+            .video-item {
+                padding: 0.7rem;
+                gap: 0.5rem;
+            }
+
+            .video-item .btn-play-video {
+                font-size: 0.65rem;
+                padding: 0.35rem 0.65rem;
+            }
+
+            .chapter-card {
+                padding: 1rem;
+                border-radius: 1rem;
+            }
+
+            .toast {
+                left: 12px;
+                right: 12px;
+                bottom: 15px;
+                max-width: none;
+                font-size: 0.85rem;
+            }
+
+            .exercise-actions {
+                flex-direction: column;
+            }
+
+            .exercise-btn {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .video-modal {
+                padding: 2px;
+            }
+            .video-modal-content {
+                border-radius: 4px;
+            }
+        }
+
+        /* ============================================================
+           PROTECTION
+        ============================================================ */
+
+        .no-context-menu {
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        /* ============================================================
+           BADGE MODULE
+        ============================================================ */
+
+        .module-badge {
+            background: var(--skillora-gold);
+            color: var(--skillora-dark);
+            padding: 0.15rem 1rem;
+            border-radius: 60px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+            display: inline-block;
+        }
+
+        .bg-gradient-skillora {
+            background: linear-gradient(135deg, #050518 0%, #11113A 100%);
+        }
+
+        .border-gold-left {
+            border-left: 4px solid var(--skillora-gold);
+        }
+    </style>
+</head>
+
+<body class="no-context-menu">
+
+    <!-- ============================================================
+         TOAST
+    ============================================================ -->
+
+    <div id="toast" class="toast">
+        <div class="flex items-center justify-between">
+            <span id="toastMessage">
+                <i class="fas fa-check-circle text-[#FFB52E] mr-2"></i>
+                Vidéo terminée !
+            </span>
+            <span class="toast-close cursor-pointer ml-4 opacity-70 hover:opacity-100"
+                  onclick="hideToast()">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+    </div>
+
+    <!-- ============================================================
+         MODAL VIDÉO
+    ============================================================ -->
+
+    <div id="videoModal"
+         class="video-modal"
+         onclick="closeVideoModal(event)">
+
+        <div class="video-modal-content"
+             onclick="event.stopPropagation()">
+
+            <div class="video-player-container"
+                 id="videoPlayerContainer">
+
+                <iframe id="driveVideoFrame"
+                        class="drive-video-frame"
+                        src=""
+                        title="Vidéo de formation SKILLORA"
+                        allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
+                        allowfullscreen="true"
+                        loading="lazy"
+                        referrerpolicy="no-referrer"
+                        sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-presentation">
+                </iframe>
+
+                <div class="watermark">SKILLORA</div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ============================================================
+         MODAL ENVOI RÉPONSE EXERCICE
+    ============================================================ -->
+
+    <div id="exerciseModal"
+         class="exercise-modal"
+         onclick="closeExerciseModal(event)">
+
+        <div class="exercise-modal-card"
+             onclick="event.stopPropagation()">
+
+            <div class="flex items-center justify-between mb-4">
+                <div>
+                    <h2 class="text-xl font-bold text-skillora-dark">
+                        <i class="fas fa-paper-plane mr-2"
+                           style="color:#FFB52E;"></i>
+                        Envoyer une réponse
+                    </h2>
+                    <p id="exerciseModalChapter"
+                       class="text-sm text-gray-500 mt-1">
+                        Exercice
+                    </p>
+                </div>
+                <button type="button"
+                        onclick="closeExerciseModal()"
+                        class="w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <form id="exerciseResponseForm"
+                  onsubmit="sendExerciseResponse(event)">
+
+                <input type="hidden"
+                       id="exerciseChapterId"
+                       value="">
+
+                <label class="block text-sm font-semibold text-skillora-dark mb-2">
+                    Votre réponse
+                </label>
+
+                <textarea id="exerciseResponse"
+                          required
+                          placeholder="Écrivez votre réponse à l'exercice ici..."></textarea>
+
+                <p class="text-xs text-gray-500 mt-2">
+                    Après avoir cliqué sur « Envoyer », votre messagerie
+                    s'ouvrira avec votre réponse préparée.
+                </p>
+
+                <div class="flex flex-col sm:flex-row gap-3 mt-5">
+                    <button type="button"
+                            onclick="closeExerciseModal()"
+                            class="flex-1 px-5 py-3 rounded-xl bg-gray-100 font-semibold">
+                        Annuler
+                    </button>
+                    <button type="submit"
+                            class="flex-1 btn-ia px-5 py-3 rounded-xl font-semibold">
+                        <i class="fas fa-paper-plane mr-2"></i>
+                        Envoyer une réponse
+                    </button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+    <!-- ============================================================
+         HEADER
+    ============================================================ -->
+
+    <header class="bg-skillora-dark shadow-lg border-b-4 sticky top-0 z-50"
+            style="border-color:#FFB52E;">
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3
+                    flex justify-between items-center">
+
+            <!-- LOGO -->
+            <div class="flex items-center space-x-3">
+                <div class="flex items-center gap-3">
+                    <svg viewBox="0 0 100 100"
+                         fill="none"
+                         xmlns="http://www.w3.org/2000/svg"
+                         class="w-10 h-10">
+                        <path d="M50 5 L90 45 L78 57 L50 29 L35 44 L62 71 L50 83 L10 43 L22 31 L50 59 L65 44 L38 17 Z"
+                              fill="#FFB52E"/>
+                        <path d="M30 65 L50 85 L70 65 L62 57 L50 69 L38 57 Z"
+                              fill="#FFB52E"/>
+                    </svg>
+                    <span class="text-white text-2xl font-bold tracking-wide">
+                        SKILLORA<span style="color:#FFB52E;">.</span>
+                    </span>
+                </div>
+            </div>
+
+            <!-- NAVIGATION -->
+            <nav class="hidden md:flex space-x-6 text-white/90 font-medium">
+                <a href="#" class="hover:text-[#FFB52E] transition">Accueil</a>
+                <a href="#" class="font-semibold border-b-2 pb-1"
+                   style="color:#FFB52E;border-color:#FFB52E;">Formations</a>
+                <a href="#" class="hover:text-[#FFB52E] transition">Progression</a>
+                <a href="#" class="hover:text-[#FFB52E] transition">Mon compte</a>
+            </nav>
+
+            <!-- PROFIL -->
+            <div class="flex items-center space-x-3">
+                <button class="hidden sm:inline-block text-white px-5 py-2
+                               rounded-full font-semibold shadow-md transition"
+                        style="background:#FFB52E;color:#050518;"
+                        onmouseover="this.style.background='#E9A01F'"
+                        onmouseout="this.style.background='#FFB52E'">
+                    <i class="fas fa-user mr-2"></i>
+                    Profil
+                </button>
+            </div>
+
+        </div>
+
+    </header>
+
+    <!-- ============================================================
+         BANNIÈRE FORMATION
+    ============================================================ -->
+
+    <section class="text-white py-12 bg-gradient-skillora">
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+            <div class="flex flex-col md:flex-row items-start
+                        md:items-center justify-between gap-6">
+
+                <div>
+                    <div class="flex items-center gap-3 mb-3 flex-wrap">
+                        <span class="text-xs font-bold px-3 py-1 rounded-full"
+                              style="background:#FFB52E;color:#050518;">
+                            <i class="fas fa-gem mr-1"></i> CRÉATION DIGITALE
+                        </span>
+                        <span class="module-badge">
+                            <i class="fas fa-graduation-cap mr-1"></i> Module 1
+                        </span>
+                        <span class="text-gray-300 text-sm">
+                            <i class="fas fa-star mr-1" style="color:#FFB52E;"></i>
+                            4.9 (312 avis)
+                        </span>
+                    </div>
+
+                    <h1 class="text-3xl md:text-4xl font-bold">
+                        <i class="fas fa-pen-fancy mr-3" style="color:#FFB52E;"></i>
+                        Comprendre pourquoi un design fonctionne
+                    </h1>
+
+                    <p class="text-gray-300 text-lg mt-2 max-w-2xl">
+                        Devenez un expert en design digital. Maîtrisez les règles
+                        qui font la différence entre un bon et un excellent design.
+                    </p>
+
+                    <div class="flex flex-wrap items-center gap-4 mt-4
+                                text-sm text-gray-300">
+                        <span>
+                            <i class="fas fa-video mr-2" style="color:#FFB52E;"></i>
+                            <span id="totalVideos">4</span> vidéos
+                        </span>
+                        <span>
+                            <i class="fas fa-clock mr-2" style="color:#FFB52E;"></i>
+                            45 min de contenu
+                        </span>
+                        <span>
+                            <i class="fas fa-signal mr-2" style="color:#FFB52E;"></i>
+                            Niveau : Débutant à Intermédiaire
+                        </span>
+                    </div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row gap-3
+                            w-full md:w-auto">
+                    <button id="continueBtn"
+                            class="btn-ia px-6 py-3 rounded-full
+                                   font-semibold shadow-lg
+                                   flex items-center justify-center gap-2 pulse-gold">
+                        <i class="fas fa-play"></i>
+                        Continuer la formation
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- ============================================================
+         PROGRESSION
+    ============================================================ -->
+
+    <section class="bg-white border-b border-gray-200 py-4">
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+            <div class="flex flex-col md:flex-row items-start
+                        md:items-center justify-between gap-4">
+
+                <div class="flex items-center gap-4 w-full md:w-auto">
+                    <div class="text-sm">
+                        <span class="font-semibold text-skillora-dark">
+                            Progression globale
+                        </span>
+                        <span class="text-gray-500 ml-2">
+                            <span id="completedCount">0</span>/
+                            <span id="totalVideosCount">4</span> vidéos
+                        </span>
+                    </div>
+                    <div class="progress-bar w-48">
+                        <div id="globalProgress"
+                             class="progress-fill"
+                             style="width:0%">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex flex-wrap gap-3 text-sm">
+                    <span class="bg-green-100 text-green-800
+                                 px-3 py-1 rounded-full">
+                        <i class="fas fa-check-circle mr-1"></i>
+                        <span id="completedBadge">0</span> terminées
+                    </span>
+                    <span class="bg-yellow-100 text-yellow-800
+                                 px-3 py-1 rounded-full">
+                        <i class="fas fa-clock mr-1"></i>
+                        <span id="inProgressBadge">0</span> en cours
+                    </span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- ============================================================
+         CONTENU PRINCIPAL
+    ============================================================ -->
+
+    <main class="py-10">
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+                <!-- =================================================
+                     CHAPITRES
+                ================================================== -->
+
+                <div class="lg:col-span-2 space-y-6">
+
+                    <div class="flex items-center gap-3 mb-2">
+                        <h2 class="text-2xl font-bold text-skillora-dark
+                                   flex items-center gap-2">
+                            <i class="fas fa-list-ul" style="color:#FFB52E;"></i>
+                            Module 1 · Design Digital
+                        </h2>
+                    </div>
+
+                    <!-- CHAPITRE UNIQUE - TOUTES LES VIDEOS DANS UN SEUL CHAPITRE -->
+                    <div id="chapter1" class="chapter-card animate-fade-in-up">
+                        <div class="flex items-start justify-between mb-3">
+                            <div>
+                                <h3 class="text-lg font-bold text-skillora-dark flex items-center gap-2">
+                                    <span class="text-xs font-bold px-3 py-1 rounded-full"
+                                          style="background:#FFB52E;color:#050518;">
+                                        Module 1
+                                    </span>
+                                    COMPRENDRE POURQUOI UN DESIGN FONCTIONNE
+                                </h3>
+                                <p class="text-sm text-gray-500 mt-1">4 vidéos · 45 min</p>
+                            </div>
+                            <span id="ch1Status" class="text-yellow-600 text-sm font-semibold">
+                                <i class="fas fa-clock mr-1"></i> En cours
+                            </span>
+                        </div>
+                        <ul id="ch1Videos" class="space-y-2"></ul>
+                        <div id="ch1Exercise"></div>
+                    </div>
+
+                </div>
+
+                <!-- =================================================
+                     COLONNE DROITE
+                ================================================== -->
+
+                <div class="space-y-6">
+
+                    <!-- INFORMATIONS -->
+                    <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-100 animate-fade-in-up">
+                        <h3 class="text-lg font-bold text-skillora-dark mb-4 flex items-center gap-2">
+                            <i class="fas fa-info-circle" style="color:#FFB52E;"></i>
+                            Informations
+                        </h3>
+                        <ul class="space-y-3 text-sm">
+                            <li class="flex justify-between border-b border-gray-100 pb-2">
+                                <span class="text-gray-500">Formateur</span>
+                                <span class="font-medium text-skillora-dark">SKILLORA Academy</span>
+                            </li>
+                            <li class="flex justify-between border-b border-gray-100 pb-2">
+                                <span class="text-gray-500">Niveau</span>
+                                <span class="font-medium text-skillora-dark">Débutant - Intermédiaire</span>
+                            </li>
+                            <li class="flex justify-between border-b border-gray-100 pb-2">
+                                <span class="text-gray-500">Durée totale</span>
+                                <span class="font-medium text-skillora-dark">45 minutes</span>
+                            </li>
+                            <li class="flex justify-between">
+                                <span class="text-gray-500">Certification</span>
+                                <span class="font-medium text-green-600">
+                                    <i class="fas fa-check-circle mr-1"></i> Oui
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- RESSOURCES -->
+                    <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-100 animate-fade-in-up">
+                        <h3 class="text-lg font-bold text-skillora-dark mb-4 flex items-center gap-2">
+                            <i class="fas fa-download" style="color:#FFB52E;"></i>
+                            Ressources
+                        </h3>
+                        <ul class="space-y-2 text-sm">
+                            <li>
+                                <a href="#" class="flex items-center gap-3 p-3 bg-gray-50 rounded-xl transition"
+                                   onmouseover="this.style.background='#fff8e8'"
+                                   onmouseout="this.style.background='#f9fafb'">
+                                    <i class="fas fa-file-pdf text-xl" style="color:#FFB52E;"></i>
+                                    <div>
+                                        <p class="font-medium text-skillora-dark">Cours complet PDF</p>
+                                        <p class="text-xs text-gray-400">2.8 Mo</p>
+                                    </div>
+                                    <i class="fas fa-arrow-right ml-auto" style="color:#FFB52E;"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="flex items-center gap-3 p-3 bg-gray-50 rounded-xl transition"
+                                   onmouseover="this.style.background='#fff8e8'"
+                                   onmouseout="this.style.background='#f9fafb'">
+                                    <i class="fas fa-file-code text-xl" style="color:#FFB52E;"></i>
+                                    <div>
+                                        <p class="font-medium text-skillora-dark">Templates Canva</p>
+                                        <p class="text-xs text-gray-400">1.2 Mo</p>
+                                    </div>
+                                    <i class="fas fa-arrow-right ml-auto" style="color:#FFB52E;"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="flex items-center gap-3 p-3 bg-gray-50 rounded-xl transition"
+                                   onmouseover="this.style.background='#fff8e8'"
+                                   onmouseout="this.style.background='#f9fafb'">
+                                    <i class="fas fa-link text-xl" style="color:#FFB52E;"></i>
+                                    <div>
+                                        <p class="font-medium text-skillora-dark">Liens utiles</p>
+                                        <p class="text-xs text-gray-400">Outils de design</p>
+                                    </div>
+                                    <i class="fas fa-arrow-right ml-auto" style="color:#FFB52E;"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- NOTES -->
+                    <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-100 animate-fade-in-up">
+                        <h3 class="text-lg font-bold text-skillora-dark mb-4 flex items-center gap-2">
+                            <i class="fas fa-sticky-note" style="color:#FFB52E;"></i>
+                            Notes
+                        </h3>
+                        <textarea class="w-full border border-gray-200 rounded-xl p-3 text-sm outline-none resize-none"
+                                  rows="3"
+                                  placeholder="Ajoutez vos notes..."></textarea>
+                        <button class="mt-3 btn-ia px-4 py-2 rounded-lg text-sm font-semibold w-full">
+                            <i class="fas fa-save mr-2"></i> Sauvegarder
+                        </button>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- ============================================================
+         FOOTER
+    ============================================================ -->
+
+    <footer class="text-white/80 py-8 mt-6 border-t-4"
+            style="background:#050518;border-color:#FFB52E;">
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8
+                    flex flex-col md:flex-row
+                    justify-between items-center">
+
+            <div class="flex items-center space-x-2">
+                <svg width="32" height="32" viewBox="0 0 100 100" fill="none">
+                    <path d="M50 5 L90 45 L78 57 L50 29 L35 44 L62 71 L50 83 L10 43 L22 31 L50 59 L65 44 L38 17 Z"
+                          fill="#FFB52E"/>
+                    <path d="M30 65 L50 85 L70 65 L62 57 L50 69 L38 57 Z" fill="#FFB52E"/>
+                </svg>
+                <span class="font-bold text-lg">SKILLORA Digital</span>
+            </div>
+
+            <div class="flex space-x-6 mt-4 md:mt-0">
+                <a href="#" class="hover:text-[#FFB52E]"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="hover:text-[#FFB52E]"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="hover:text-[#FFB52E]"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" class="hover:text-[#FFB52E]"><i class="fab fa-youtube"></i></a>
+            </div>
+
+            <p class="text-sm mt-4 md:mt-0">&copy; 2026 SKILLORA. Tous droits réservés.</p>
+
+        </div>
+
+    </footer>
+
+    <!-- ============================================================
+         JAVASCRIPT
+    ============================================================ -->
+
+    <script>
+
+        /* ============================================================
+           CONFIGURATION DES VIDÉOS (Module 1 - Design Digital)
+        ============================================================ */
+
+        const VIDEO_URLS = {
+            1: 'https://drive.google.com/file/d/131pBOY9cys3VmnOjhgH2EW60c_2kzsqD/preview',
+            2: 'https://drive.google.com/file/d/11FPyb2QUqARVc7xjPA8hYA_4EekY1j38/preview',
+            3: 'https://drive.google.com/file/d/1SNkYknImAg7F_9eefSSZe6fGT18ctfp6/preview',
+            4: 'https://drive.google.com/file/d/1uTj-Ma4MazS53kYeD7nc0ChIx_2u_R7h/preview'
+        };
+
+        /* ============================================================
+           DONNÉES DU MODULE 1
+        ============================================================ */
+
+        const chaptersData = [
+            {
+                id: 1,
+                title: "COMPRENDRE POURQUOI UN DESIGN FONCTIONNE",
+                unlocked: true,
+                exercise: {
+                    pdf: '#',
+                    image: '#'
+                },
+                videos: [
+                    { id: 1, title: "Pourquoi certains designs fonctionnent mieux que d'autres ?", duration: "12:30" },
+                    { id: 2, title: "Les 7 règles d'un design professionnel", duration: "11:15" },
+                    { id: 3, title: "Inspecter un design", duration: "10:45" },
+                    { id: 4, title: "Démonstration Canva : exercice", duration: "10:30" }
+                ]
+            }
+        ];
+
+        /* ============================================================
+           ÉTAT
+        ============================================================ */
+
+        let state = {
+            chapters: JSON.parse(JSON.stringify(chaptersData)),
+            videoCompleted: {},
+            currentVideo: null
+        };
+
+        /* ============================================================
+           CHARGER L'ÉTAT
+        ============================================================ */
+
+        function loadState() {
+            try {
+                const saved = localStorage.getItem('skillora_design_state');
+                if (saved) {
+                    const parsed = JSON.parse(saved);
+                    state.chapters.forEach(chapter => {
+                        chapter.videos.forEach(video => {
+                            if (parsed.videoCompleted && parsed.videoCompleted[video.id]) {
+                                video.completed = true;
+                            }
+                        });
+                    });
+                    if (parsed.videoCompleted) {
+                        state.videoCompleted = parsed.videoCompleted;
+                    }
+                }
+            } catch (e) {
+                console.warn('Erreur chargement état:', e);
+            }
+        }
+
+        /* ============================================================
+           SAUVEGARDER
+        ============================================================ */
+
+        function saveState() {
+            try {
+                const toSave = { videoCompleted: {} };
+                state.chapters.forEach(chapter => {
+                    chapter.videos.forEach(video => {
+                        if (video.completed) {
+                            toSave.videoCompleted[video.id] = true;
+                        }
+                    });
+                });
+                localStorage.setItem('skillora_design_state', JSON.stringify(toSave));
+            } catch (e) {
+                console.warn('Erreur sauvegarde:', e);
+            }
+        }
+
+        /* ============================================================
+           TOAST
+        ============================================================ */
+
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toastMessage');
+            const icon = type === 'success' ? 'fa-check-circle' : 'fa-info-circle';
+            toastMessage.innerHTML = `<i class="fas ${icon}" style="color:#FFB52E;margin-right:8px;"></i> ${message}`;
+            toast.classList.add('show');
+            clearTimeout(toast._timeout);
+            toast._timeout = setTimeout(() => toast.classList.remove('show'), 4000);
+        }
+
+        function hideToast() {
+            document.getElementById('toast').classList.remove('show');
+        }
+
+        /* ============================================================
+           PROGRESSION
+        ============================================================ */
+
+        function updateProgress() {
+            let totalVideos = 0;
+            let completedVideos = 0;
+
+            state.chapters.forEach(chapter => {
+                if (!chapter.unlocked) return;
+                chapter.videos.forEach(video => {
+                    totalVideos++;
+                    if (video.completed) completedVideos++;
+                });
+            });
+
+            const progress = totalVideos > 0 ? (completedVideos / totalVideos) * 100 : 0;
+
+            const progressFill = document.getElementById('globalProgress');
+            if (progressFill) progressFill.style.width = `${progress}%`;
+
+            const completedCount = document.getElementById('completedCount');
+            const totalVideosCount = document.getElementById('totalVideosCount');
+            const completedBadge = document.getElementById('completedBadge');
+            const inProgressBadge = document.getElementById('inProgressBadge');
+            const totalVideosSpan = document.getElementById('totalVideos');
+
+            if (completedCount) completedCount.textContent = completedVideos;
+            if (totalVideosCount) totalVideosCount.textContent = totalVideos;
+            if (completedBadge) completedBadge.textContent = completedVideos;
+            if (inProgressBadge) inProgressBadge.textContent = totalVideos - completedVideos;
+            if (totalVideosSpan) totalVideosSpan.textContent = totalVideos;
+
+            state.chapters.forEach((chapter, index) => {
+                const statusEl = document.getElementById(`ch${index + 1}Status`);
+                if (!statusEl) return;
+                if (!chapter.unlocked) {
+                    statusEl.innerHTML = '<i class="fas fa-clock mr-1"></i> En cours';
+                    statusEl.className = 'text-gray-500 text-sm font-semibold';
+                    return;
+                }
+                const allCompleted = chapter.videos.every(v => v.completed);
+                if (allCompleted) {
+                    statusEl.innerHTML = '<i class="fas fa-check-circle mr-1"></i> Terminé';
+                    statusEl.className = 'text-green-600 text-sm font-semibold';
+                } else {
+                    statusEl.innerHTML = '<i class="fas fa-clock mr-1"></i> En cours';
+                    statusEl.className = 'text-yellow-600 text-sm font-semibold';
+                }
+            });
+
+            saveState();
+            updateContinueButton();
+        }
+
+        /* ============================================================
+           AFFICHER UN CHAPITRE
+        ============================================================ */
+
+        function renderChapter(chapterIndex) {
+            const chapter = state.chapters[chapterIndex - 1];
+            const container = document.getElementById(`ch${chapterIndex}Videos`);
+            if (!container) return;
+            container.innerHTML = '';
+
+            chapter.videos.forEach((video, idx) => {
+                const li = document.createElement('li');
+                li.className = `video-item ${video.completed ? 'completed' : ''}`;
+                li.id = `video-${video.id}`;
+                const iconClass = video.completed ? 'fa-check-circle' : 'fa-play-circle';
+                const iconColor = video.completed ? '#22c55e' : '#FFB52E';
+
+                li.innerHTML = `
+                    <i class="fas ${iconClass}" style="color:${iconColor};font-size:1.2rem;flex-shrink:0;"></i>
+                    <div class="flex-1 min-w-0">
+                        <span class="font-medium text-skillora-dark">${video.id}. ${video.title}</span>
+                        <span class="text-sm text-gray-400 ml-2">${video.duration}</span>
+                    </div>
+                    <button type="button"
+                            class="btn-play-video ${video.completed ? 'playing' : ''}"
+                            onclick="openVideo(${chapterIndex}, ${idx})">
+                        <i class="fas fa-play mr-1"></i> Regarder
+                    </button>
+                `;
+                container.appendChild(li);
+            });
+
+            const exerciseContainer = document.getElementById(`ch${chapterIndex}Exercise`);
+            if (exerciseContainer) {
+                const exercise = chapter.exercise || { pdf: '#', image: '#' };
+                exerciseContainer.innerHTML = `
+                    <div class="exercise-box">
+                        <div class="exercise-title">
+                            <i class="fas fa-clipboard-check mr-2" style="color:#FFB52E;"></i>
+                            Exercice du module ${chapterIndex}
+                        </div>
+                        <p class="text-sm text-gray-500 mt-1">
+                            Consultez l'exercice en PDF ou en image, puis envoyez votre réponse.
+                        </p>
+                        <div class="exercise-actions">
+                            <a href="${exercise.pdf}" target="_blank" rel="noopener" class="exercise-btn pdf">
+                                <i class="fas fa-file-pdf"></i> Voir l'exercice PDF
+                            </a>
+                            <a href="${exercise.image}" target="_blank" rel="noopener" class="exercise-btn image">
+                                <i class="fas fa-image"></i> Voir l'exercice en image
+                            </a>
+                            <button type="button" onclick="openExerciseModal(${chapterIndex})" class="exercise-btn primary send">
+                                <i class="fas fa-paper-plane"></i> Envoyer une réponse
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        /* ============================================================
+           AFFICHER TOUS LES CHAPITRES
+        ============================================================ */
+
+        function renderAllChapters() {
+            for (let i = 1; i <= state.chapters.length; i++) {
+                renderChapter(i);
+            }
+            updateProgress();
+        }
+
+        /* ============================================================
+           OUVRIR VIDÉO
+        ============================================================ */
+
+        function openVideo(chapterIndex, videoIndex) {
+            const chapter = state.chapters[chapterIndex - 1];
+            const video = chapter.videos[videoIndex];
+            const videoUrl = VIDEO_URLS[video.id];
+
+            if (!videoUrl) {
+                showToast("❌ Vidéo introuvable. Vérifiez l'URL.", 'error');
+                return;
+            }
+
+            const modal = document.getElementById('videoModal');
+            const driveFrame = document.getElementById('driveVideoFrame');
+
+            // Construction de l'URL d'intégration Google Drive
+            let embedUrl = videoUrl;
+            const driveMatch = videoUrl.match(/drive\.google\.com\/file\/d\/([^/]+)/);
+            if (driveMatch) {
+                embedUrl = `https://drive.google.com/file/d/${driveMatch[1]}/preview?rm=minimal`;
+            }
+
+            // Vider l'iframe avant d'ouvrir
+            driveFrame.src = '';
+
+            // Ouvrir la modale
+            modal.classList.add('active');
+            document.body.classList.add('video-modal-open');
+
+            // Charger la vidéo après un court délai
+            setTimeout(() => {
+                if (modal.classList.contains('active')) {
+                    driveFrame.src = embedUrl;
+                }
+            }, 100);
+
+            state.currentVideo = { chapterIndex, videoIndex, video };
+        }
+
+        /* ============================================================
+           FERMER LA MODALE VIDÉO
+        ============================================================ */
+
+        function closeVideoModal(event) {
+            if (event && event.target !== event.currentTarget) return;
+
+            const modal = document.getElementById('videoModal');
+            const driveFrame = document.getElementById('driveVideoFrame');
+
+            if (driveFrame) {
+                driveFrame.src = '';
+            }
+
+            modal.classList.remove('active');
+            document.body.classList.remove('video-modal-open');
+
+            if (state.currentVideo) {
+                const { chapterIndex, videoIndex, video } = state.currentVideo;
+                if (!video.completed) {
+                    video.completed = true;
+                    state.videoCompleted[video.id] = true;
+                    showToast(`✅ "${video.title}" terminée !`, 'success');
+                    renderAllChapters();
+                    saveState();
+                }
+                state.currentVideo = null;
+            }
+        }
+
+        /* ============================================================
+           BOUTON CONTINUER
+        ============================================================ */
+
+        function updateContinueButton() {
+            const btn = document.getElementById('continueBtn');
+            if (!btn) return;
+
+            // Trouver la première vidéo non terminée
+            let firstUncompleted = null;
+            let firstChapterIndex = 0;
+            let firstVideoIndex = 0;
+
+            state.chapters.forEach((chapter, ci) => {
+                if (!chapter.unlocked) return;
+                chapter.videos.forEach((video, vi) => {
+                    if (!video.completed && firstUncompleted === null) {
+                        firstUncompleted = video;
+                        firstChapterIndex = ci + 1;
+                        firstVideoIndex = vi;
+                    }
+                });
+            });
+
+            if (firstUncompleted) {
+                btn.innerHTML = `<i class="fas fa-play"></i> Continuer : ${firstUncompleted.title}`;
+                btn.onclick = () => openVideo(firstChapterIndex, firstVideoIndex);
+            } else {
+                btn.innerHTML = `<i class="fas fa-check-circle"></i> Formation terminée !`;
+                btn.className = 'px-6 py-3 rounded-full font-semibold shadow-lg flex items-center justify-center gap-2 bg-green-500 text-white';
+                btn.onclick = () => showToast('🎉 Vous avez terminé tous les modules !', 'success');
+            }
+        }
+
+        /* ============================================================
+           EXERCICES
+        ============================================================ */
+
+        const EXERCISE_EMAIL = 'contact@skillora.com';
+
+        function openExerciseModal(chapterIndex) {
+            const chapter = state.chapters[chapterIndex - 1];
+            if (!chapter) return;
+
+            document.getElementById('exerciseChapterId').value = chapterIndex;
+            document.getElementById('exerciseModalChapter').textContent = `Module ${chapterIndex} · ${chapter.title}`;
+            document.getElementById('exerciseResponse').value = '';
+            document.getElementById('exerciseModal').classList.add('active');
+
+            setTimeout(() => {
+                document.getElementById('exerciseResponse').focus();
+            }, 100);
+        }
+
+        function closeExerciseModal(event) {
+            if (event && event.target !== event.currentTarget) return;
+            document.getElementById('exerciseModal').classList.remove('active');
+        }
+
+        function sendExerciseResponse(event) {
+            event.preventDefault();
+
+            const chapterIndex = document.getElementById('exerciseChapterId').value;
+            const response = document.getElementById('exerciseResponse').value.trim();
+
+            if (!response) {
+                showToast('⚠️ Veuillez écrire votre réponse.', 'error');
+                return;
+            }
+
+            const subject = encodeURIComponent(`Réponse exercice - Module ${chapterIndex}`);
+            const body = encodeURIComponent(
+                `Bonjour,\n\nVoici ma réponse à l'exercice du module ${chapterIndex} :\n\n${response}\n\nCordialement.`
+            );
+
+            window.location.href = `mailto:${EXERCISE_EMAIL}?subject=${subject}&body=${body}`;
+            localStorage.setItem(`skillora_exercise_${chapterIndex}`, response);
+            closeExerciseModal();
+            showToast('📨 Votre réponse est prête à être envoyée par e-mail.', 'success');
+        }
+
+        /* ============================================================
+           PROTECTION GLOBALE
+        ============================================================ */
+
+        document.addEventListener('contextmenu', (e) => {
+            e.preventDefault();
+            return false;
+        });
+
+        /* ============================================================
+           CLAVIER
+        ============================================================ */
+
+        document.addEventListener('keydown', (e) => {
+            const modal = document.getElementById('videoModal');
+            const isVideoOpen = modal && modal.classList.contains('active');
+
+            if ((e.ctrlKey && (e.key === 's' || e.key === 'u' || e.key === 'i')) ||
+                (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C')) ||
+                e.key === 'F12') {
+                e.preventDefault();
+                showToast('🔒 Action désactivée', 'info');
+                return false;
+            }
+
+            if (!isVideoOpen) return;
+
+            if (e.key === 'Escape') {
+                closeVideoModal();
+            }
+        });
+
+        /* ============================================================
+           INITIALISATION
+        ============================================================ */
+
+        function init() {
+            loadState();
+
+            state.chapters.forEach(chapter => {
+                chapter.videos.forEach(video => {
+                    if (state.videoCompleted[video.id]) {
+                        video.completed = true;
+                    }
+                });
+            });
+
+            renderAllChapters();
+            updateContinueButton();
+
+            // Notes
+            const noteTextarea = document.querySelector('.bg-white textarea');
+            const savedNote = localStorage.getItem('skillora_design_note');
+            if (savedNote && noteTextarea) {
+                noteTextarea.value = savedNote;
+            }
+
+            const saveButtons = document.querySelectorAll('.btn-ia');
+            saveButtons.forEach(button => {
+                if (button.textContent.includes('Sauvegarder')) {
+                    button.addEventListener('click', function() {
+                        const textarea = this.closest('.bg-white')?.querySelector('textarea');
+                        if (textarea) {
+                            localStorage.setItem('skillora_design_note', textarea.value);
+                            showToast('✅ Notes sauvegardées !', 'success');
+                            textarea.style.borderColor = '#FFB52E';
+                            setTimeout(() => { textarea.style.borderColor = ''; }, 2000);
+                        }
+                    });
+                }
+            });
+
+            console.log('🔒 Protection des vidéos activée');
+            console.log('📹 Lecteur Google Drive - compatible mobile');
+            console.log('⌨️ ESC=Fermer la vidéo');
+            console.log('🎨 SKILLORA - Création Digitale');
+        }
+
+        document.addEventListener('DOMContentLoaded', init);
+
+    </script>
+
+</body>
+</html>
