@@ -462,11 +462,6 @@
             animation: pulseGold 2s infinite;
         }
 
-        @keyframes shimmer {
-            0% { background-position: -200% 0; }
-            100% { background-position: 200% 0; }
-        }
-
         /* ============================================================
            MOBILE - STYLES SPÉCIFIQUES
         ============================================================ */
@@ -1184,7 +1179,7 @@
             const progress = totalVideos > 0 ? (completedVideos / totalVideos) * 100 : 0;
 
             const progressFill = document.getElementById('globalProgress');
-            if (progressFill) progressFill.style.width = `${progress}%`;
+            if (progressFill) progressFill.style.width = progress + '%';
 
             const completedCount = document.getElementById('completedCount');
             const totalVideosCount = document.getElementById('totalVideosCount');
@@ -1199,7 +1194,7 @@
             if (totalVideosSpan) totalVideosSpan.textContent = totalVideos;
 
             state.chapters.forEach((chapter, index) => {
-                const statusEl = document.getElementById(`ch${index + 1}Status`);
+                const statusEl = document.getElementById('ch' + (index + 1) + 'Status');
                 if (!statusEl) return;
                 if (!chapter.unlocked) {
                     statusEl.innerHTML = '<i class="fas fa-clock mr-1"></i> En cours';
@@ -1226,14 +1221,14 @@
 
         function renderChapter(chapterIndex) {
             const chapter = state.chapters[chapterIndex - 1];
-            const container = document.getElementById(`ch${chapterIndex}Videos`);
+            const container = document.getElementById('ch' + chapterIndex + 'Videos');
             if (!container) return;
             container.innerHTML = '';
 
             chapter.videos.forEach((video, idx) => {
                 const li = document.createElement('li');
-                li.className = `video-item ${video.completed ? 'completed' : ''}`;
-                li.id = `video-${video.id}`;
+                li.className = 'video-item ' + (video.completed ? 'completed' : '');
+                li.id = 'video-' + video.id;
                 const iconClass = video.completed ? 'fa-check-circle' : 'fa-play-circle';
                 const iconColor = video.completed ? '#22c55e' : '#FFB52E';
 
@@ -1252,7 +1247,7 @@
                 container.appendChild(li);
             });
 
-            const exerciseContainer = document.getElementById(`ch${chapterIndex}Exercise`);
+            const exerciseContainer = document.getElementById('ch' + chapterIndex + 'Exercise');
             if (exerciseContainer) {
                 const exercise = chapter.exercise || { pdf: '#', image: '#' };
                 exerciseContainer.innerHTML = `
@@ -1285,7 +1280,7 @@
         ============================================================ */
 
         function renderAllChapters() {
-            for (let i = 1; i <= state.chapters.length; i++) {
+            for (var i = 1; i <= state.chapters.length; i++) {
                 renderChapter(i);
             }
             updateProgress();
@@ -1296,23 +1291,23 @@
         ============================================================ */
 
         function openVideo(chapterIndex, videoIndex) {
-            const chapter = state.chapters[chapterIndex - 1];
-            const video = chapter.videos[videoIndex];
-            const videoUrl = VIDEO_URLS[video.id];
+            var chapter = state.chapters[chapterIndex - 1];
+            var video = chapter.videos[videoIndex];
+            var videoUrl = VIDEO_URLS[video.id];
 
             if (!videoUrl) {
                 showToast("❌ Vidéo introuvable. Vérifiez l'URL.", 'error');
                 return;
             }
 
-            const modal = document.getElementById('videoModal');
-            const driveFrame = document.getElementById('driveVideoFrame');
+            var modal = document.getElementById('videoModal');
+            var driveFrame = document.getElementById('driveVideoFrame');
 
             // Construction de l'URL d'intégration Google Drive
-            let embedUrl = videoUrl;
-            const driveMatch = videoUrl.match(/drive\.google\.com\/file\/d\/([^/]+)/);
+            var embedUrl = videoUrl;
+            var driveMatch = videoUrl.match(/drive\.google\.com\/file\/d\/([^/]+)/);
             if (driveMatch) {
-                embedUrl = `https://drive.google.com/file/d/${driveMatch[1]}/preview?rm=minimal`;
+                embedUrl = 'https://drive.google.com/file/d/' + driveMatch[1] + '/preview?rm=minimal';
             }
 
             // Vider l'iframe avant d'ouvrir
@@ -1323,13 +1318,13 @@
             document.body.classList.add('video-modal-open');
 
             // Charger la vidéo après un court délai
-            setTimeout(() => {
+            setTimeout(function() {
                 if (modal.classList.contains('active')) {
                     driveFrame.src = embedUrl;
                 }
             }, 100);
 
-            state.currentVideo = { chapterIndex, videoIndex, video };
+            state.currentVideo = { chapterIndex: chapterIndex, videoIndex: videoIndex, video: video };
         }
 
         /* ============================================================
@@ -1339,8 +1334,8 @@
         function closeVideoModal(event) {
             if (event && event.target !== event.currentTarget) return;
 
-            const modal = document.getElementById('videoModal');
-            const driveFrame = document.getElementById('driveVideoFrame');
+            var modal = document.getElementById('videoModal');
+            var driveFrame = document.getElementById('driveVideoFrame');
 
             if (driveFrame) {
                 driveFrame.src = '';
@@ -1350,11 +1345,13 @@
             document.body.classList.remove('video-modal-open');
 
             if (state.currentVideo) {
-                const { chapterIndex, videoIndex, video } = state.currentVideo;
+                var chapterIndex = state.currentVideo.chapterIndex;
+                var videoIndex = state.currentVideo.videoIndex;
+                var video = state.currentVideo.video;
                 if (!video.completed) {
                     video.completed = true;
                     state.videoCompleted[video.id] = true;
-                    showToast(`✅ "${video.title}" terminée !`, 'success');
+                    showToast('✅ "' + video.title + '" terminée !', 'success');
                     renderAllChapters();
                     saveState();
                 }
@@ -1367,17 +1364,17 @@
         ============================================================ */
 
         function updateContinueButton() {
-            const btn = document.getElementById('continueBtn');
+            var btn = document.getElementById('continueBtn');
             if (!btn) return;
 
             // Trouver la première vidéo non terminée
-            let firstUncompleted = null;
-            let firstChapterIndex = 0;
-            let firstVideoIndex = 0;
+            var firstUncompleted = null;
+            var firstChapterIndex = 0;
+            var firstVideoIndex = 0;
 
-            state.chapters.forEach((chapter, ci) => {
+            state.chapters.forEach(function(chapter, ci) {
                 if (!chapter.unlocked) return;
-                chapter.videos.forEach((video, vi) => {
+                chapter.videos.forEach(function(video, vi) {
                     if (!video.completed && firstUncompleted === null) {
                         firstUncompleted = video;
                         firstChapterIndex = ci + 1;
@@ -1387,12 +1384,12 @@
             });
 
             if (firstUncompleted) {
-                btn.innerHTML = `<i class="fas fa-play"></i> Continuer : ${firstUncompleted.title}`;
-                btn.onclick = () => openVideo(firstChapterIndex, firstVideoIndex);
+                btn.innerHTML = '<i class="fas fa-play"></i> Continuer : ' + firstUncompleted.title;
+                btn.onclick = function() { openVideo(firstChapterIndex, firstVideoIndex); };
             } else {
-                btn.innerHTML = `<i class="fas fa-check-circle"></i> Formation terminée !`;
+                btn.innerHTML = '<i class="fas fa-check-circle"></i> Formation terminée !';
                 btn.className = 'px-6 py-3 rounded-full font-semibold shadow-lg flex items-center justify-center gap-2 bg-green-500 text-white';
-                btn.onclick = () => showToast('🎉 Vous avez terminé tous les modules !', 'success');
+                btn.onclick = function() { showToast('🎉 Vous avez terminé tous les modules !', 'success'); };
             }
         }
 
@@ -1400,18 +1397,18 @@
            EXERCICES
         ============================================================ */
 
-        const EXERCISE_EMAIL = 'contact@skillora.com';
+        var EXERCISE_EMAIL = 'contact@skillora.com';
 
         function openExerciseModal(chapterIndex) {
-            const chapter = state.chapters[chapterIndex - 1];
+            var chapter = state.chapters[chapterIndex - 1];
             if (!chapter) return;
 
             document.getElementById('exerciseChapterId').value = chapterIndex;
-            document.getElementById('exerciseModalChapter').textContent = `Module ${chapterIndex} · ${chapter.title}`;
+            document.getElementById('exerciseModalChapter').textContent = 'Module ' + chapterIndex + ' · ' + chapter.title;
             document.getElementById('exerciseResponse').value = '';
             document.getElementById('exerciseModal').classList.add('active');
 
-            setTimeout(() => {
+            setTimeout(function() {
                 document.getElementById('exerciseResponse').focus();
             }, 100);
         }
@@ -1424,21 +1421,21 @@
         function sendExerciseResponse(event) {
             event.preventDefault();
 
-            const chapterIndex = document.getElementById('exerciseChapterId').value;
-            const response = document.getElementById('exerciseResponse').value.trim();
+            var chapterIndex = document.getElementById('exerciseChapterId').value;
+            var response = document.getElementById('exerciseResponse').value.trim();
 
             if (!response) {
                 showToast('⚠️ Veuillez écrire votre réponse.', 'error');
                 return;
             }
 
-            const subject = encodeURIComponent(`Réponse exercice - Module ${chapterIndex}`);
-            const body = encodeURIComponent(
-                `Bonjour,\n\nVoici ma réponse à l'exercice du module ${chapterIndex} :\n\n${response}\n\nCordialement.`
+            var subject = encodeURIComponent('Réponse exercice - Module ' + chapterIndex);
+            var body = encodeURIComponent(
+                'Bonjour,\n\nVoici ma réponse à l\'exercice du module ' + chapterIndex + ' :\n\n' + response + '\n\nCordialement.'
             );
 
-            window.location.href = `mailto:${EXERCISE_EMAIL}?subject=${subject}&body=${body}`;
-            localStorage.setItem(`skillora_exercise_${chapterIndex}`, response);
+            window.location.href = 'mailto:' + EXERCISE_EMAIL + '?subject=' + subject + '&body=' + body;
+            localStorage.setItem('skillora_exercise_' + chapterIndex, response);
             closeExerciseModal();
             showToast('📨 Votre réponse est prête à être envoyée par e-mail.', 'success');
         }
@@ -1447,7 +1444,7 @@
            PROTECTION GLOBALE
         ============================================================ */
 
-        document.addEventListener('contextmenu', (e) => {
+        document.addEventListener('contextmenu', function(e) {
             e.preventDefault();
             return false;
         });
@@ -1456,9 +1453,9 @@
            CLAVIER
         ============================================================ */
 
-        document.addEventListener('keydown', (e) => {
-            const modal = document.getElementById('videoModal');
-            const isVideoOpen = modal && modal.classList.contains('active');
+        document.addEventListener('keydown', function(e) {
+            var modal = document.getElementById('videoModal');
+            var isVideoOpen = modal && modal.classList.contains('active');
 
             if ((e.ctrlKey && (e.key === 's' || e.key === 'u' || e.key === 'i')) ||
                 (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C')) ||
@@ -1482,8 +1479,8 @@
         function init() {
             loadState();
 
-            state.chapters.forEach(chapter => {
-                chapter.videos.forEach(video => {
+            state.chapters.forEach(function(chapter) {
+                chapter.videos.forEach(function(video) {
                     if (state.videoCompleted[video.id]) {
                         video.completed = true;
                     }
@@ -1494,22 +1491,22 @@
             updateContinueButton();
 
             // Notes
-            const noteTextarea = document.querySelector('.bg-white textarea');
-            const savedNote = localStorage.getItem('skillora_design_note');
+            var noteTextarea = document.querySelector('.bg-white textarea');
+            var savedNote = localStorage.getItem('skillora_design_note');
             if (savedNote && noteTextarea) {
                 noteTextarea.value = savedNote;
             }
 
-            const saveButtons = document.querySelectorAll('.btn-ia');
-            saveButtons.forEach(button => {
+            var saveButtons = document.querySelectorAll('.btn-ia');
+            saveButtons.forEach(function(button) {
                 if (button.textContent.includes('Sauvegarder')) {
                     button.addEventListener('click', function() {
-                        const textarea = this.closest('.bg-white')?.querySelector('textarea');
+                        var textarea = this.closest('.bg-white')?.querySelector('textarea');
                         if (textarea) {
                             localStorage.setItem('skillora_design_note', textarea.value);
                             showToast('✅ Notes sauvegardées !', 'success');
                             textarea.style.borderColor = '#FFB52E';
-                            setTimeout(() => { textarea.style.borderColor = ''; }, 2000);
+                            setTimeout(function() { textarea.style.borderColor = ''; }, 2000);
                         }
                     });
                 }
@@ -1521,7 +1518,12 @@
             console.log('🎨 SKILLORA - Création Digitale');
         }
 
-        document.addEventListener('DOMContentLoaded', init);
+        // Exécuter après le chargement complet de la page
+        if (document.readyState === 'complete') {
+            init();
+        } else {
+            document.addEventListener('DOMContentLoaded', init);
+        }
 
     </script>
 
