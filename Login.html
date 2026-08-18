@@ -1183,7 +1183,7 @@
 
 
         /* =====================================================
-           COMPTE 1 : DÉVELOPPEMENT WEB
+           COMPTE 1 : CRÉATION DIGITALE
            ===================================================== */
 
         {
@@ -1192,9 +1192,9 @@
 
           password: '2214',
 
-          redirect: 'devWeb.html',  // ← MODIFIÉ : page de destination
+          redirect: 'creation-digitale.html',
 
-          label: 'Développement Web'
+          label: 'Création Digitale'
 
         },
 
@@ -1226,7 +1226,7 @@
 
           password: '123',
 
-          redirect: 'bureautique.html',  // ← MODIFIÉ : page de destination
+          redirect: 'bureautique.html',
 
           label: 'Bureautique'
 
@@ -1309,7 +1309,6 @@
 
             // Rediriger après un court délai
             setTimeout(function() {
-              // Si redirect est vide, aller vers index.html par défaut
               const targetPage = user.redirect || 'index.html';
               window.location.href = targetPage;
             }, 1200);
@@ -1467,7 +1466,7 @@
       );
 
       console.log(
-        '📄 Pages de redirection : dashboard.html, AISkillora.html, bureautique.html, admin.html'
+        '📄 Pages de redirection : creation-digitale.html, AISkillora.html, bureautique.html, admin.html'
       );
 
 
