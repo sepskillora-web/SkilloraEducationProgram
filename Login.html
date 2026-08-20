@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -6,7 +7,7 @@
 
   <title>Skillora · Connexion</title>
 
-  <!-- Tailwind CSS via CDN -->
+  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
 
   <!-- Font Awesome -->
@@ -16,11 +17,6 @@
   />
 
   <style>
-
-    /* =========================================================
-       PALETTE SKILLORA
-       ========================================================= */
-
     :root {
       --skillora-dark: #040419;
       --skillora-medium: #10102E;
@@ -28,11 +24,6 @@
       --skillora-accent-hover: #E39A25;
       --skillora-white: #FFFFFF;
     }
-
-
-    /* =========================================================
-       BODY
-       ========================================================= */
 
     body {
       background:
@@ -59,13 +50,7 @@
       margin: 0;
     }
 
-
-    /* =========================================================
-       CARTE DE CONNEXION
-       ========================================================= */
-
     .login-card {
-
       background: rgba(255, 255, 255, 0.97);
 
       backdrop-filter: blur(6px);
@@ -85,28 +70,16 @@
       max-width: 420px;
     }
 
-
     .login-card:hover {
-
       border-color:
         rgba(251, 176, 59, 0.55);
-
     }
-
-
-    /* =========================================================
-       GROUPE INPUT
-       ========================================================= */
 
     .input-group {
-
       position: relative;
-
     }
 
-
     .input-group i {
-
       position: absolute;
 
       left: 16px;
@@ -124,13 +97,7 @@
       z-index: 2;
     }
 
-
-    /* =========================================================
-       INPUT
-       ========================================================= */
-
     .input-group input {
-
       width: 100%;
 
       padding:
@@ -155,35 +122,23 @@
       box-sizing: border-box;
     }
 
-
     .input-group input:focus {
-
       border-color:
         var(--skillora-accent);
 
       box-shadow:
         0 0 0 4px
         rgba(251, 176, 59, 0.20);
-
     }
 
-
     .input-group input:focus + i {
-
       color:
         var(--skillora-accent);
 
       opacity: 1;
-
     }
 
-
-    /* =========================================================
-       BOUTON CONNEXION
-       ========================================================= */
-
     .btn-login {
-
       background:
         var(--skillora-accent);
 
@@ -214,9 +169,7 @@
       letter-spacing: 0.5px;
     }
 
-
     .btn-login:hover {
-
       background:
         var(--skillora-accent-hover);
 
@@ -226,24 +179,20 @@
       box-shadow:
         0 12px 24px
         rgba(251, 176, 59, 0.45);
-
     }
-
 
     .btn-login:active {
-
       transform:
         scale(0.97);
-
     }
 
-
-    /* =========================================================
-       BOUTON AFFICHER MOT DE PASSE
-       ========================================================= */
+    .btn-login:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+      transform: none;
+    }
 
     .toggle-password {
-
       position: absolute;
 
       right: 16px;
@@ -273,24 +222,15 @@
       z-index: 5;
     }
 
-
     .toggle-password:hover {
-
       color:
         var(--skillora-dark);
 
       background:
         rgba(4, 4, 25, 0.06);
-
     }
 
-
-    /* =========================================================
-       MESSAGE ERREUR
-       ========================================================= */
-
     .error-msg {
-
       color: #dc2626;
 
       font-size: 0.9rem;
@@ -310,16 +250,11 @@
       min-height: 1.8rem;
     }
 
-
     .error-msg.show {
-
       opacity: 1;
-
     }
 
-    /* Message de succès */
     .success-msg {
-
       color: #16a34a;
 
       font-size: 0.9rem;
@@ -340,18 +275,10 @@
     }
 
     .success-msg.show {
-
       opacity: 1;
-
     }
 
-
-    /* =========================================================
-       LOGO
-       ========================================================= */
-
     .logo-skillora {
-
       display: flex;
 
       align-items: center;
@@ -363,9 +290,7 @@
       margin-bottom: 10px;
     }
 
-
     .logo-skillora img {
-
       width: 58px;
 
       height: 58px;
@@ -377,21 +302,13 @@
       display: block;
     }
 
-
-    /* =========================================================
-       TEXTE FOOTER
-       ========================================================= */
-
     .footer-text {
-
       color: #64748b;
 
       font-size: 0.85rem;
     }
 
-
     .footer-text a {
-
       color:
         var(--skillora-accent);
 
@@ -400,20 +317,11 @@
       text-decoration: none;
     }
 
-
     .footer-text a:hover {
-
       text-decoration: underline;
-
     }
 
-
-    /* =========================================================
-       BADGES
-       ========================================================= */
-
     .user-badge {
-
       display: inline-block;
 
       padding:
@@ -429,49 +337,32 @@
         0 2px;
     }
 
-
     .badge-dev {
-
       background: #dbeafe;
-
       color: #1e40af;
-
     }
-
 
     .badge-ia {
-
       background: #f3e8ff;
-
       color: #6b21a5;
-
     }
-
 
     .badge-bureau {
-
       background: #d1fae5;
-
       color: #065f46;
-
     }
-
 
     .badge-admin {
-
       background: #fef3c7;
-
       color: #92400e;
-
     }
 
-
-    /* =========================================================
-       ANIMATION ERREUR
-       ========================================================= */
+    .badge-creation {
+      background: #fce7f3;
+      color: #9d174d;
+    }
 
     @keyframes shake {
-
       0%,
       100% {
         transform: translateX(0);
@@ -484,52 +375,32 @@
       75% {
         transform: translateX(10px);
       }
-
     }
 
-
-    /* =========================================================
-       RESPONSIVE MOBILE
-       ========================================================= */
-
     @media (max-width: 480px) {
-
       body {
-
         padding:
           20px;
-
       }
 
-
       .login-card {
-
         border-radius:
           2rem;
 
         max-width:
           100%;
-
       }
 
-
       .logo-skillora img {
-
         width: 52px;
 
         height: 52px;
-
       }
-
     }
-
   </style>
-
 </head>
 
-
 <body>
-
 
   <!-- =========================================================
        CARTE DE CONNEXION
@@ -537,61 +408,40 @@
 
   <div class="login-card p-8 md:p-10 mx-4">
 
-
     <!-- =======================================================
          LOGO + TITRE
          ======================================================= -->
 
     <div class="flex flex-col items-center text-center mb-6">
 
-
       <div class="logo-skillora">
-
-
-        <!--
-          VOTRE LOGO SKILLORA
-
-          IMPORTANT :
-          logo-skillora.png doit être dans
-          le même dossier que ce fichier HTML.
-        -->
 
         <img
           src="logo/logo.png"
           alt="Logo Skillora"
         />
 
-
         <span
           class="text-3xl font-bold"
           style="color: #040419;"
         >
-
           Skillora<span
             style="color: #FBB03B;"
           >.</span>
-
         </span>
 
       </div>
-
 
       <h2
         class="text-xl font-semibold"
         style="color: #040419;"
       >
-
         Connexion
-
       </h2>
 
-
       <p class="text-sm text-gray-500">
-
         Entrez vos identifiants pour accéder
-
       </p>
-
 
     </div>
 
@@ -606,15 +456,11 @@
       autocomplete="off"
     >
 
-
-      <!-- =====================================================
-           IDENTIFIANT
-           ===================================================== -->
+      <!-- IDENTIFIANT -->
 
       <div class="input-group">
 
         <i class="fas fa-user"></i>
-
 
         <input
           type="text"
@@ -628,14 +474,11 @@
       </div>
 
 
-      <!-- =====================================================
-           MOT DE PASSE
-           ===================================================== -->
+      <!-- MOT DE PASSE -->
 
       <div class="input-group">
 
         <i class="fas fa-lock"></i>
-
 
         <input
           type="password"
@@ -646,30 +489,22 @@
           class="pl-12 pr-12"
         />
 
-
-        <!-- Bouton afficher / masquer -->
-
         <button
           type="button"
           id="togglePasswordBtn"
           class="toggle-password"
           aria-label="Afficher ou masquer le mot de passe"
         >
-
           <i
             class="fas fa-eye"
             id="eyeIcon"
           ></i>
-
         </button>
-
 
       </div>
 
 
-      <!-- =====================================================
-           MESSAGE D'ERREUR
-           ===================================================== -->
+      <!-- MESSAGE ERREUR -->
 
       <div
         id="errorMessage"
@@ -679,16 +514,13 @@
         <i class="fas fa-circle-exclamation"></i>
 
         <span id="errorText">
-
           Identifiant ou mot de passe incorrect.
-
         </span>
 
       </div>
 
-      <!-- =====================================================
-           MESSAGE DE SUCCÈS
-           ===================================================== -->
+
+      <!-- MESSAGE SUCCÈS -->
 
       <div
         id="successMessage"
@@ -698,21 +530,18 @@
         <i class="fas fa-check-circle"></i>
 
         <span id="successText">
-
           Connexion réussie ! Redirection...
-
         </span>
 
       </div>
 
 
-      <!-- =====================================================
-           BOUTON CONNEXION
-           ===================================================== -->
+      <!-- BOUTON -->
 
       <button
         type="submit"
         class="btn-login"
+        id="loginButton"
       >
 
         <i
@@ -723,12 +552,9 @@
 
       </button>
 
-
     </form>
 
-
   </div>
-
 
 
   <!-- =========================================================
@@ -737,7 +563,7 @@
 
   <script>
 
-    (function() {
+    (function () {
 
       "use strict";
 
@@ -747,63 +573,60 @@
          ======================================================= */
 
       const loginForm =
-        document.getElementById('loginForm');
+        document.getElementById("loginForm");
 
       const loginInput =
-        document.getElementById('loginInput');
+        document.getElementById("loginInput");
 
       const passwordInput =
-        document.getElementById('passwordInput');
+        document.getElementById("passwordInput");
 
       const errorMsg =
-        document.getElementById('errorMessage');
+        document.getElementById("errorMessage");
 
       const errorText =
-        document.getElementById('errorText');
+        document.getElementById("errorText");
 
       const successMsg =
-        document.getElementById('successMessage');
+        document.getElementById("successMessage");
 
       const successText =
-        document.getElementById('successText');
+        document.getElementById("successText");
 
       const toggleBtn =
-        document.getElementById('togglePasswordBtn');
+        document.getElementById("togglePasswordBtn");
 
       const eyeIcon =
-        document.getElementById('eyeIcon');
+        document.getElementById("eyeIcon");
 
+      const loginButton =
+        document.getElementById("loginButton");
 
 
       /* =======================================================
-         1. AFFICHER / MASQUER LE MOT DE PASSE
+         AFFICHER / MASQUER LE MOT DE PASSE
          ======================================================= */
 
       let passwordVisible = false;
 
-
       toggleBtn.addEventListener(
-        'click',
-        function(e) {
+        "click",
+        function (e) {
 
           e.preventDefault();
-
 
           passwordVisible =
             !passwordVisible;
 
-
           passwordInput.type =
             passwordVisible
-              ? 'text'
-              : 'password';
-
+              ? "text"
+              : "password";
 
           eyeIcon.className =
             passwordVisible
-              ? 'fas fa-eye-slash'
-              : 'fas fa-eye';
-
+              ? "fas fa-eye-slash"
+              : "fas fa-eye";
 
           passwordInput.focus();
 
@@ -811,385 +634,28 @@
       );
 
 
-
-      /* =======================================================
-         2. STOCKAGE DU MOT DE PASSE
-         ======================================================= */
-
-      const realValueMap =
-        new WeakMap();
-
-
-      Object.defineProperty(
-        passwordInput,
-        '_realValue',
-        {
-
-          get: function() {
-
-            return (
-              realValueMap.get(this)
-              || ''
-            );
-
-          },
-
-
-          set: function(value) {
-
-            realValueMap.set(
-              this,
-              value
-            );
-
-          },
-
-
-          configurable: true
-
-        }
-      );
-
-
-      passwordInput._realValue =
-        passwordInput.value;
-
-
-
-      /* =======================================================
-         PROTECTION DES LOGS CONSOLE
-         ======================================================= */
-
-      const originalLog =
-        console.log;
-
-      const originalWarn =
-        console.warn;
-
-      const originalError =
-        console.error;
-
-      const originalInfo =
-        console.info;
-
-      const originalDebug =
-        console.debug;
-
-
-
-      function maskPasswordInArgs(args) {
-
-        const password =
-          passwordInput._realValue || '';
-
-
-        if (!password) {
-
-          return args;
-
-        }
-
-
-        return args.map(
-          arg => {
-
-            if (
-              typeof arg === 'string'
-              &&
-              arg.includes(password)
-            ) {
-
-              return arg.replaceAll(
-                password,
-                '••••••'
-              );
-
-            }
-
-
-            if (
-              typeof arg === 'object'
-              &&
-              arg !== null
-            ) {
-
-              try {
-
-                const str =
-                  JSON.stringify(arg);
-
-
-                if (
-                  str.includes(password)
-                ) {
-
-                  const newStr =
-                    str.replaceAll(
-                      password,
-                      '••••••'
-                    );
-
-
-                  return JSON.parse(
-                    newStr
-                  );
-
-                }
-
-              } catch (e) {}
-
-            }
-
-
-            return arg;
-
-          }
-        );
-
-      }
-
-
-
-      function patchConsole(
-        method,
-        original
-      ) {
-
-        console[method] =
-          function(...args) {
-
-            const maskedArgs =
-              maskPasswordInArgs(args);
-
-
-            original.apply(
-              console,
-              maskedArgs
-            );
-
-          };
-
-      }
-
-
-      patchConsole(
-        'log',
-        originalLog
-      );
-
-
-      patchConsole(
-        'warn',
-        originalWarn
-      );
-
-
-      patchConsole(
-        'error',
-        originalError
-      );
-
-
-      patchConsole(
-        'info',
-        originalInfo
-      );
-
-
-      patchConsole(
-        'debug',
-        originalDebug
-      );
-
-
-
-      /* =======================================================
-         CONSOLE.DIR
-         ======================================================= */
-
-      const originalDir =
-        console.dir;
-
-
-      console.dir =
-        function(obj, options) {
-
-          const password =
-            passwordInput._realValue || '';
-
-
-          if (
-            password
-            &&
-            typeof obj === 'object'
-            &&
-            obj !== null
-          ) {
-
-            try {
-
-              const str =
-                JSON.stringify(obj);
-
-
-              if (
-                str.includes(password)
-              ) {
-
-                const newStr =
-                  str.replaceAll(
-                    password,
-                    '••••••'
-                  );
-
-
-                const newObj =
-                  JSON.parse(newStr);
-
-
-                originalDir.call(
-                  console,
-                  newObj,
-                  options
-                );
-
-
-                return;
-
-              }
-
-            } catch (e) {}
-
-          }
-
-
-          originalDir.call(
-            console,
-            obj,
-            options
-          );
-
-        };
-
-
-
-      /* =======================================================
-         CONSOLE.TABLE
-         ======================================================= */
-
-      const originalTable =
-        console.table;
-
-
-      console.table =
-        function(data, columns) {
-
-          const password =
-            passwordInput._realValue || '';
-
-
-          if (
-            password
-            &&
-            (
-              typeof data === 'object'
-              ||
-              Array.isArray(data)
-            )
-          ) {
-
-            try {
-
-              const str =
-                JSON.stringify(data);
-
-
-              if (
-                str.includes(password)
-              ) {
-
-                const newStr =
-                  str.replaceAll(
-                    password,
-                    '••••••'
-                  );
-
-
-                const newData =
-                  JSON.parse(newStr);
-
-
-                originalTable.call(
-                  console,
-                  newData,
-                  columns
-                );
-
-
-                return;
-
-              }
-
-            } catch (e) {}
-
-          }
-
-
-          originalTable.call(
-            console,
-            data,
-            columns
-          );
-
-        };
-
-
-
-      /* =======================================================
-         MISE À JOUR DU MOT DE PASSE
-         ======================================================= */
-
-      passwordInput.addEventListener(
-        'input',
-        function() {
-
-          this._realValue =
-            this.value;
-
-        }
-      );
-
-
-      passwordInput._realValue =
-        passwordInput.value;
-
-
-
       /* =======================================================
          CONFIGURATION DES COMPTES
-         =======================================================
-
-         ⚠️ ATTENTION : Ne PAS modifier les mots de passe
+         
+         IMPORTANT :
+         Les 4 comptes existants sont conservés.
+         
+         AJOUT :
+         Compte Développement Web
          ======================================================= */
 
-
       const users = [
-
 
         /* =====================================================
            COMPTE 1 : CRÉATION DIGITALE
            ===================================================== */
 
         {
-
-          login: 'creation',
-
-          password: '2214',
-
-          redirect: 'https://classroom.google.com/c/ODc0OTU3MzQ4ODA4?cjc=kbvzymu3',
-
-          label: 'Création Digitale'
-
+          login: "creation",
+          password: "2214",
+          redirect:
+            "https://classroom.google.com/c/ODc0OTU3MzQ4ODA4?cjc=kbvzymu3",
+          label: "Création Digitale"
         },
 
 
@@ -1198,15 +664,11 @@
            ===================================================== */
 
         {
-
-          login: 'SkilloraAI006',
-
-          password: 'JkL28',
-
-          redirect: 'https://classroom.google.com/c/ODc0OTU3Nzg2NTAx?cjc=r33njxi4',
-
-          label: 'IA & Outils Digitaux'
-
+          login: "SkilloraAI006",
+          password: "JkL28",
+          redirect:
+            "https://classroom.google.com/c/ODc0OTU3Nzg2NTAx?cjc=r33njxi4",
+          label: "IA & Outils Digitaux"
         },
 
 
@@ -1215,15 +677,11 @@
            ===================================================== */
 
         {
-
-          login: 'bureauPro',
-
-          password: '123',
-
-          redirect: 'bureautique.html',
-
-          label: 'Bureautique'
-
+          login: "bureauPro",
+          password: "123",
+          redirect:
+            "bureautique.html",
+          label: "Bureautique"
         },
 
 
@@ -1232,20 +690,32 @@
            ===================================================== */
 
         {
+          login: "admin",
+          password: "admin123",
+          redirect:
+            "admin.html",
+          label: "Administration"
+        },
 
-          login: 'admin',
 
-          password: 'admin123',
+        /* =====================================================
+           COMPTE 5 : DÉVELOPPEMENT WEB
+           
+           >>> MODIFIE UNIQUEMENT CES 3 INFORMATIONS <<<
+           ===================================================== */
 
-          redirect: 'admin.html',
+        {
+          login: "devWeb",
 
-          label: 'Administration'
+          password: "DevWeb123",
 
+          redirect:
+            "https://classroom.google.com/TON-LIEN-ICI",
+
+          label: "Développement Web"
         }
 
-
       ];
-
 
 
       /* =======================================================
@@ -1253,8 +723,8 @@
          ======================================================= */
 
       loginForm.addEventListener(
-        'submit',
-        function(e) {
+        "submit",
+        function (e) {
 
           e.preventDefault();
 
@@ -1262,26 +732,20 @@
           const login =
             loginInput.value.trim();
 
-
           const password =
-            passwordInput._realValue
-            ||
             passwordInput.value;
 
 
-
           /* ===================================================
-             RECHERCHE DE L'UTILISATEUR
+             RECHERCHE DU COMPTE
              =================================================== */
 
           const user =
             users.find(
               u =>
-                u.login === login
-                &&
+                u.login === login &&
                 u.password === password
             );
-
 
 
           /* ===================================================
@@ -1290,22 +754,32 @@
 
           if (user) {
 
-            // Afficher le message de succès
             successText.textContent =
               `Bienvenue ${user.label} ! Redirection...`;
-            successMsg.classList.add('show');
-            errorMsg.classList.remove('show');
 
-            // Désactiver le bouton
-            const btn = document.querySelector('.btn-login');
-            btn.disabled = true;
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Redirection...';
+            successMsg.classList.add("show");
 
-            // Rediriger après un court délai
-            setTimeout(function() {
-              const targetPage = user.redirect || 'index.html';
-              window.location.href = targetPage;
-            }, 1200);
+            errorMsg.classList.remove("show");
+
+
+            loginButton.disabled = true;
+
+            loginButton.innerHTML =
+              '<i class="fas fa-spinner fa-spin mr-2"></i> Redirection...';
+
+
+            setTimeout(
+              function () {
+
+                const targetPage =
+                  user.redirect || "index.html";
+
+                window.location.href =
+                  targetPage;
+
+              },
+              800
+            );
 
           }
 
@@ -1326,34 +800,32 @@
             if (userExists) {
 
               errorText.textContent =
-                'Mot de passe incorrect.';
+                "Mot de passe incorrect.";
 
             }
 
             else {
 
               errorText.textContent =
-                'Identifiant inconnu.';
+                "Identifiant inconnu.";
 
             }
 
 
-            errorMsg.classList.add(
-              'show'
-            );
+            errorMsg.classList.add("show");
 
-            successMsg.classList.remove('show');
+            successMsg.classList.remove("show");
 
 
             loginForm.style.animation =
-              'shake 0.4s ease-in-out';
+              "shake 0.4s ease-in-out";
 
 
             setTimeout(
               () => {
 
                 loginForm.style.animation =
-                  '';
+                  "";
 
               },
               500
@@ -1365,114 +837,48 @@
       );
 
 
-
       /* =======================================================
-         CACHER LE MESSAGE D'ERREUR
+         CACHER LES MESSAGES
          ======================================================= */
 
+      function resetMessages() {
+
+        errorMsg.classList.remove("show");
+
+        successMsg.classList.remove("show");
+
+        loginButton.disabled = false;
+
+        loginButton.innerHTML =
+          '<i class="fas fa-arrow-right-to-bracket mr-2"></i> Se connecter';
+
+      }
+
+
       loginInput.addEventListener(
-        'input',
-        function() {
-
-          errorMsg.classList.remove(
-            'show'
-          );
-
-          successMsg.classList.remove('show');
-
-          // Réactiver le bouton si désactivé
-          const btn = document.querySelector('.btn-login');
-          btn.disabled = false;
-          btn.innerHTML = '<i class="fas fa-arrow-right-to-bracket mr-2"></i> Se connecter';
-
-        }
+        "input",
+        resetMessages
       );
 
 
       passwordInput.addEventListener(
-        'input',
-        function() {
-
-          errorMsg.classList.remove(
-            'show'
-          );
-
-          successMsg.classList.remove('show');
-
-          this._realValue =
-            this.value;
-
-          // Réactiver le bouton si désactivé
-          const btn = document.querySelector('.btn-login');
-          btn.disabled = false;
-          btn.innerHTML = '<i class="fas fa-arrow-right-to-bracket mr-2"></i> Se connecter';
-
-        }
+        "input",
+        resetMessages
       );
-
 
 
       /* =======================================================
-         MESSAGE CONSOLE
+         MESSAGE DE DÉMARRAGE
          ======================================================= */
 
       console.log(
-        '%c🔒 Skillora : les mots de passe sont masqués dans la console',
-        'font-size:14px; font-weight:bold; color:#FBB03B;'
+        "Skillora Login chargé."
       );
-
-
-      window.demoPassword =
-        function() {
-
-          console.log(
-            'Contenu du champ password (valeur réelle masquée) :',
-            passwordInput.value
-          );
-
-
-          console.log(
-            'Objet input :',
-            passwordInput
-          );
-
-
-          console.log(
-            'Valeur stockée dans _realValue :',
-            passwordInput._realValue
-          );
-
-        };
-
-
-      console.log(
-        '💡 Pour tester, tapez demoPassword() dans la console.'
-      );
-
-
-      console.log(
-        '📋 Comptes disponibles : creation, SkilloraAI006, bureauPro, admin'
-      );
-
-
-      console.log(
-        '✏️ Pour modifier les identifiants/mots de passe, cherchez le tableau "users" dans le code.'
-      );
-
-      console.log(
-        '📄 Pages de redirection : creationdigital.html, AISkillora.html, bureautique.html, admin.html'
-      );
-
-
-      console.log(
-        '✅ Assurez-vous que le fichier creationdigital.html existe dans le même dossier que cette page.'
-      );
-
 
     })();
 
   </script>
 
-
 </body>
 </html>
+```
