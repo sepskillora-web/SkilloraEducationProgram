@@ -1,59 +1,38 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
-
     <meta charset="UTF-8">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>Skillora Digital Learning</title>
 
-    <!-- =====================================================
-         TAILWIND CSS
-    ====================================================== -->
-
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <script>
-
-        tailwind.config = {
-
-            theme: {
-
-                extend: {
-
-                    colors: {
-
-                        skillora: {
-                            navy: "#05051A",
-                            navy2: "#080821",
-                            card: "#0D0D29",
-                            gold: "#FFB12E",
-                            goldLight: "#FFD477",
-                            gray: "#9495A8"
-                        }
-
-                    }
-
-                }
-
-            }
-
-        }
-
-    </script>
-
-
-    <!-- =====================================================
-         CSS PERSONNALISÉ
-    ====================================================== -->
-
     <style>
 
-        /* =====================================================
+        /* =========================================
+           COULEURS
+        ========================================= */
+
+        :root {
+            --navy: #05051A;
+            --navy-light: #0D0D29;
+            --navy-soft: #080821;
+
+            --gold: #FFB12E;
+            --gold-light: #FFD477;
+
+            --white: #FFFFFF;
+            --text: #B7B8C6;
+            --text-soft: #858698;
+        }
+
+
+        /* =========================================
            RESET
-        ====================================================== */
+        ========================================= */
 
         * {
             margin: 0;
@@ -68,20 +47,16 @@
 
 
         body {
-
             font-family:
                 Arial,
                 Helvetica,
                 sans-serif;
 
-            background: #05051A;
-
-            color: white;
+            background: var(--navy);
+            color: var(--white);
 
             line-height: 1.6;
-
             overflow-x: hidden;
-
         }
 
 
@@ -95,59 +70,29 @@
         }
 
 
-
-        /* =====================================================
-           VARIABLES
-        ====================================================== */
-
-        :root {
-
-            --navy: #05051A;
-
-            --navy2: #080821;
-
-            --card: #0D0D29;
-
-            --gold: #FFB12E;
-
-            --gold-light: #FFD477;
-
-            --gray: #9495A8;
-
-        }
-
-
-
-        /* =====================================================
+        /* =========================================
            CONTAINER
-        ====================================================== */
+        ========================================= */
 
         .container {
-
             width: 100%;
-
             max-width: 1200px;
 
             margin: auto;
 
             padding-left: 24px;
-
             padding-right: 24px;
-
         }
 
 
-
-        /* =====================================================
+        /* =========================================
            HEADER
-        ====================================================== */
+        ========================================= */
 
         .header {
-
             position: fixed;
 
             top: 0;
-
             left: 0;
 
             width: 100%;
@@ -155,355 +100,239 @@
             z-index: 1000;
 
             background:
-                rgba(5, 5, 26, 0.92);
+                rgba(5, 5, 26, 0.96);
 
-            backdrop-filter: blur(18px);
+            backdrop-filter: blur(15px);
 
             border-bottom:
                 1px solid
                 rgba(255,255,255,0.07);
-
         }
 
 
         .header-container {
-
-            height: 82px;
+            height: 78px;
 
             display: flex;
-
             align-items: center;
-
             justify-content: space-between;
-
         }
 
 
-
-        /* =====================================================
+        /* =========================================
            LOGO
-        ====================================================== */
+        ========================================= */
 
         .logo {
-
             display: flex;
-
             align-items: center;
 
-            gap: 13px;
+            gap: 12px;
 
-            cursor: pointer;
-
+            color: white;
         }
 
 
         .logo-symbol {
+            width: 38px;
+            height: 38px;
 
-            position: relative;
+            border:
+                4px solid
+                var(--gold);
 
-            width: 43px;
-
-            height: 43px;
+            border-left-color: transparent;
+            border-bottom-color: transparent;
 
             transform: rotate(45deg);
 
-        }
-
-
-        .logo-symbol::before {
-
-            content: "";
-
-            position: absolute;
-
-            width: 34px;
-
-            height: 34px;
-
-            top: 2px;
-
-            left: 2px;
-
-            border: 6px solid var(--gold);
-
-            border-left-color: transparent;
-
-            border-bottom-color: transparent;
-
-        }
-
-
-        .logo-symbol::after {
-
-            content: "";
-
-            position: absolute;
-
-            width: 24px;
-
-            height: 24px;
-
-            top: 12px;
-
-            left: 12px;
-
-            border: 6px solid var(--gold);
-
-            border-left-color: transparent;
-
-            border-bottom-color: transparent;
-
+            border-radius: 4px;
         }
 
 
         .logo-name {
-
             display: flex;
-
             flex-direction: column;
-
         }
 
 
         .logo-name strong {
+            font-size: 22px;
 
-            color: white;
-
-            font-size: 25px;
-
-            letter-spacing: 4px;
+            letter-spacing: 3px;
 
             line-height: 1;
-
         }
 
 
         .logo-name strong span {
-
             color: var(--gold);
-
         }
 
 
         .logo-name small {
-
             color: var(--gold);
 
-            font-size: 8px;
+            font-size: 7px;
 
-            letter-spacing: 3px;
+            letter-spacing: 2px;
 
             margin-top: 6px;
-
         }
 
 
-
-        /* =====================================================
-           NAVIGATION
-        ====================================================== */
+        /* =========================================
+           MENU
+        ========================================= */
 
         .desktop-nav {
-
             display: flex;
-
             align-items: center;
 
-            gap: 32px;
-
+            gap: 28px;
         }
 
 
         .desktop-nav a {
-
-            color: #B7B8C6;
+            color: var(--text);
 
             font-size: 14px;
 
             transition: 0.3s;
-
         }
 
 
         .desktop-nav a:hover {
-
             color: var(--gold);
-
         }
 
 
         .nav-button {
-
-            padding: 11px 21px;
-
             background: var(--gold);
 
             color: var(--navy) !important;
 
+            padding:
+                11px 20px;
+
             border-radius: 30px;
 
             font-weight: bold;
-
         }
 
 
         .nav-button:hover {
-
             background: var(--gold-light);
-
-            transform: translateY(-2px);
-
         }
 
 
-        .mobile-button {
+        /* =========================================
+           MENU MOBILE
+        ========================================= */
 
+        .mobile-button {
             display: none;
 
-            border: none;
-
             background: transparent;
+            border: none;
 
             color: white;
 
-            font-size: 30px;
+            font-size: 28px;
 
             cursor: pointer;
-
         }
 
 
         .mobile-nav {
-
             display: none;
 
             flex-direction: column;
 
-            padding: 20px 24px 25px;
+            padding:
+                10px 24px 20px;
 
-            background: #080821;
-
-            border-top:
-                1px solid
-                rgba(255,255,255,0.05);
-
+            background:
+                var(--navy-soft);
         }
 
 
         .mobile-nav.active {
-
             display: flex;
-
         }
 
 
         .mobile-nav a {
+            color: var(--text);
 
-            padding: 12px 0;
-
-            color: #B7B8C6;
+            padding:
+                14px 0;
 
             border-bottom:
                 1px solid
-                rgba(255,255,255,0.05);
-
+                rgba(255,255,255,0.06);
         }
 
 
+        .mobile-inscription {
+            color: var(--gold) !important;
+            font-weight: bold;
+        }
 
-        /* =====================================================
-           HERO
-        ====================================================== */
+
+        /* =========================================
+           HERO / ACCUEIL
+        ========================================= */
 
         .hero {
-
             min-height: 100vh;
 
-            padding-top: 82px;
+            display: flex;
+            align-items: center;
+
+            padding-top: 78px;
 
             position: relative;
 
-            display: flex;
-
-            align-items: center;
-
             overflow: hidden;
-
         }
 
 
         .hero::before {
-
             content: "";
 
             position: absolute;
 
-            width: 650px;
-
-            height: 650px;
-
-            border-radius: 50%;
-
-            background:
-                rgba(255,177,46,0.07);
-
-            filter: blur(100px);
-
-            top: 10%;
-
-            right: -200px;
-
-        }
-
-
-        .hero::after {
-
-            content: "";
-
-            position: absolute;
-
-            width: 450px;
-
-            height: 450px;
+            width: 500px;
+            height: 500px;
 
             border-radius: 50%;
 
             background:
-                rgba(50,50,180,0.07);
+                rgba(255,177,46,0.05);
 
             filter: blur(100px);
 
-            bottom: -150px;
-
-            left: -150px;
-
+            right: -150px;
+            top: 100px;
         }
 
 
         .hero-container {
-
             position: relative;
 
             z-index: 2;
 
-            display: grid;
+            max-width: 850px;
 
-            grid-template-columns: 1.1fr 0.9fr;
+            margin: auto;
 
-            align-items: center;
-
-            gap: 80px;
-
+            text-align: center;
         }
 
 
         .badge {
-
-            display: inline-flex;
-
-            align-items: center;
-
-            gap: 8px;
+            display: inline-block;
 
             color: var(--gold);
 
@@ -514,135 +343,114 @@
             background:
                 rgba(255,177,46,0.05);
 
-            border-radius: 30px;
+            padding:
+                8px 16px;
 
-            padding: 8px 15px;
+            border-radius: 30px;
 
             font-size: 11px;
 
-            letter-spacing: 1.5px;
+            letter-spacing: 2px;
 
             margin-bottom: 25px;
-
-        }
-
-
-        .dot {
-
-            width: 7px;
-
-            height: 7px;
-
-            background: var(--gold);
-
-            border-radius: 50%;
-
-            box-shadow:
-                0 0 12px
-                var(--gold);
-
         }
 
 
         .hero h1 {
-
             font-size:
-                clamp(45px, 6vw, 78px);
+                clamp(45px, 7vw, 82px);
 
-            font-weight: 800;
-
-            line-height: 1.04;
+            line-height: 1.05;
 
             letter-spacing: -3px;
 
+            font-weight: 800;
         }
 
 
         .hero h1 span {
-
             color: var(--gold);
-
         }
 
 
         .hero-description {
+            max-width: 650px;
 
-            color: #9293A5;
+            margin:
+                25px auto 0;
+
+            color: var(--text-soft);
 
             font-size: 18px;
-
-            max-width: 600px;
-
-            margin-top: 25px;
-
         }
 
 
         .hero-description strong {
-
             color: white;
-
         }
 
 
-        .hero-buttons {
+        /* =========================================
+           BOUTONS
+        ========================================= */
 
+        .hero-buttons {
             display: flex;
+
+            justify-content: center;
 
             gap: 15px;
 
             margin-top: 35px;
 
+            flex-wrap: wrap;
         }
 
 
         .primary-button {
-
             display: inline-flex;
 
             justify-content: center;
-
             align-items: center;
 
-            padding: 14px 25px;
+            min-height: 50px;
+
+            padding:
+                13px 26px;
 
             border-radius: 30px;
 
-            background: var(--gold);
+            background:
+                var(--gold);
 
-            color: var(--navy);
+            color:
+                var(--navy);
 
             font-weight: bold;
 
             transition: 0.3s;
-
-            cursor: pointer;
-
         }
 
 
         .primary-button:hover {
+            background:
+                var(--gold-light);
 
-            background: var(--gold-light);
-
-            transform: translateY(-3px);
-
-            box-shadow:
-                0 10px 30px
-                rgba(255,177,46,0.18);
-
+            transform:
+                translateY(-2px);
         }
 
 
         .secondary-button {
-
             display: inline-flex;
 
             justify-content: center;
-
             align-items: center;
 
-            padding: 14px 25px;
+            min-height: 50px;
+
+            padding:
+                13px 26px;
 
             border-radius: 30px;
 
@@ -650,483 +458,189 @@
                 1px solid
                 rgba(255,255,255,0.15);
 
-            color: #D6D6DE;
+            color:
+                white;
 
             transition: 0.3s;
-
         }
 
 
         .secondary-button:hover {
+            border-color:
+                var(--gold);
 
-            border-color: var(--gold);
-
-            color: var(--gold);
-
+            color:
+                var(--gold);
         }
 
 
-
-        /* =====================================================
-           HERO LOGO VISUEL
-        ====================================================== */
-
-        .hero-visual {
-
-            width: 430px;
-
-            height: 430px;
-
-            margin: auto;
-
-            position: relative;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-        }
-
-
-        .hero-ring {
-
-            position: absolute;
-
-            border-radius: 50%;
-
-            border:
-                1px solid
-                rgba(255,177,46,0.16);
-
-        }
-
-
-        .ring-1 {
-
-            width: 100%;
-
-            height: 100%;
-
-        }
-
-
-        .ring-2 {
-
-            width: 75%;
-
-            height: 75%;
-
-        }
-
-
-        .ring-3 {
-
-            width: 52%;
-
-            height: 52%;
-
-        }
-
-
-        .hero-logo {
-
-            width: 57%;
-
-            height: 57%;
-
-            border-radius: 50%;
-
-            background:
-                rgba(255,177,46,0.025);
-
-            border:
-                1px solid
-                rgba(255,177,46,0.3);
-
-            display: flex;
-
-            flex-direction: column;
-
-            align-items: center;
-
-            justify-content: center;
-
-            text-align: center;
-
-            box-shadow:
-                0 0 80px
-                rgba(255,177,46,0.04);
-
-        }
-
-
-        .big-symbol {
-
-            position: relative;
-
-            width: 68px;
-
-            height: 68px;
-
-            transform: rotate(45deg);
-
-            margin-bottom: 20px;
-
-        }
-
-
-        .big-symbol::before {
-
-            content: "";
-
-            position: absolute;
-
-            width: 58px;
-
-            height: 58px;
-
-            border: 8px solid var(--gold);
-
-            border-left-color: transparent;
-
-            border-bottom-color: transparent;
-
-        }
-
-
-        .big-symbol::after {
-
-            content: "";
-
-            position: absolute;
-
-            width: 40px;
-
-            height: 40px;
-
-            top: 18px;
-
-            left: 18px;
-
-            border: 8px solid var(--gold);
-
-            border-left-color: transparent;
-
-            border-bottom-color: transparent;
-
-        }
-
-
-        .hero-logo h2 {
-
-            font-size: 25px;
-
-            letter-spacing: 4px;
-
-        }
-
-
-        .hero-logo h2 span {
-
-            color: var(--gold);
-
-        }
-
-
-        .hero-logo small {
-
-            color: var(--gold);
-
-            letter-spacing: 3px;
-
-            font-size: 9px;
-
-            margin-top: 5px;
-
-        }
-
-
-
-        /* =====================================================
+        /* =========================================
            FORMATIONS
-        ====================================================== */
+        ========================================= */
 
         .formations {
+            padding:
+                100px 0;
 
-            padding: 110px 0;
-
-            background: #07071F;
-
+            background:
+                #07071F;
         }
 
 
         .section-heading {
-
-            text-align: center;
-
-            max-width: 700px;
+            max-width: 650px;
 
             margin:
-                0 auto 55px;
+                0 auto 50px;
 
+            text-align: center;
         }
 
 
-        .section-heading .label {
-
-            color: var(--gold);
+        .section-label {
+            color:
+                var(--gold);
 
             font-size: 11px;
 
-            letter-spacing: 3px;
-
             font-weight: bold;
 
+            letter-spacing: 3px;
         }
 
 
         .section-heading h2 {
-
             font-size:
                 clamp(34px, 5vw, 52px);
 
+            margin-top: 12px;
+
             line-height: 1.1;
-
-            margin-top: 15px;
-
         }
 
 
         .section-heading h2 span {
-
-            color: var(--gold);
-
+            color:
+                var(--gold);
         }
 
 
         .section-heading p {
+            color:
+                var(--text-soft);
 
-            color: #858698;
-
-            margin-top: 17px;
-
+            margin-top: 15px;
         }
 
 
-        .formation-grid {
+        /* =========================================
+           GRILLE FORMATIONS
+        ========================================= */
 
+        .formation-grid {
             display: grid;
 
             grid-template-columns:
                 repeat(3, 1fr);
 
-            gap: 24px;
-
+            gap: 22px;
         }
 
 
         .formation-card {
-
-            background: #0D0D29;
+            background:
+                var(--navy-light);
 
             border:
                 1px solid
                 rgba(255,255,255,0.07);
 
-            border-radius: 22px;
+            border-radius: 20px;
 
-            overflow: hidden;
-
-            transition: 0.35s;
+            padding: 28px;
 
             cursor: pointer;
 
+            transition: 0.3s;
+
+            display: flex;
+            flex-direction: column;
         }
 
 
         .formation-card:hover {
-
-            transform: translateY(-8px);
+            transform:
+                translateY(-6px);
 
             border-color:
                 rgba(255,177,46,0.45);
 
             box-shadow:
-                0 20px 60px
+                0 20px 45px
                 rgba(0,0,0,0.25);
-
-        }
-
-
-        .formation-top {
-
-            height: 190px;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            position: relative;
-
-            overflow: hidden;
-
-        }
-
-
-        .formation-top.web {
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #101040,
-                    #16255B
-                );
-
-        }
-
-
-        .formation-top.ai {
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #241044,
-                    #351E62
-                );
-
-        }
-
-
-        .formation-top.office {
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #102E31,
-                    #174C43
-                );
-
-        }
-
-
-        .formation-top.design {
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #1a1040,
-                    #2a1a5b
-                );
-
-        }
-
-
-        .formation-top::before {
-
-            content: "";
-
-            position: absolute;
-
-            width: 170px;
-
-            height: 170px;
-
-            border-radius: 50%;
-
-            border:
-                1px solid
-                rgba(255,177,46,0.2);
-
         }
 
 
         .formation-icon {
+            width: 58px;
+            height: 58px;
 
-            font-size: 70px;
+            display: flex;
 
-            position: relative;
+            align-items: center;
+            justify-content: center;
 
-            z-index: 2;
+            background:
+                rgba(255,177,46,0.08);
 
-            filter:
-                drop-shadow(
-                    0 10px 20px
-                    rgba(0,0,0,0.3)
-                );
+            border-radius: 15px;
 
-        }
-
-
-        .formation-body {
-
-            padding: 27px;
-
+            font-size: 28px;
         }
 
 
         .formation-number {
-
-            color: var(--gold);
+            color:
+                var(--gold);
 
             font-size: 10px;
 
-            letter-spacing: 2px;
-
             font-weight: bold;
 
+            letter-spacing: 2px;
+
+            margin-top: 25px;
         }
 
 
-        .formation-body h3 {
-
-            font-size: 24px;
+        .formation-card h3 {
+            font-size: 23px;
 
             margin-top: 8px;
-
         }
 
 
-        .formation-body p {
-
-            color: #818294;
+        .formation-card p {
+            color:
+                var(--text-soft);
 
             font-size: 14px;
 
             margin-top: 12px;
 
-            min-height: 70px;
-
-        }
-
-
-        .formation-details {
-
-            display: flex;
-
-            justify-content: space-between;
-
-            color: #696B7D;
-
-            font-size: 12px;
-
-            margin-top: 18px;
-
+            flex-grow: 1;
         }
 
 
         .formation-link {
+            color:
+                var(--gold);
 
-            width: 100%;
+            font-weight: bold;
 
-            border: none;
+            margin-top: 25px;
 
-            margin-top: 22px;
-
-            padding-top: 20px;
+            padding-top: 18px;
 
             border-top:
                 1px solid
@@ -1135,634 +649,360 @@
             display: flex;
 
             justify-content: space-between;
-
-            align-items: center;
-
-            background: transparent;
-
-            color: var(--gold);
-
-            font-weight: bold;
-
-            cursor: pointer;
-
         }
 
 
-        .formation-link span:last-child {
-
-            font-size: 22px;
-
-            transition: 0.3s;
-
-        }
-
-
-        .formation-card:hover
-        .formation-link span:last-child {
-
-            transform: translateX(7px);
-
-        }
-
-
-
-        /* =====================================================
-           ABOUT
-        ====================================================== */
+        /* =========================================
+           À PROPOS
+        ========================================= */
 
         .about {
-
-            padding: 110px 0;
-
+            padding:
+                100px 0;
         }
 
 
-        .about-grid {
+        .about-content {
+            max-width: 850px;
 
-            display: grid;
+            margin: auto;
 
-            grid-template-columns: 1fr 1fr;
-
-            gap: 80px;
-
-            align-items: center;
-
+            text-align: center;
         }
 
 
-        .about-label {
-
-            color: var(--gold);
-
-            font-size: 11px;
-
-            letter-spacing: 3px;
-
-            font-weight: bold;
-
-        }
-
-
-        .about h2 {
-
+        .about-content h2 {
             font-size:
-                clamp(35px, 5vw, 52px);
-
-            line-height: 1.1;
+                clamp(34px, 5vw, 52px);
 
             margin-top: 15px;
-
         }
 
 
-        .about-text {
+        .about-content h2 span {
+            color:
+                var(--gold);
+        }
 
-            color: #858698;
 
-            margin-top: 20px;
+        .about-content p {
+            max-width: 700px;
 
+            margin:
+                22px auto 0;
+
+            color:
+                var(--text-soft);
         }
 
 
         .benefits {
-
             display: grid;
 
             grid-template-columns:
-                repeat(2, 1fr);
+                repeat(4, 1fr);
 
-            gap: 16px;
+            gap: 15px;
 
+            margin-top: 50px;
         }
 
 
         .benefit {
-
-            background: #0D0D29;
+            background:
+                var(--navy-light);
 
             border:
                 1px solid
                 rgba(255,255,255,0.07);
 
-            padding: 25px;
+            padding: 22px;
 
-            border-radius: 18px;
-
-            transition: 0.3s;
-
-        }
-
-
-        .benefit:hover {
-
-            transform: translateY(-5px);
-
-            border-color:
-                rgba(255,177,46,0.35);
-
+            border-radius: 16px;
         }
 
 
         .benefit-icon {
-
-            font-size: 30px;
-
+            font-size: 28px;
         }
 
 
         .benefit h3 {
-
             margin-top: 10px;
 
-            font-size: 18px;
-
+            font-size: 17px;
         }
 
 
         .benefit p {
-
-            color: #727486;
-
             font-size: 13px;
 
-            margin-top: 5px;
-
+            margin-top: 7px;
         }
 
 
-
-        /* =====================================================
-           CTA
-        ====================================================== */
+        /* =========================================
+           INSCRIPTION
+        ========================================= */
 
         .cta {
-
-            padding: 30px 0 100px;
-
+            padding:
+                0 0 100px;
         }
 
 
         .cta-box {
-
-            position: relative;
-
-            overflow: hidden;
-
             text-align: center;
-
-            padding: 75px 30px;
-
-            border-radius: 28px;
 
             background:
                 linear-gradient(
-                    120deg,
+                    135deg,
                     #10102F,
                     #0D0D29
                 );
 
             border:
                 1px solid
-                rgba(255,177,46,0.18);
+                rgba(255,177,46,0.2);
 
+            border-radius: 25px;
+
+            padding:
+                65px 25px;
         }
 
 
-        .cta-box::before {
-
-            content: "";
-
-            position: absolute;
-
-            width: 350px;
-
-            height: 350px;
-
-            border-radius: 50%;
-
-            background:
-                rgba(255,177,46,0.08);
-
-            filter: blur(80px);
-
-            top: -200px;
-
-            right: -100px;
-
-        }
-
-
-        .cta-content {
-
-            position: relative;
-
-            z-index: 2;
-
-        }
-
-
-        .cta-content span {
-
-            color: var(--gold);
+        .cta-box span {
+            color:
+                var(--gold);
 
             font-size: 11px;
 
             letter-spacing: 3px;
-
         }
 
 
-        .cta-content h2 {
-
+        .cta-box h2 {
             font-size:
-                clamp(35px, 5vw, 55px);
+                clamp(34px, 5vw, 52px);
 
             margin-top: 10px;
-
         }
 
 
-        .cta-content p {
-
-            color: #858698;
+        .cta-box p {
+            color:
+                var(--text-soft);
 
             max-width: 550px;
 
             margin:
                 15px auto 28px;
-
         }
 
 
-
-        /* =====================================================
+        /* =========================================
            FOOTER
-        ====================================================== */
+        ========================================= */
 
         .footer {
-
             border-top:
                 1px solid
                 rgba(255,255,255,0.07);
 
-            padding: 35px 0;
+            padding:
+                30px 0;
 
-        }
-
-
-        .footer-content {
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: space-between;
-
+            text-align: center;
         }
 
 
         .footer p {
-
-            color: #646678;
+            color:
+                #646678;
 
             font-size: 13px;
-
         }
 
 
-
-        /* =====================================================
-           ANIMATIONS
-        ====================================================== */
-
-        .fade-up {
-
-            opacity: 0;
-
-            transform: translateY(25px);
-
-            transition:
-                opacity .7s ease,
-                transform .7s ease;
-
-        }
-
-
-        .fade-up.visible {
-
-            opacity: 1;
-
-            transform: translateY(0);
-
-        }
-
-
-
-        /* =====================================================
+        /* =========================================
            RESPONSIVE TABLETTE
-        ====================================================== */
+        ========================================= */
 
-        @media (max-width: 1000px) {
-
-            .hero-container {
-
-                grid-template-columns: 1fr;
-
-                text-align: center;
-
-                gap: 50px;
-
-            }
-
-
-            .hero-description {
-
-                margin-left: auto;
-
-                margin-right: auto;
-
-            }
-
-
-            .hero-buttons {
-
-                justify-content: center;
-
-            }
-
+        @media (max-width: 950px) {
 
             .formation-grid {
-
                 grid-template-columns:
                     repeat(2, 1fr);
-
             }
 
 
-            .about-grid {
-
-                grid-template-columns: 1fr;
-
-                gap: 50px;
-
+            .benefits {
+                grid-template-columns:
+                    repeat(2, 1fr);
             }
 
         }
 
 
-
-        /* =====================================================
+        /* =========================================
            RESPONSIVE MOBILE
-        ====================================================== */
+        ========================================= */
 
         @media (max-width: 700px) {
 
             .container {
-
                 padding-left: 18px;
-
                 padding-right: 18px;
+            }
 
+
+            .header-container {
+                height: 70px;
             }
 
 
             .desktop-nav {
-
                 display: none;
-
             }
 
 
             .mobile-button {
-
                 display: block;
-
             }
 
 
             .hero {
+                min-height: 100vh;
 
-                padding-top: 120px;
-
-                padding-bottom: 70px;
-
+                padding-top: 70px;
             }
 
 
             .hero h1 {
-
-                font-size: 45px;
+                font-size: 48px;
 
                 letter-spacing: -2px;
-
             }
 
 
             .hero-description {
-
                 font-size: 15px;
 
+                padding:
+                    0 5px;
             }
 
 
             .hero-buttons {
-
                 flex-direction: column;
 
+                width: 100%;
             }
 
 
             .primary-button,
             .secondary-button {
-
                 width: 100%;
-
-            }
-
-
-            .hero-visual {
-
-                width: 300px;
-
-                height: 300px;
-
-            }
-
-
-            .hero-logo {
-
-                width: 60%;
-
-                height: 60%;
-
-            }
-
-
-            .hero-logo h2 {
-
-                font-size: 18px;
-
-            }
-
-
-            .big-symbol {
-
-                transform:
-                    rotate(45deg)
-                    scale(.7);
-
-                margin-bottom: 5px;
-
             }
 
 
             .formations {
-
-                padding: 80px 0;
-
+                padding:
+                    75px 0;
             }
 
 
             .formation-grid {
-
-                grid-template-columns: 1fr;
-
+                grid-template-columns:
+                    1fr;
             }
 
 
-            .formation-body p {
-
-                min-height: auto;
-
+            .formation-card {
+                padding: 24px;
             }
 
 
             .about {
-
-                padding: 80px 0;
-
+                padding:
+                    75px 0;
             }
 
 
             .benefits {
-
-                grid-template-columns: 1fr;
-
+                grid-template-columns:
+                    1fr;
             }
 
 
             .cta {
-
-                padding-bottom: 70px;
-
+                padding-bottom:
+                    70px;
             }
 
 
             .cta-box {
-
-                padding: 55px 20px;
-
-            }
-
-
-            .footer-content {
-
-                flex-direction: column;
-
-                gap: 15px;
-
-                text-align: center;
-
+                padding:
+                    50px 20px;
             }
 
         }
 
 
-
-        /* =====================================================
+        /* =========================================
            PETIT MOBILE
-        ====================================================== */
+        ========================================= */
 
-        @media (max-width: 450px) {
+        @media (max-width: 420px) {
 
             .logo-symbol {
-
-                width: 34px;
-
-                height: 34px;
-
+                width: 32px;
+                height: 32px;
             }
 
 
             .logo-name strong {
-
-                font-size: 19px;
-
-                letter-spacing: 3px;
-
-            }
-
-
-            .logo-name small {
-
-                font-size: 6px;
-
+                font-size: 18px;
             }
 
 
             .hero h1 {
-
-                font-size: 39px;
-
+                font-size: 40px;
             }
 
 
-            .hero-visual {
+            .badge {
+                font-size: 9px;
 
-                width: 270px;
-
-                height: 270px;
-
-            }
-
-
-            .formation-body {
-
-                padding: 22px;
-
+                letter-spacing: 1px;
             }
 
         }
 
     </style>
-
 </head>
-
 
 
 <body>
 
 
-<!-- =====================================================
+<!-- =========================================
      HEADER
-====================================================== -->
+========================================= -->
 
 <header class="header">
 
     <div class="container header-container">
-
 
         <!-- LOGO -->
 
         <a
             href="#home"
             class="logo"
-            onclick="showHome()">
-
+        >
 
             <div class="logo-symbol"></div>
-
 
             <div class="logo-name">
 
@@ -1776,9 +1016,7 @@
 
             </div>
 
-
         </a>
-
 
 
         <!-- MENU DESKTOP -->
@@ -1793,42 +1031,35 @@
                 Formations
             </a>
 
-            <a href="#about">
-                À propos
-            </a>
-
             <a
                 href="https://drive.google.com/file/d/12q8500HOciCmCofAcb12paqs5mW5GrXf/view?usp=drivesdk"
-                class="nav-button">
-
-                Inscription
-
+                class="nav-button"
+            >
+                Inscrivez-vous
             </a>
 
         </nav>
 
 
-
-        <!-- MENU MOBILE -->
+        <!-- BOUTON MOBILE -->
 
         <button
             id="mobileButton"
-            class="mobile-button">
-
+            class="mobile-button"
+            aria-label="Ouvrir le menu"
+        >
             ☰
-
         </button>
-
 
     </div>
 
 
-
-    <!-- NAVIGATION MOBILE -->
+    <!-- MENU MOBILE -->
 
     <nav
         id="mobileNav"
-        class="mobile-nav">
+        class="mobile-nav"
+    >
 
         <a href="#home">
             Accueil
@@ -1838,12 +1069,11 @@
             Formations
         </a>
 
-        <a href="#about">
-            À propos
-        </a>
-
-        <a href="https://drive.google.com/file/d/12q8500HOciCmCofAcb12paqs5mW5GrXf/view?usp=drivesdk">
-            Incription
+        <a
+            href="https://drive.google.com/file/d/12q8500HOciCmCofAcb12paqs5mW5GrXf/view?usp=drivesdk"
+            class="mobile-inscription"
+        >
+            Inscrivez-vous
         </a>
 
     </nav>
@@ -1851,769 +1081,471 @@
 </header>
 
 
+<!-- =========================================
+     ACCUEIL
+========================================= -->
 
-<!-- =====================================================
-     PAGE ACCUEIL
-====================================================== -->
+<section
+    id="home"
+    class="hero"
+>
 
-<div id="homePage">
+    <div class="container hero-container">
 
+        <div class="badge">
+            FORMATION DIGITALE POUR TOUS
+        </div>
 
 
-    <!-- =================================================
-         HERO
-    ================================================== -->
+        <h1>
+            Apprenez.
+            <span>Créez.</span>
+            Évoluez.
+        </h1>
 
-    <section
-        id="home"
-        class="hero">
 
+        <p class="hero-description">
 
-        <div class="container hero-container">
+            Bienvenue sur
+            <strong>
+                Skillora Digital Learning
+            </strong>.
 
+            Développez vos compétences numériques
+            grâce à des formations simples,
+            pratiques et accessibles.
 
-            <!-- TEXTE -->
+        </p>
 
-            <div class="hero-content fade-up">
 
+        <div class="hero-buttons">
 
-                <div class="badge">
+            <a
+                href="#formations"
+                class="primary-button"
+            >
+                Voir les formations
+            </a>
 
-                    <span class="dot"></span>
 
-                    FORMATION DIGITALE POUR TOUS
-
-                </div>
-
-
-                <h1>
-
-                    Apprenez.
-                    <span>Créez.</span>
-                    Évoluez.
-
-                </h1>
-
-
-                <p class="hero-description">
-
-                    Bienvenue sur
-                    <strong>
-                        Skillora Digital Learning
-                    </strong>.
-
-                    Développez vos compétences numériques
-                    grâce à des formations simples,
-                    pratiques et accessibles à tous.
-
-                </p>
-
-
-                <div class="hero-buttons">
-
-
-                    <a
-                        href="#formations"
-                        class="primary-button">
-
-                        Découvrir les formations
-
-                    </a>
-
-
-                    <a
-                        href="#about"
-                        class="secondary-button">
-
-                        En savoir plus
-
-                    </a>
-
-
-                </div>
-
-
-            </div>
-
-
-
-            <!-- LOGO VISUEL -->
-
-            <div class="hero-visual fade-up">
-
-
-                <div class="hero-ring ring-1"></div>
-
-                <div class="hero-ring ring-2"></div>
-
-                <div class="hero-ring ring-3"></div>
-
-
-                <div class="hero-logo">
-
-
-                    <div class="big-symbol"></div>
-
-
-                    <h2>
-
-                        SKILL<span>ORA</span>
-
-                    </h2>
-
-
-                    <small>
-
-                        DIGITAL LEARNING
-
-                    </small>
-
-
-                </div>
-
-
-            </div>
-
+            <a
+                href="https://drive.google.com/file/d/12q8500HOciCmCofAcb12paqs5mW5GrXf/view?usp=drivesdk"
+                class="secondary-button"
+            >
+                Inscrivez-vous
+            </a>
 
         </div>
 
-    </section>
+    </div>
+
+</section>
 
 
+<!-- =========================================
+     FORMATIONS
+========================================= -->
 
-    <!-- =================================================
-         FORMATIONS
-    ================================================== -->
+<section
+    id="formations"
+    class="formations"
+>
 
-    <section
-        id="formations"
-        class="formations">
+    <div class="container">
 
+        <div class="section-heading">
 
-        <div class="container">
-
-
-            <div class="section-heading fade-up">
-
-
-                <div class="label">
-
-                    NOS FORMATIONS
-
-                </div>
-
-
-                <h2>
-
-                    Développez vos
-                    <span>compétences</span>
-
-                </h2>
-
-
-                <p>
-
-                    Choisissez une formation et commencez
-                    votre apprentissage à votre rythme.
-
-                </p>
-
-
+            <div class="section-label">
+                NOS FORMATIONS
             </div>
 
-
-
-            <!-- CARTES -->
-
-            <div class="formation-grid">
-
-
-
-                <!-- =================================================
-                     WEB
-                ================================================== -->
-
-                <article
-                    class="formation-card fade-up"
-                    onclick="window.location.href='Login.html'">
-
-
-                    <div
-                        class="formation-top web">
-
-
-                        <div class="formation-icon">
-
-                            💻
-
-                        </div>
-
-
-                    </div>
-
-
-                    <div class="formation-body">
-
-
-                        <div class="formation-number">
-
-                            FORMATION 01
-
-                        </div>
-
-
-                        <h3>
-
-                            Développement Web
-
-                        </h3>
-
-
-                        <p>
-
-                            Apprenez à créer des sites web
-                            modernes avec HTML, CSS,
-                            JavaScript et Tailwind CSS.
-
-                        </p>
-
-
-                        <div class="formation-details">
-
-                            <span>
-                                🎥 12 vidéos
-                            </span>
-
-                            <span>
-                                ⏱ 4h30
-                            </span>
-
-                        </div>
-
-
-                        <button
-                            class="formation-link">
-
-                            <span>
-                                Voir la formation
-                            </span>
-
-                            <span>
-                                →
-                            </span>
-
-                        </button>
-
-
-                    </div>
-
-                </article>
-
-
-
-                <!-- =================================================
-                     AI
-                ================================================== -->
-
-                <article
-                    class="formation-card fade-up"
-                    onclick="window.location.href='Login.html'">
-
-
-                    <div
-                        class="formation-top ai">
-
-
-                        <div class="formation-icon">
-
-                            🤖
-
-                        </div>
-
-
-                    </div>
-
-
-                    <div class="formation-body">
-
-
-                        <div class="formation-number">
-
-                            FORMATION 02
-
-                        </div>
-
-
-                        <h3>
-
-                            AI & Outils Digitaux
-
-                        </h3>
-
-
-                        <p>
-
-                            Découvrez l'intelligence artificielle
-                            et les outils digitaux pour améliorer
-                            votre productivité.
-
-                        </p>
-
-
-                        <div class="formation-details">
-
-                            <span>
-                                🎥 10 vidéos
-                            </span>
-
-                            <span>
-                                ⏱ 3h40
-                            </span>
-
-                        </div>
-
-
-                        <button
-                            class="formation-link">
-
-                            <span>
-                                Voir la formation
-                            </span>
-
-                            <span>
-                                →
-                            </span>
-
-                        </button>
-
-
-                    </div>
-
-                </article>
-
-
-
-                <!-- =================================================
-                     CRÉATION DIGITALE
-                ================================================== -->
-
-                <article
-                    class="formation-card fade-up"
-                    onclick="window.location.href='Login.html'">
-
-
-                    <div
-                        class="formation-top design">
-
-
-                        <div class="formation-icon">
-
-                            🎨
-
-                        </div>
-
-
-                    </div>
-
-
-                    <div class="formation-body">
-
-
-                        <div class="formation-number">
-
-                            FORMATION 03
-
-                        </div>
-
-
-                        <h3>
-
-                            Création Digitale
-
-                        </h3>
-
-
-                        <p>
-
-                            Apprenez les bases du design
-                            digital et les outils de création
-                            pour vos projets professionnels.
-
-                        </p>
-
-
-                        <div class="formation-details">
-
-                            <span>
-                                🎥 8 vidéos
-                            </span>
-
-                            <span>
-                                ⏱ 2h30
-                            </span>
-
-                        </div>
-
-
-                        <button
-                            class="formation-link">
-
-                            <span>
-                                Voir la formation
-                            </span>
-
-                            <span>
-                                →
-                            </span>
-
-                        </button>
-
-
-                    </div>
-
-                </article>
-
-
-
-                <!-- =================================================
-                     BUREAUTIQUE
-                ================================================== -->
-
-                <article
-                    class="formation-card fade-up"
-                    onclick="window.location.href='Login.html'">
-
-
-                    <div
-                        class="formation-top office">
-
-
-                        <div class="formation-icon">
-
-                            📊
-
-                        </div>
-
-
-                    </div>
-
-
-                    <div class="formation-body">
-
-
-                        <div class="formation-number">
-
-                            FORMATION 04
-
-                        </div>
-
-
-                        <h3>
-
-                            Bureautique pour débutants
-
-                        </h3>
-
-
-                        <p>
-
-                            Apprenez les bases de Word,
-                            Excel, PowerPoint et les outils
-                            indispensables du quotidien.
-
-                        </p>
-
-
-                        <div class="formation-details">
-
-                            <span>
-                                🎥 15 vidéos
-                            </span>
-
-                            <span>
-                                ⏱ 5h00
-                            </span>
-
-                        </div>
-
-
-                        <button
-                            class="formation-link">
-
-                            <span>
-                                Voir la formation
-                            </span>
-
-                            <span>
-                                →
-                            </span>
-
-                        </button>
-
-
-                    </div>
-
-                </article>
-
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- =================================================
-         À PROPOS
-    ================================================== -->
-
-    <section
-        id="about"
-        class="about">
-
-
-        <div class="container about-grid">
-
-
-            <div class="fade-up">
-
-
-                <div class="about-label">
-
-                    POURQUOI SKILLORA ?
-
-                </div>
-
-
-                <h2>
-
-                    Une manière simple
-                    d'apprendre le digital.
-
-                </h2>
-
-
-                <p class="about-text">
-
-                    Skillora Digital Learning a pour
-                    objectif de rendre les compétences
-                    numériques accessibles à tous.
-
-                </p>
-
-
-                <p class="about-text">
-
-                    Nos formations sont pensées pour
-                    les débutants et permettent
-                    d'apprendre progressivement avec
-                    des exemples simples et pratiques.
-
-                </p>
-
-
-            </div>
-
-
-
-            <div class="benefits">
-
-
-                <div class="benefit fade-up">
-
-                    <div class="benefit-icon">
-                        🎯
-                    </div>
-
-                    <h3>
-                        Simple
-                    </h3>
-
-                    <p>
-                        Des explications faciles
-                        à comprendre.
-                    </p>
-
-                </div>
-
-
-                <div class="benefit fade-up">
-
-                    <div class="benefit-icon">
-                        🚀
-                    </div>
-
-                    <h3>
-                        Pratique
-                    </h3>
-
-                    <p>
-                        Apprenez en pratiquant
-                        directement.
-                    </p>
-
-                </div>
-
-
-                <div class="benefit fade-up">
-
-                    <div class="benefit-icon">
-                        🎓
-                    </div>
-
-                    <h3>
-                        Progressif
-                    </h3>
-
-                    <p>
-                        Avancez étape par étape.
-                    </p>
-
-                </div>
-
-
-                <div class="benefit fade-up">
-
-                    <div class="benefit-icon">
-                        💡
-                    </div>
-
-                    <h3>
-                        Accessible
-                    </h3>
-
-                    <p>
-                        Pour débutants et
-                        professionnels.
-                    </p>
-
-                </div>
-
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- =================================================
-         CTA
-    ================================================== -->
-
-    <section class="cta">
-
-
-        <div class="container">
-
-
-            <div class="cta-box">
-
-
-                <div class="cta-content">
-
-
-                    <span>
-                        SKILLORA DIGITAL LEARNING
-                    </span>
-
-
-                    <h2>
-                        Prêt à commencer ?
-                    </h2>
-
-
-                    <p>
-
-                        Choisissez votre formation
-                        et commencez votre apprentissage
-                        dès aujourd'hui.
-
-                    </p>
-
-
-                    <a
-                        href="#formations"
-                        class="primary-button">
-
-                        Commencer maintenant
-
-                    </a>
-
-
-                </div>
-
-
-            </div>
-
-
-        </div>
-
-    </section>
-
-
-
-    <!-- =================================================
-         FOOTER
-    ================================================== -->
-
-    <footer class="footer">
-
-
-        <div class="container footer-content">
-
-
-            <div class="logo">
-
-
-                <div class="logo-symbol"></div>
-
-
-                <div class="logo-name">
-
-                    <strong>
-                        SKILL<span>ORA</span>
-                    </strong>
-
-                    <small>
-                        DIGITAL LEARNING
-                    </small>
-
-                </div>
-
-
-            </div>
-
+            <h2>
+                Développez vos
+                <span>compétences</span>
+            </h2>
 
             <p>
-
-                © 2026 Skillora Digital Learning.
-                Tous droits réservés.
-
+                Choisissez votre domaine
+                et commencez votre apprentissage.
             </p>
-
 
         </div>
 
 
-    </footer>
+        <div class="formation-grid">
 
 
-</div>
+            <!-- FORMATION 01 -->
+
+            <article
+                class="formation-card"
+                onclick="window.location.href='Login.html'"
+            >
+
+                <div class="formation-icon">
+                    💻
+                </div>
+
+                <div class="formation-number">
+                    FORMATION 01
+                </div>
+
+                <h3>
+                    Développement Web
+                </h3>
+
+                <p>
+                    Apprenez à créer des sites web
+                    modernes avec HTML, CSS
+                    et JavaScript.
+                </p>
+
+                <div class="formation-link">
+
+                    <span>
+                        Voir la formation
+                    </span>
+
+                    <span>
+                        →
+                    </span>
+
+                </div>
+
+            </article>
 
 
+            <!-- FORMATION 02 -->
 
-<!-- =====================================================
-     JAVASCRIPT
-====================================================== -->
+            <article
+                class="formation-card"
+                onclick="window.location.href='Login.html'"
+            >
+
+                <div class="formation-icon">
+                    🤖
+                </div>
+
+                <div class="formation-number">
+                    FORMATION 02
+                </div>
+
+                <h3>
+                    IA & Outils Digitaux
+                </h3>
+
+                <p>
+                    Découvrez l'intelligence artificielle
+                    et les outils digitaux
+                    pour améliorer votre travail.
+                </p>
+
+                <div class="formation-link">
+
+                    <span>
+                        Voir la formation
+                    </span>
+
+                    <span>
+                        →
+                    </span>
+
+                </div>
+
+            </article>
+
+
+            <!-- FORMATION 03 -->
+
+            <article
+                class="formation-card"
+                onclick="window.location.href='Login.html'"
+            >
+
+                <div class="formation-icon">
+                    🎨
+                </div>
+
+                <div class="formation-number">
+                    FORMATION 03
+                </div>
+
+                <h3>
+                    Création Digitale
+                </h3>
+
+                <p>
+                    Apprenez à créer des contenus
+                    et des visuels digitaux
+                    pour vos différents projets.
+                </p>
+
+                <div class="formation-link">
+
+                    <span>
+                        Voir la formation
+                    </span>
+
+                    <span>
+                        →
+                    </span>
+
+                </div>
+
+            </article>
+
+
+            <!-- FORMATION 04 -->
+
+            <article
+                class="formation-card"
+                onclick="window.location.href='Login.html'"
+            >
+
+                <div class="formation-icon">
+                    📊
+                </div>
+
+                <div class="formation-number">
+                    FORMATION 04
+                </div>
+
+                <h3>
+                    Bureautique
+                </h3>
+
+                <p>
+                    Maîtrisez les outils essentiels
+                    comme Word, Excel
+                    et PowerPoint.
+                </p>
+
+                <div class="formation-link">
+
+                    <span>
+                        Voir la formation
+                    </span>
+
+                    <span>
+                        →
+                    </span>
+
+                </div>
+
+            </article>
+
+
+            <!-- FORMATION 05 AUTOMATISATION -->
+
+            <article
+                class="formation-card"
+                onclick="window.location.href='Login.html'"
+            >
+
+                <div class="formation-icon">
+                    ⚙️
+                </div>
+
+                <div class="formation-number">
+                    FORMATION 05
+                </div>
+
+                <h3>
+                    Automatisation
+                </h3>
+
+                <p>
+                    Découvrez comment automatiser
+                    des tâches et créer des workflows
+                    pour gagner du temps.
+                </p>
+
+                <div class="formation-link">
+
+                    <span>
+                        Voir la formation
+                    </span>
+
+                    <span>
+                        →
+                    </span>
+
+                </div>
+
+            </article>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================
+     À PROPOS
+========================================= -->
+
+<section class="about">
+
+    <div class="container about-content">
+
+        <div class="section-label">
+            POURQUOI SKILLORA ?
+        </div>
+
+
+        <h2>
+            Apprendre le digital
+            <span> simplement.</span>
+        </h2>
+
+
+        <p>
+            Skillora Digital Learning vous accompagne
+            dans le développement de vos compétences
+            grâce à des formations accessibles,
+            simples et pratiques.
+        </p>
+
+
+        <div class="benefits">
+
+            <div class="benefit">
+
+                <div class="benefit-icon">
+                    🎯
+                </div>
+
+                <h3>
+                    Simple
+                </h3>
+
+                <p>
+                    Facile à comprendre.
+                </p>
+
+            </div>
+
+
+            <div class="benefit">
+
+                <div class="benefit-icon">
+                    🚀
+                </div>
+
+                <h3>
+                    Pratique
+                </h3>
+
+                <p>
+                    Apprenez en pratiquant.
+                </p>
+
+            </div>
+
+
+            <div class="benefit">
+
+                <div class="benefit-icon">
+                    📚
+                </div>
+
+                <h3>
+                    Progressif
+                </h3>
+
+                <p>
+                    Avancez étape par étape.
+                </p>
+
+            </div>
+
+
+            <div class="benefit">
+
+                <div class="benefit-icon">
+                    💡
+                </div>
+
+                <h3>
+                    Accessible
+                </h3>
+
+                <p>
+                    Pour tous les apprenants.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================
+     INSCRIPTION
+========================================= -->
+
+<section class="cta">
+
+    <div class="container">
+
+        <div class="cta-box">
+
+            <span>
+                SKILLORA DIGITAL LEARNING
+            </span>
+
+            <h2>
+                Prêt à apprendre ?
+            </h2>
+
+            <p>
+                Inscrivez-vous et commencez
+                votre parcours de formation
+                avec Skillora.
+            </p>
+
+            <a
+                href="https://drive.google.com/file/d/12q8500HOciCmCofAcb12paqs5mW5GrXf/view?usp=drivesdk"
+                class="primary-button"
+            >
+                Inscrivez-vous
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================
+     FOOTER
+========================================= -->
+
+<footer class="footer">
+
+    <div class="container">
+
+        <p>
+            © 2026 Skillora Digital Learning.
+            Tous droits réservés.
+        </p>
+
+    </div>
+
+</footer>
+
+
+<!-- =========================================
+     JAVASCRIPT MENU MOBILE
+========================================= -->
 
 <script>
-
-    /* =====================================================
-       MENU MOBILE
-    ====================================================== */
 
     const mobileButton =
         document.getElementById(
@@ -2639,80 +1571,20 @@
     );
 
 
-    mobileNav.querySelectorAll("a").forEach(
-        function(link) {
+    mobileNav
+        .querySelectorAll("a")
+        .forEach(
+            function (link) {
 
-            link.addEventListener(
-                "click",
-                function() {
+                link.addEventListener(
+                    "click",
+                    function () {
 
-                    mobileNav.classList.remove(
-                        "active"
-                    );
-
-                }
-            );
-
-        }
-    );
-
-
-
-    /* =====================================================
-       RETOUR ACCUEIL
-    ====================================================== */
-
-    function showHome() {
-
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth"
-        });
-
-    }
-
-
-
-    /* =====================================================
-       ANIMATION AU SCROLL
-    ====================================================== */
-
-    const observer =
-        new IntersectionObserver(
-            function(entries) {
-
-                entries.forEach(
-                    function(entry) {
-
-                        if (
-                            entry.isIntersecting
-                        ) {
-
-                            entry.target.classList.add(
-                                "visible"
-                            );
-
-                        }
+                        mobileNav.classList.remove(
+                            "active"
+                        );
 
                     }
-                );
-
-            },
-            {
-                threshold: 0.1
-            }
-        );
-
-
-    document
-        .querySelectorAll(
-            ".fade-up"
-        )
-        .forEach(
-            function(element) {
-
-                observer.observe(
-                    element
                 );
 
             }
@@ -2722,5 +1594,4 @@
 
 
 </body>
-
 </html>
