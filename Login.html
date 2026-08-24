@@ -12,11 +12,8 @@
 
     <title>Skillora | Connexion</title>
 
-    <style>
 
-        /* =========================================
-           VARIABLES
-        ========================================= */
+    <style>
 
         :root {
             --dark: #05051A;
@@ -31,10 +28,6 @@
             --success: #16A34A;
         }
 
-
-        /* =========================================
-           RESET
-        ========================================= */
 
         * {
             margin: 0;
@@ -68,19 +61,11 @@
         }
 
 
-        /* =========================================
-           PAGE
-        ========================================= */
-
         .login-container {
             width: 100%;
             max-width: 420px;
         }
 
-
-        /* =========================================
-           CARTE
-        ========================================= */
 
         .login-card {
             width: 100%;
@@ -100,10 +85,6 @@
                 rgba(255, 177, 46, 0.20);
         }
 
-
-        /* =========================================
-           LOGO
-        ========================================= */
 
         .logo-section {
             text-align: center;
@@ -175,10 +156,6 @@
         }
 
 
-        /* =========================================
-           FORMULAIRE
-        ========================================= */
-
         .form-group {
             margin-bottom: 18px;
         }
@@ -245,51 +222,6 @@
         }
 
 
-        /* =========================================
-           BOUTON AFFICHER MOT DE PASSE
-        ========================================= */
-
-        .toggle-password {
-            position: absolute;
-
-            right: 12px;
-            top: 50%;
-
-            transform:
-                translateY(-50%);
-
-            width: 34px;
-            height: 34px;
-
-            display: flex;
-
-            align-items: center;
-            justify-content: center;
-
-            border: none;
-
-            background: transparent;
-
-            color: #777788;
-
-            font-size: 16px;
-
-            cursor: pointer;
-
-            border-radius: 8px;
-        }
-
-
-        .toggle-password:hover {
-            background:
-                rgba(0, 0, 0, 0.05);
-        }
-
-
-        /* =========================================
-           MESSAGE
-        ========================================= */
-
         .message {
             display: none;
 
@@ -333,10 +265,6 @@
                 rgba(22, 163, 74, 0.15);
         }
 
-
-        /* =========================================
-           BOUTON CONNEXION
-        ========================================= */
 
         .login-button {
             width: 100%;
@@ -391,10 +319,6 @@
         }
 
 
-        /* =========================================
-           FOOTER
-        ========================================= */
-
         .login-footer {
             text-align: center;
 
@@ -406,9 +330,9 @@
         }
 
 
-        /* =========================================
+        /* ===============================
            RESPONSIVE MOBILE
-        ========================================= */
+        =============================== */
 
         @media (max-width: 480px) {
 
@@ -451,7 +375,6 @@
 
 
 <div class="login-container">
-
 
     <main class="login-card">
 
@@ -500,7 +423,7 @@
             id="successMessage"
             class="message success"
         >
-            Connexion réussie. Redirection...
+            Connexion réussie.
         </div>
 
 
@@ -526,8 +449,7 @@
                     <input
                         type="text"
                         id="loginInput"
-                        placeholder="Votre identifiant"
-                        autocomplete="username"
+                        placeholder="Entrez votre identifiant"
                         required
                     >
 
@@ -550,20 +472,9 @@
                     <input
                         type="password"
                         id="passwordInput"
-                        placeholder="Votre mot de passe"
-                        autocomplete="current-password"
+                        placeholder="Entrez votre mot de passe"
                         required
                     >
-
-
-                    <button
-                        type="button"
-                        id="togglePassword"
-                        class="toggle-password"
-                        aria-label="Afficher le mot de passe"
-                    >
-                        👁
-                    </button>
 
                 </div>
 
@@ -585,12 +496,13 @@
 
 
         <div class="login-footer">
+
             © 2026 Skillora Digital Learning
+
         </div>
 
 
     </main>
-
 
 </div>
 
@@ -600,61 +512,44 @@
     "use strict";
 
 
-    /* =========================================
+    /* =====================================
        ÉLÉMENTS
-    ========================================= */
+    ===================================== */
 
     const loginForm =
-        document.getElementById(
-            "loginForm"
-        );
+        document.getElementById("loginForm");
 
 
     const loginInput =
-        document.getElementById(
-            "loginInput"
-        );
+        document.getElementById("loginInput");
 
 
     const passwordInput =
-        document.getElementById(
-            "passwordInput"
-        );
+        document.getElementById("passwordInput");
 
 
     const loginButton =
-        document.getElementById(
-            "loginButton"
-        );
+        document.getElementById("loginButton");
 
 
     const errorMessage =
-        document.getElementById(
-            "errorMessage"
-        );
+        document.getElementById("errorMessage");
 
 
     const successMessage =
-        document.getElementById(
-            "successMessage"
-        );
+        document.getElementById("successMessage");
 
 
-    const togglePassword =
-        document.getElementById(
-            "togglePassword"
-        );
-
-
-    /* =========================================
-       COMPTES SKILLORA
-    ========================================= */
+    /* =====================================
+       COMPTES UTILISATEURS
+    ===================================== */
 
     const users = [
 
         {
             login: "creation",
             password: "2214",
+
             redirect:
                 "https://classroom.google.com/c/ODc0OTU3MzQ4ODA4?cjc=kbvzymu3"
         },
@@ -663,6 +558,7 @@
         {
             login: "SkilloraAI006",
             password: "JkL28",
+
             redirect:
                 "https://classroom.google.com/c/ODc0OTU3Nzg2NTAx?cjc=r33njxi4"
         },
@@ -671,6 +567,7 @@
         {
             login: "bureauPro",
             password: "123",
+
             redirect:
                 "bureautique.html"
         },
@@ -679,6 +576,7 @@
         {
             login: "admin",
             password: "admin123",
+
             redirect:
                 "admin.html"
         },
@@ -687,6 +585,7 @@
         {
             login: "devWeb",
             password: "DevWeb123",
+
             redirect:
                 "https://classroom.google.com/c/ODc0OTUxOTQ3MTAw?cjc=n3jznwpf"
         }
@@ -694,70 +593,49 @@
     ];
 
 
-    /* =========================================
-       AFFICHER / MASQUER MOT DE PASSE
-    ========================================= */
+    /* =====================================
+       RÉINITIALISER LE FORMULAIRE
+    ===================================== */
 
-    togglePassword.addEventListener(
-        "click",
-        function () {
+    function resetLogin() {
 
-            const isPassword =
-                passwordInput.type ===
-                "password";
+        loginForm.reset();
 
+        errorMessage.classList.remove("show");
 
-            passwordInput.type =
-                isPassword
-                    ? "text"
-                    : "password";
+        successMessage.classList.remove("show");
 
+        loginButton.disabled = false;
 
-            togglePassword.textContent =
-                isPassword
-                    ? "🙈"
-                    : "👁";
-
-        }
-    );
-
-
-    /* =========================================
-       CACHER LES MESSAGES
-    ========================================= */
-
-    function hideMessages() {
-
-        errorMessage.classList.remove(
-            "show"
-        );
-
-
-        successMessage.classList.remove(
-            "show"
-        );
+        loginButton.textContent =
+            "Se connecter";
 
     }
 
 
-    loginInput.addEventListener(
-        "input",
-        hideMessages
+    /* =====================================
+       QUAND ON REVIENT SUR LA PAGE
+    ===================================== */
+
+    window.addEventListener(
+        "pageshow",
+
+        function () {
+
+            resetLogin();
+
+        }
+
     );
 
 
-    passwordInput.addEventListener(
-        "input",
-        hideMessages
-    );
-
-
-    /* =========================================
+    /* =====================================
        CONNEXION
-    ========================================= */
+    ===================================== */
 
     loginForm.addEventListener(
         "submit",
+
         function (event) {
 
             event.preventDefault();
@@ -771,27 +649,39 @@
                 passwordInput.value;
 
 
+            errorMessage.classList.remove(
+                "show"
+            );
+
+
+            successMessage.classList.remove(
+                "show"
+            );
+
+
             const user =
                 users.find(
+
                     function (item) {
 
                         return (
+
                             item.login === login &&
+
                             item.password === password
+
                         );
 
                     }
+
                 );
 
 
-            /* CONNEXION RÉUSSIE */
+            /* =============================
+               CONNEXION RÉUSSIE
+            ============================= */
 
             if (user) {
-
-                errorMessage.classList.remove(
-                    "show"
-                );
-
 
                 successMessage.textContent =
                     "Connexion réussie. Redirection...";
@@ -802,8 +692,7 @@
                 );
 
 
-                loginButton.disabled =
-                    true;
+                loginButton.disabled = true;
 
 
                 loginButton.textContent =
@@ -811,26 +700,26 @@
 
 
                 setTimeout(
+
                     function () {
 
                         window.location.href =
                             user.redirect;
 
                     },
-                    700
+
+                    500
+
                 );
 
             }
 
 
-            /* CONNEXION INCORRECTE */
+            /* =============================
+               IDENTIFIANTS INCORRECTS
+            ============================= */
 
             else {
-
-                successMessage.classList.remove(
-                    "show"
-                );
-
 
                 errorMessage.textContent =
                     "Identifiant ou mot de passe incorrect.";
@@ -849,6 +738,39 @@
             }
 
         }
+
+    );
+
+
+    /* =====================================
+       ENLEVER L'ERREUR QUAND ON RÉÉCRIT
+    ===================================== */
+
+    loginInput.addEventListener(
+        "input",
+
+        function () {
+
+            errorMessage.classList.remove(
+                "show"
+            );
+
+        }
+
+    );
+
+
+    passwordInput.addEventListener(
+        "input",
+
+        function () {
+
+            errorMessage.classList.remove(
+                "show"
+            );
+
+        }
+
     );
 
 </script>
